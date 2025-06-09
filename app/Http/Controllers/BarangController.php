@@ -6,7 +6,7 @@ use App\Models\Barang;
 use App\Models\Kategori;
 use Illuminate\Http\Request;
 use App\Helpers\Helpers;
-
+use App\Models\DuaPilihan;
 
 class BarangController extends Controller
 {
@@ -19,7 +19,11 @@ class BarangController extends Controller
         // $tgl = date('Y-m-d');
         // return Helpers::formatDate($tgl);
 
+        // $barang =Barang::with('kategori')->get();
         $barang =Barang::with('kategori')->get();
+        // return $barang;
+
+
 
         $title="Barang";
 
@@ -33,6 +37,7 @@ class BarangController extends Controller
     {
         $title= "barang";
         $kategori= Kategori::all();
+
         return view('barang.create', compact('title','kategori'));
     }
 

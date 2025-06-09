@@ -31,9 +31,17 @@
             <div class="d-sm-flex align-items-center justify-content-between mb-4">
                 {{-- <h1 class="h3 mb-0 text-gray-800">{{$title}}</h1> --}}
                 <a href="{{ route('barang.index') }}" class="d-none d-sm-inline-block btn btn-sm btn btn-success shadow-sm">kembali</a>
+
+
+                @if ($collection->isEmpty())
                 <a href="{{ route('barang.prosesor.create', ['barang' => $barang['id'] ] ) }}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
-                        class="fas fa-check fa-sm text-white-50"></i> Create</a>
-                        {{-- "{{ route('dashboard.product.gallery.create', $product->id) }}" --}}
+                            class="fas fa-check fa-sm text-white-50"></i> Create</a>
+
+               @endif
+
+
+
+
             </div>
 
 

@@ -18,7 +18,11 @@ class ProsesorController extends Controller
         $title="Memory RAM ";
         $prosesor= Prosesor::with('barang','tipeProsesor')->where('barang_id', $barang->id)->get();
 
-        return view('prosesor.index', compact('barang', 'title', 'prosesor'));
+
+        $collection = collect($prosesor);
+
+
+        return view('prosesor.index', compact('barang', 'title', 'prosesor','collection'));
     }
 
     /**

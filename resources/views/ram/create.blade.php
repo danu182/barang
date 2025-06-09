@@ -38,7 +38,8 @@
                             <div class="field_wrapper">
                                 <div class="form-group">
                                     <div class="row">
-                                        <div class="form-group mr-2 ml-2">
+                                        <div class="form-group mr-2 ml-4">
+                                            <label for="tipeRam_id" class="mr-2">tipe Ram</label>
                                             <select name="tipeRam_id[]" class="form-control">
                                                 <option disabled>pilih salah satu</option>
                                                 @foreach ($tipeRam as $item)
@@ -48,18 +49,18 @@
                                         </div>
 
                                         <div class="form-group mr-2 ml-2">
-                                            <label for="kapasitas">kapasitas RAM</label>
+                                            <label for="kapasitas" class="mr-2">kapasitas RAM</label>
                                             <input type="text" class="form-control" name="kapasitas[]">
                                         </div>
 
                                         <div class="form-group mr-2 ml-2">
-                                            <label for="keterangan">keterangan RAM</label>
+                                            <label for="keterangan" class="mr-2">keterangan RAM</label>
                                             <textarea name="keterangan[]" cols="30" rows="10" class="form-control"></textarea>
                                         </div>
 
                                         <div class="form-group mr-2 ml-2">
                                             <a class="btn btn-success" href="javascript:void(0);" id="add_button" title="Add field">TAMBAH</a>
-                                            <button class="btn btn-lg btn-primary" type="submit">SIMPAN</button>
+                                            <button class="btn btn-primary ml-2" type="submit">SIMPAN</button>
                                         </div>
                                     </div>
                                 </div>
@@ -84,7 +85,8 @@
         var addButton = $('#add_button'); // Add button selector
         var wrapper = $('.field_wrapper'); // Input field wrapper
         var fieldHTML = '<div class="form-group add"><div class="row">' +
-            '<div class="form-group mr-2 ml-2">' +
+            '<div class="form-group mr-2 ml-4">' +
+            '<label for="tipeRam_id" class="mr-2">tipe Ram</label>'+
             '<select name="tipeRam_id[]" class="form-control">' +
             '<option disabled>pilih salah satu</option>' +
             '@foreach ($tipeRam as $item)' +
@@ -93,14 +95,14 @@
             '</select>' +
             '</div>' +
             '<div class="form-group mr-2 ml-2">' +
-            '<label for="kapasitas">kapasitas RAM</label>' +
+            '<label for="kapasitas" class="mr-2">kapasitas RAM</label>' +
             '<input type="text" class="form-control" name="kapasitas[]">' +
             '</div>' +
             '<div class="form-group mr-2 ml-2">' +
-            '<label for="keterangan">keterangan RAM</label>' +
+            '<label for="keterangan" class="mr-2">keterangan RAM</label>' +
             '<textarea name="keterangan[]" cols="30" rows="10" class="form-control"></textarea>' +
             '</div>' +
-            '<div class="form-group row"><a href="javascript:void(0);" class="remove_button btn btn-danger">HAPUS</a></div>' +
+            '<div class="form-group row mr-2 ml-2"><a href="javascript:void(0);" class="remove_button btn btn-danger">HAPUS</a></div>' +
             '</div></div>';
 
         var x = 1; // Initial field counter is 1

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\DuaPilihan;
 use App\Models\Kategori;
 use Illuminate\Http\Request;
 
@@ -24,7 +25,9 @@ class KategoriController extends Controller
     public function create()
     {
         $title= "Add kategori";
-        return view('kategori.create', compact('title'));
+        $duaPilihan = DuaPilihan::all();
+
+        return view('kategori.create', compact('title','duaPilihan'));
     }
 
     /**
@@ -35,10 +38,11 @@ class KategoriController extends Controller
          $data = $request->validate([
             'kodeKategori' => 'required|string|max:255',
             'namaKategori' => 'required|string|max:255', // Pastikan location_id valid
-            'spesifikasi' => 'required|string|max:255', // Pastikan location_id valid
+            'duaPilihan_id' => 'required', // Pastikan location_id valid
         ]);
 
         $kategori = Kategori::create($data);
+
 
         return redirect()->route('kategori.index')->with('success', ' Kategori ' . $request->namaKategori . ' added successfully ');
     }
@@ -57,7 +61,15 @@ class KategoriController extends Controller
     public function edit(Kategori $kategori)
     {
         $title='edit Kategori';
-        return view('kategori.edit', compact('kategori','title'));
+
+
+        $kategori= Kategori::with('duaPilihan')->first();
+
+
+        // return $kategori;
+
+        $duaPilihan= DuaPilihan::all();
+        return view('kategori.edit', compact('kategori','title','duaPilihan'));
     }
 
     /**
@@ -68,7 +80,7 @@ class KategoriController extends Controller
         $data = $request->validate([
             'kodeKategori' => 'required|string|max:255',
             'namaKategori' => 'required|string|max:255',
-            'spesifikasi' => 'required|string|max:255',
+            'duaPilihan_id' => 'required',
         ]);
 
         $oldKategori = $kategori['namaKategori'];

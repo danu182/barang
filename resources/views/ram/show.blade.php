@@ -55,6 +55,11 @@
                                 <input type="text" class="form-control" name="kapasitas" value="{{ $ram['kapasitas'] }}" disabled>
                             </div>
 
+                            <div class="form-group">
+                                <label for="name">keterangan</label>
+                                <textarea name="keterangan" class="form-control" disabled id="" cols="30" rows="10">{{ $ram['keterangan'] }}</textarea>
+                            </div>
+
                         <a href="{{ route('barang.ram.index',['barang'=>$ram['barang_id'], 'ram'=>$ram['id']]) }}" class="btn btn-success">kembali</a>
                         </form>
 

@@ -11,13 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('kategoris', function (Blueprint $table) {
+        Schema::create('dua_pilihan', function (Blueprint $table) {
             $table->id();
 
-            $table->string('kodeKategori');
-            $table->string('namaKategori');
-
-            $table->foreignId('duaPilihan_id')->constrained('dua_pilihan')->onDelete('restrict'); // Foreign key reference
+            $table->string('namaPilihan');
 
             $table->timestamps();
             $table->softDeletes();
@@ -29,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('kategoris');
+        Schema::dropIfExists('dua_pilihan');
     }
 };

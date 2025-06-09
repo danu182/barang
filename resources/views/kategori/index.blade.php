@@ -78,7 +78,7 @@
                                         <td>{{$item['id']}}</td>
                                         <td>{{$item['kodeKategori']}}</td>
                                         <td>{{$item['namaKategori']}}</td>
-                                        <td>{{$item['spesifikasi']}}</td>
+                                        <td>{{$item['duaPilihan']['namaPilihan']}}</td>
                                         <td>
                                             <a href="{{ route('kategori.edit', $item['id']) }}" class="btn btn-warning">Edit</a>
                                             <form action="{{ route('kategori.destroy', $item['id']) }}" method="POST" style="display:inline;">

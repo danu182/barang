@@ -49,13 +49,16 @@
 
                             <div class="form-group">
                                 <label for="namaKategori">spesifikasi</label>
-                                <select name="spesifikasi" id="" class="form-control">
-                                    <option value="0">yes</option>
-                                    <option value="1">no</option>
+                                <select name="duaPilihan_id" id="" class="form-control">
+                                    <option value="{{ $kategori->duaPilihan_id }}">{{ $kategori->duaPilihan['namaPilihan'] }}</option>
+                                    @foreach ($duaPilihan as $item)
+                                        <option value="{{ $item->id }}">{{ $item->namaPilihan }}</option>
+                                    @endforeach
                                 </select>
                             </div>
 
                             <button type="submit" class="btn btn-primary">Submit</button>
+                            <a href="{{ route('kategori.index') }}" class="btn btn-success">kembali</a>
                         </form>
 
 

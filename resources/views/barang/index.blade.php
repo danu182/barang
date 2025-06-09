@@ -96,7 +96,7 @@
                             <tbody>
                                 @foreach ($barang as $item)
                                     <tr>
-                                        @if($item['kategori']['spesifikasi'] == 1)
+                                        @if($item['kategori']['duaPilihan_id'] === 2 )
                                             <td></td>
                                         @else
                                             <td>

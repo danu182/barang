@@ -55,6 +55,11 @@
                                 <input type="text" class="form-control" name="kapasitas" value="{{ $harddisk['kapasitas'] }}" disabled>
                             </div>
 
+                            <div class="form-group">
+                                <label for="keterangan">keterangan</label>
+                                <textarea name="keterangan" class="form-control" disabled cols="30" rows="10">{{ $harddisk['keterangan'] }}</textarea>
+                            </div>
+
                         <a href="{{ route('barang.harddisk.index',['barang'=>$harddisk['barang_id'], 'harddisk'=>$harddisk['id']]) }}" class="btn btn-success">kembali</a>
                         </form>
 

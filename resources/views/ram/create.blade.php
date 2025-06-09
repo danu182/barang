@@ -80,50 +80,50 @@
     @push('js') {{-- Or just place inside <script> tags directly --}}
 
         <script type="text/javascript">
-    $(document).ready(function() {
-        var maxField = 10; // Input fields increment limitation
-        var addButton = $('#add_button'); // Add button selector
-        var wrapper = $('.field_wrapper'); // Input field wrapper
-        var fieldHTML = '<div class="form-group add"><div class="row">' +
-            '<div class="form-group mr-2 ml-4">' +
-            '<label for="tipeRam_id" class="mr-2">tipe Ram</label>'+
-            '<select name="tipeRam_id[]" class="form-control">' +
-            '<option disabled>pilih salah satu</option>' +
-            '@foreach ($tipeRam as $item)' +
-            '<option value="{{ $item['id'] }}">{{ $item['tipeRam'] }}</option>' +
-            '@endforeach' +
-            '</select>' +
-            '</div>' +
-            '<div class="form-group mr-2 ml-2">' +
-            '<label for="kapasitas" class="mr-2">kapasitas RAM</label>' +
-            '<input type="text" class="form-control" name="kapasitas[]">' +
-            '</div>' +
-            '<div class="form-group mr-2 ml-2">' +
-            '<label for="keterangan" class="mr-2">keterangan RAM</label>' +
-            '<textarea name="keterangan[]" cols="30" rows="10" class="form-control"></textarea>' +
-            '</div>' +
-            '<div class="form-group row mr-2 ml-2"><a href="javascript:void(0);" class="remove_button btn btn-danger">HAPUS</a></div>' +
-            '</div></div>';
+            $(document).ready(function() {
+                var maxField = 10; // Input fields increment limitation
+                var addButton = $('#add_button'); // Add button selector
+                var wrapper = $('.field_wrapper'); // Input field wrapper
+                var fieldHTML = '<div class="form-group add"><div class="row">' +
+                    '<div class="form-group mr-2 ml-4">' +
+                    '<label for="tipeRam_id" class="mr-2">tipe Ram</label>'+
+                    '<select name="tipeRam_id[]" class="form-control">' +
+                    '<option disabled>pilih salah satu</option>' +
+                    '@foreach ($tipeRam as $item)' +
+                    '<option value="{{ $item['id'] }}">{{ $item['tipeRam'] }}</option>' +
+                    '@endforeach' +
+                    '</select>' +
+                    '</div>' +
+                    '<div class="form-group mr-2 ml-2">' +
+                    '<label for="kapasitas" class="mr-2">kapasitas RAM</label>' +
+                    '<input type="text" class="form-control" name="kapasitas[]">' +
+                    '</div>' +
+                    '<div class="form-group mr-2 ml-2">' +
+                    '<label for="keterangan" class="mr-2">keterangan RAM</label>' +
+                    '<textarea name="keterangan[]" cols="30" rows="10" class="form-control"></textarea>' +
+                    '</div>' +
+                    '<div class="form-group row mr-2 ml-2"><a href="javascript:void(0);" class="remove_button btn btn-danger">HAPUS</a></div>' +
+                    '</div></div>';
 
-        var x = 1; // Initial field counter is 1
+                var x = 1; // Initial field counter is 1
 
-        // Once add button is clicked
-        $(addButton).click(function() {
-            // Check maximum number of input fields
-            if (x < maxField) {
-                x++; // Increment field counter
-                $(wrapper).append(fieldHTML); // Add field html
-            }
-        });
+                // Once add button is clicked
+                $(addButton).click(function() {
+                    // Check maximum number of input fields
+                    if (x < maxField) {
+                        x++; // Increment field counter
+                        $(wrapper).append(fieldHTML); // Add field html
+                    }
+                });
 
-        // Once remove button is clicked
-        $(wrapper).on('click', '.remove_button', function(e) {
-            e.preventDefault();
-            $(this).closest('.add').remove(); // Remove field html
-            x--; // Decrement field counter
-        });
-    });
-</script>
+                // Once remove button is clicked
+                $(wrapper).on('click', '.remove_button', function(e) {
+                    e.preventDefault();
+                    $(this).closest('.add').remove(); // Remove field html
+                    x--; // Decrement field counter
+                });
+            });
+        </script>
 
 
         <script>

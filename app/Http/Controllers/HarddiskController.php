@@ -38,16 +38,27 @@ class HarddiskController extends Controller
      */
     public function store(Request $request, Barang $barang)
     {
-        $data=[
-            "tipeHardDisk_id"=>$request->tipeHardDisk_id,
-            "kapasitas"=>$request->kapasitas,
-        ];
+        // Validasi input
+        $request->validate([
+            'tipeHardDisk_id.*' => 'exists:tipe_hard_disks,id', // Validasi untuk tipe RAM
+            'kapasitas.*' => 'string|max:255', // Validasi untuk kapasitas
+            'keterangan.*' => 'nullable|string', // Validasi untuk keterangan
+        ]);
 
-        $data['barang_id']=$barang->id;
-        // return $data;
-        $harddisk = Harddisk::create($data);
+        // Loop melalui setiap tipe Hard Disk yang dikirimkan
+        foreach ($request->tipeHardDisk_id as $index => $tipeHardDiskid) {
+            // Simpan data Hard Disk ke database
+            Harddisk::create([
+                'barang_id' => $barang->id, // ID barang yang terkait
+                'tipeHardDisk_id' => $tipeHardDiskid,
+                'kapasitas' => $request->kapasitas[$index], // Ambil kapasitas dari input
+                'keterangan' => $request->keterangan[$index] ?? null, // Ambil keterangan dari input
+            ]);
+        }
 
-        return redirect()->route('barang.harddisk.index',$barang['id'])->with('success', ' sosmed detail ' . $request->kapasitas . ' added successfully ');
+        return redirect()->route('barang.harddisk.index',['barang'=>$barang->id])->with('success', ' Ram detail ' . $barang->namaBarang . ' added successfully ');
+
+        // return redirect()->route('barang.harddisk.index',$barang['id'])->with('success', ' sosmed detail ' . $request->kapasitas . ' added successfully ');
     }
 
     /**

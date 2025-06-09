@@ -49,12 +49,9 @@ class RamController extends Controller
             'keterangan.*' => 'nullable|string', // Validasi untuk keterangan
         ]);
 
-        // return $data;
-
-
         // Loop melalui setiap tipe RAM yang dikirimkan
         foreach ($request->tipeRam_id as $index => $tipeRamId) {
-        //     // Simpan data RAM ke database
+        // Simpan data ram ke database
             Ram::create([
                 'barang_id' => $barang->id, // ID barang yang terkait
                 'tipeRam_id' => $tipeRamId,

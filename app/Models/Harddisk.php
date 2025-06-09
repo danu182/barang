@@ -15,6 +15,7 @@ class Harddisk extends Model
         'barang_id',
         'tipeHardDisk_id',
         'kapasitas',
+        'keterangan',
     ];
 
 

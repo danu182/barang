@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Tagihan;
+use App\Models\Vendor;
 use Illuminate\Http\Request;
 
 class TagihanController extends Controller
@@ -12,7 +13,9 @@ class TagihanController extends Controller
      */
     public function index()
     {
-        //
+        $title = "tagihan ";
+        $tagihan = Tagihan::all();
+        return view('tagihan.index', compact('tagihan', 'title'));
     }
 
     /**
@@ -20,7 +23,10 @@ class TagihanController extends Controller
      */
     public function create()
     {
-        //
+
+        $title="tambah tagihan";
+        $vendor= Vendor::all();
+        return view('tagihan.create', compact('vendor','title'));
     }
 
     /**
@@ -28,7 +34,7 @@ class TagihanController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        return $request->all();
     }
 
     /**

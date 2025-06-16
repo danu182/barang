@@ -56,7 +56,7 @@ class HarddiskController extends Controller
             ]);
         }
 
-        return redirect()->route('barang.harddisk.index',['barang'=>$barang->id])->with('success', ' Ram detail ' . $barang->namaBarang . ' added successfully ');
+        return redirect()->route('barang.harddisk.index',['barang'=>$barang->id])->with('success', ' HD detail ' . $barang->namaBarang . ' added successfully ');
 
         // return redirect()->route('barang.harddisk.index',$barang['id'])->with('success', ' sosmed detail ' . $request->kapasitas . ' added successfully ');
     }

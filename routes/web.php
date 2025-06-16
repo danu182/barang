@@ -8,6 +8,8 @@ use App\Http\Controllers\RamController;
 use App\Http\Controllers\SosmedController;
 use App\Http\Controllers\SosmedDetailController;
 use App\Http\Controllers\SosmedDetailLoginController;
+use App\Http\Controllers\TagihanController;
+use App\Http\Controllers\VendorController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -26,3 +28,13 @@ Route::resource('sosmed', SosmedController::class);
 Route::resource('sosmed.detail', SosmedDetailController::class);
 Route::resource('sosmed', SosmedController::class);
 Route::resource('sosmed.detail.login', SosmedDetailLoginController::class);
+
+
+
+Route::resource('subcont', VendorController::class);
+
+Route::resource('tagihan', TagihanController::class);
+
+
+
+

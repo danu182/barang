@@ -102,8 +102,10 @@
                     '<label for="keterangan" class="mr-2">keterangan RAM</label>' +
                     '<textarea name="keterangan[]" cols="30" rows="10" class="form-control"></textarea>' +
                     '</div>' +
-                    '<div class="form-group row mr-2 ml-2"><a href="javascript:void(0);" class="remove_button btn btn-danger">HAPUS</a></div>' +
-                    '</div></div>';
+                    '<div class="form-group row mr-2 ml-2">'+
+                    '<a href="javascript:void(0);" class="remove_button btn btn-danger">HAPUS</a></div>' +
+                    '</div>'+
+                    '</div>';
 
                 var x = 1; // Initial field counter is 1
 

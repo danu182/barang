@@ -2,20 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Tagihan;
-use App\Models\Vendor;
+use App\Models\TagihanDetail;
 use Illuminate\Http\Request;
 
-class TagihanController extends Controller
+class TagihanDetailController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $title = "tagihan ";
-        $tagihan = Tagihan::all();
-        return view('tagihan.index', compact('tagihan', 'title'));
+        //
     }
 
     /**
@@ -23,10 +20,7 @@ class TagihanController extends Controller
      */
     public function create()
     {
-
-        $title="tambah tagihan";
-        $vendor= Vendor::all();
-        return view('tagihan.coba', compact('vendor','title'));
+        //
     }
 
     /**
@@ -34,13 +28,13 @@ class TagihanController extends Controller
      */
     public function store(Request $request)
     {
-        return $request->all();
+        //
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Tagihan $tagihan)
+    public function show(TagihanDetail $tagihanDetail)
     {
         //
     }
@@ -48,7 +42,7 @@ class TagihanController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Tagihan $tagihan)
+    public function edit(TagihanDetail $tagihanDetail)
     {
         //
     }
@@ -56,7 +50,7 @@ class TagihanController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Tagihan $tagihan)
+    public function update(Request $request, TagihanDetail $tagihanDetail)
     {
         //
     }
@@ -64,7 +58,7 @@ class TagihanController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Tagihan $tagihan)
+    public function destroy(TagihanDetail $tagihanDetail)
     {
         //
     }

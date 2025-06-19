@@ -61,6 +61,7 @@
                         <a class="collapse-item" href="{{ route('kategori.index') }}">Category</a>
                         <a class="collapse-item" href="{{ route('barang.index') }}">Barang</a>
                         <a class="collapse-item" href="{{ route('sosmed.index') }}">Sosmed</a>
+                        <a class="collapse-item" href="{{ route('tagihan.index') }}">Tagihan</a>
                         <a class="collapse-item" href="utilities-other.html">Other</a>
                     </div>
                 </div>

@@ -162,7 +162,7 @@
 
                             <div class="f1-buttons">
                                 <button type="button" class="btn btn-warning btn-previous"><i class="fa fa-arrow-left"></i> Sebelumnya</button>
-                                <button type="button" class="btn btn-primary btn-next">Selanjutnya <i class="fa fa-arrow-right"></i></button>
+                                <button type="button" id="tampilkan_tagihan" class="btn btn-primary btn-next">Selanjutnya <i class="fa fa-arrow-right"></i></button>
                             </div>
 
                         </fieldset>
@@ -186,30 +186,27 @@
                                         <div class="col-md-6">
                                             <div class="card">
                                                 <div class="card-header">
-                                                    <h5 class="card-title">Informasi Ku</h5>
+                                                    <h5 class="card-title">tagihan</h5>
                                                 </div>
                                                 <div class="card-body">
                                                     <div class="row">
-                                                    <div class="col-md-6">Nama Lengkap</div>
-                                                    <div class="col-md-6" id="nama_lengkap">: Nama Lengkap Kita</div>
+                                                    <div class="col-md-6">noTagihan</div>
+                                                    <div class="col-md-6" id="noTagihan">: <span id="noTagihanSpan"></span></div>
                                                     </div>
                                                     <div class="row">
-                                                    <div class="col-md-6" >Tempat, Tanggal Lahir</div>
-                                                    <div class="col-md-6">: TTL Kita</div>
+                                                    <div class="col-md-6" >upTagihan</div>
+                                                    <div class="col-md-6">: <span id="upTagihanSpan"></span></div>
                                                     </div>
                                                     <div class="row">
-                                                    <div class="col-md-6">Alamat</div>
-                                                    <div class="col-md-6">: Alamat Kita</div>
+                                                    <div class="col-md-6">tanggalTagihan</div>
+                                                    <div class="col-md-6">: <span id="tanggalTagihanSpan"></span></div>
                                                     </div>
                                                     <div class="row">
-                                                    <div class="col-md-6">Kontak</div>
+                                                    <div class="col-md-6">keterangan</div>
                                                     <div class="col-md">:</div>
                                                     <div class="col-md-6">
                                                         <ul>
-                                                        <li>Instagram Kita</li>
-                                                        <li>Facebook Kita</li>
-                                                        <li>No HP Kita</li>
-                                                        <li>Email Kita</li>
+                                                            <li><span id="keteranganSpan"></span></li>
                                                         </ul>
                                                     </div>
                                                     </div>
@@ -219,7 +216,7 @@
 
                                         </div>
                                         <div class="col-md-5">
-                                        Riwayat Pendidikan
+                                        Riwayat Tagihan
                                         </div>
                                     </div>
                                 </div>
@@ -285,13 +282,29 @@
 
             var x = 1; // Initial field counter is 1
 
+            // Fungsi untuk menghitung subtotal
+            function calculateSubtotal() {
+                $('.form-row').each(function() {
+                    var jumlah = $(this).find('input[name="jumlah[]"]').val().trim() || 0;
+                    var hargaSatuan = $(this).find('input[name="hargaSatuan[]"]').val().trim() || 0;
+                    // Menghitung subtotal
+                    var subtotal = parseFloat(jumlah) * parseFloat(hargaSatuan);
+                    // Memperbarui input subtotal
+                    $(this).find('input[name="subtotal[]"]').val(isNaN(subtotal) ? 0 : subtotal);
+                });
+            }
+            // Memperbarui subtotal saat input jumlah atau hargaSatuan berubah
+            $('.field_wrapper').on('input', 'input[name="jumlah[]"], input[name="hargaSatuan[]"]', function() {
+                calculateSubtotal();
+            });
+
+
+
             // Function to update preview table
             function updatePreview() {
                 const rows = wrapper.find('.form-row');
                 const tbody = $('#preview-table tbody');
 
-                // var noTagihan = $(this).find('input[name="noTagihan"]').val().trim() || '-';
-                // console.console.log(noTagihan);
 
                 tbody.empty();
                 if (rows.length === 0) {
@@ -349,8 +362,41 @@
                 updatePreview();
             });
         });
+
         </script>
 
+<script>
+    document.getElementById("tampilkan_tagihan").addEventListener("click", tampilkan_nilai_form);
+
+    function tampilkan_nilai_form(){
+        const inputNoTagihan = document.getElementById("noTagihan");
+        const spanNoTagihan = document.getElementById("noTagihanSpan");
+        const inputUpTagihan = document.getElementById("upTagihan");
+        const spanUpTagihan = document.getElementById("upTagihanSpan");
+        const inputTanggalTagihan = document.getElementById("tanggalTagihan");
+        const spanTanggalTagihan = document.getElementById("tanggalTagihanSpan");
+
+        // document.getElementById("hasil").innerHTML=nilai_form;
+        spanNoTagihan.textContent = inputNoTagihan.value;
+        spanUpTagihan.textContent= inputUpTagihan.value;
+        spanTanggalTagihan.textContent= inputTanggalTagihan.value;
+
+    }
+
+
+    // const inputNoTagihan = document.getElementById("noTagihan");
+    // const spanNoTagihan = document.getElementById("noTagihanSpan");
+    // const inputUpTagihan = document.getElementById("upTagihan");
+    // const spanUpTagihan = document.getElementById("upTagihanSpan");
+    // const inputTanggalTagihan = document.getElementById("tanggalTagihan");
+    // const spanTanggalTagihan = document.getElementById("tanggalTagihanSpan");
+
+    // inputTanggalTagihan.addEventListener("input", function() {
+    //     spanNoTagihan.textContent = inputNoTagihan.value;
+    //     spanUpTagihan.textContent= inputUpTagihan.value;
+    //     spanTanggalTagihan.textContent= inputTanggalTagihan.value;
+    // });
+</script>
 
 @endpush
 

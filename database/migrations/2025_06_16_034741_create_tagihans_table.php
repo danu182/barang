@@ -14,16 +14,16 @@ return new class extends Migration
         Schema::create('tagihans', function (Blueprint $table) {
             $table->id();
 
-            $table->foreignId('vendor_id')->constrained('vendors')->onDelete('restrict'); // Foreign key referenc
+            $table->foreignId('vendor_id')->constrained('vendors')->onDelete('cascade'); // Foreign key referenc
 
             $table->string('noTagihan');
             $table->string('upTagihan');
             $table->date('tanggalTagihan');
             $table->date('dueDateTagihan');
+            $table->string('periodeTagihan')->nullable();
             $table->string('totaltagihan');
             $table->string('lampiran');
             $table->text('keterangan')->nullable();
-
 
             $table->timestamps();
             $table->softDeletes();

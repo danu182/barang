@@ -44,6 +44,7 @@ class TagihanController extends Controller
             'upTagihan' => 'required|nullable|string',
             'tanggalTagihan' => 'date',
             'dueDateTagihan' => 'date',
+            'periodeTagihan' => 'nullable|string',
             'totaltagihan' => 'nullable|string',
             'lampiran' => 'nullable|string',
             'keterangan' => 'nullable|string',
@@ -63,6 +64,7 @@ class TagihanController extends Controller
                 'upTagihan' => $data['upTagihan'],
                 'tanggalTagihan' => $data['tanggalTagihan'],
                 'dueDateTagihan' => $data['dueDateTagihan'],
+                'periodeTagihan' => $data['periodeTagihan'],
                 'totaltagihan' => $data['totaltagihan'],
                 'lampiran' => $data['lampiran'],
                 'keterangan' => $data['keterangan'] ?? null,
@@ -82,7 +84,9 @@ class TagihanController extends Controller
             ]);
         }
 
-        // return redirect()->route('barang.ram.index',['barang'=>$barang->id])->with('success', ' Ram detail ' . $barang->namaBarang . ' added successfully ');
+        // return redirect()->route('tagihan.index',['tagihan'=>$barang->id])->with('success', ' Ram detail ' . $barang->namaBarang . ' added successfully ');
+
+        return redirect()->route('tagihan.index')->with('success', ' tagihan detail  added successfully ');
 
     }
 
@@ -115,6 +119,17 @@ class TagihanController extends Controller
      */
     public function destroy(Tagihan $tagihan)
     {
-        //
+        // try{
+
+            TagihanDetail::where('tagihan_id', $tagihan->id)->delete();
+
+            $tagihan->delete();
+
+            return redirect()->route('tagihan.index');
+        // }
+        // catch(\Exception $e){
+        //     return redirect()->route('tagihan.index')->with('error', ' tagihan '.'>> ' . $tagihan->vendor_id .' <<'.' tidak bisa di hapus - '. $e->getMessage());
+        // }
+        // return redirect()->route('tagihan.index')->with('success', ' tagihan ' . $tagihan->vendor_id . ' berhasil di delete.');
     }
 }

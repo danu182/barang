@@ -90,6 +90,11 @@
                                 <input type="date" class="form-control" id="dueDateTagihan" aria-describedby="emailHelp" name="dueDateTagihan">
                             </div>
 
+                            <div class="form-group">
+                                <label for="periodeTagihan">periodeTagihan</label>
+                                <input type="text" class="form-control" id="periodeTagihan" aria-describedby="emailHelp" name="periodeTagihan">
+                            </div>
+
 
 
                             <div class="f1-buttons">

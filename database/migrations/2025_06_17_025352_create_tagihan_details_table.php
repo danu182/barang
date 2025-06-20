@@ -14,13 +14,12 @@ return new class extends Migration
         Schema::create('tagihan_details', function (Blueprint $table) {
             $table->id();
 
-            $table->foreignId('tagihan_id')->constrained('tagihans')->onDelete('restrict'); // Foreign key referenc
+            $table->foreignId('tagihan_id')->constrained('tagihans')->onDelete('cascade'); // Foreign key reference
 
             $table->string('namaItem');
             $table->string('jumlah');
             $table->string('hargaSatuan');
             $table->string('subtotal');
-
 
             $table->timestamps();
             $table->softDeletes();

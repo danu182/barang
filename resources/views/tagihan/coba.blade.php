@@ -110,10 +110,10 @@
                         <fieldset>
                             <h4>Alamat Lengkap</h4>
 
-                            <div class="form-group">
+                            {{-- <div class="form-group">
                                 <label for="totaltagihan">totaltagihan</label>
                                 <input type="text" class="form-control" id="totaltagihan" aria-describedby="emailHelp" name="totaltagihan">
-                            </div>
+                            </div> --}}
 
                             <div class="form-group">
                                 <label for="lampiran">lampiran</label>

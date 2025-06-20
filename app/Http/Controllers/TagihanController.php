@@ -36,16 +36,14 @@ class TagihanController extends Controller
      */
     public function store(Request $request)
     {
-        // return $request->all();
-
-        $data = $request->validate([
+       $data = $request->validate([
             'vendor_id' => 'required|exists:vendors,id',
             'noTagihan' => 'required|string|max:255',
             'upTagihan' => 'required|nullable|string',
             'tanggalTagihan' => 'date',
             'dueDateTagihan' => 'date',
             'periodeTagihan' => 'nullable|string',
-            'totaltagihan' => 'nullable|string',
+            // 'totaltagihan' => 'nullable|string',
             'lampiran' => 'nullable|string',
             'keterangan' => 'nullable|string',
             'namaItem.*' => 'required|nullable|string',
@@ -56,14 +54,20 @@ class TagihanController extends Controller
             'picUser' => 'nullable|string',
             'picAlamat' => 'nullable|string',
             'picTlp' => 'nullable|string',
-            'picEmail' => 'nullable|emial',
-            'statusTagihan' => 'nullable|string',
+            'picEmail' => 'nullable|email',
 
         ]);
 
         $data['tanggalTagihan']= Helpers::formatDate($data['tanggalTagihan']);
         $data['dueDateTagihan']= Helpers::formatDate($data['dueDateTagihan']);
 
+        $total = 0;
+        foreach ($request->subtotal as $index => $subtotal) {
+            // Convert subtotal to a float and add to total
+            $total += (float) $subtotal;
+        }
+
+        // return $total;
 
         $Tagihanid = Tagihan::insertGetId([
                 'vendor_id' => $data['vendor_id'],
@@ -72,7 +76,7 @@ class TagihanController extends Controller
                 'tanggalTagihan' => $data['tanggalTagihan'],
                 'dueDateTagihan' => $data['dueDateTagihan'],
                 'periodeTagihan' => $data['periodeTagihan'],
-                'totaltagihan' => $data['totaltagihan'],
+                'totaltagihan' => $total,
                 'lampiran' => $data['lampiran'],
                 'keterangan' => $data['keterangan'] ?? null,
 
@@ -80,7 +84,6 @@ class TagihanController extends Controller
                 'picAlamat' => $data['picAlamat'],
                 'picTlp' => $data['picTlp'],
                 'picEmail' => $data['picEmail'],
-                'statusTagihan' => $data['statusTagihan'],
 
                 'created_at' => now(),
             ]);

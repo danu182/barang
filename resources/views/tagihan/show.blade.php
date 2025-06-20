@@ -8,14 +8,6 @@
 @endpush
 
 @push('js')
-    <!-- Page level plugins -->
-    {{-- <script src="{{asset('vendor/datatables/jquery.dataTables.min.js')}}"></script> --}}
-    {{-- <script src="{{asset('vendor/datatables/dataTables.bootstrap4.min.js')}}"></script> --}}
-
-    <!-- Page level custom scripts -->
-    {{-- <script src="{{asset('js/demo/datatables-demo.js')}}"></script> --}}
-
-    {{-- <script src="{{ asset('js/showTagihan.js') }}"></script> --}}
 
 @endpush
 
@@ -32,7 +24,7 @@
                         <h5 class="mb-1">{{ $tagihan->vendor->namaVendor }}</h5>
                         <p class="mb-1"><small class="text-muted">{{ $tagihan->vendor->alamatVendor }}</small></p>
                         <p class="mb-1"><small class="text-muted">{{ $tagihan->vendor->tlpVendor }}</small></p>
-                        <p class="mb-0"><small class="text-muted">Email: accounting@majujaya.com</small></p>
+                        <p class="mb-0"><small class="text-muted">Email: {{ $tagihan->vendor->emailVendor }}</small></p>
                     </div>
                     <div class="col-md-6 text-right">
                         <h1 class="invoice-title">INVOICE</h1>
@@ -40,7 +32,7 @@
                         <p class="mb-1"><small class="text-muted">Tanggal: {{ $tagihan->tanggalTagihan }}</small></p>
                         <p class="mb-0 due-date"><small>Jatuh Tempo: {{ $tagihan->dueDateTagihan }}</small></p>
                         <div class="mt-3">
-                            <span class="status-badge status-unpaid"><i class="fas fa-exclamation-circle mr-1"></i> BELUM LUNAS</span>
+                            <span class="status-badge status-unpaid"><i class="fas fa-exclamation-circle mr-1"></i> {{ $tagihan->statusTagihan }}</span>
                         </div>
                     </div>
                 </div>
@@ -52,10 +44,10 @@
                     <div class="client-info">
                         <h5 class="mb-3">Tagihan Untuk:</h5>
                         <h6 class="mb-1">{{ $tagihan->upTagihan }}</h6>
-                        <p class="mb-1">Bapak Andi Wijaya</p>
-                        <p class="mb-1">Jl. Sudirman No. 456, Jakarta Selatan</p>
-                        <p class="mb-1">Telp: (021) 98765432</p>
-                        <p class="mb-0">Email: andi@teknologimodern.com</p>
+                        <p class="mb-1">{{ $tagihan->picUser }} </p>
+                        <p class="mb-1">{{ $tagihan->picAlamat }}</p>
+                        <p class="mb-1">Telp: {{ $tagihan->picTlp }}</p>
+                        <p class="mb-0">Email: {{ $tagihan->picEmail }}</p>
                     </div>
                 </div>
                 <div class="col-md-6">
@@ -82,46 +74,21 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td>
-                                <strong>Website Company Profile</strong><br>
-                                <small class="text-muted">Pembuatan website company profile dengan 5 halaman</small>
-                            </td>
-                            <td class="text-right">Rp 5.000.000</td>
-                            <td class="text-center">1</td>
-                            <td class="text-right">Rp 5.000.000</td>
-                        </tr>
-                        <tr>
-                            <td>2</td>
-                            <td>
-                                <strong>Hosting & Domain (1 Tahun)</strong><br>
-                                <small class="text-muted">Paket bisnis dengan bandwidth unlimited</small>
-                            </td>
-                            <td class="text-right">Rp 1.500.000</td>
-                            <td class="text-center">1</td>
-                            <td class="text-right">Rp 1.500.000</td>
-                        </tr>
-                        <tr>
-                            <td>3</td>
-                            <td>
-                                <strong>Maintenance Bulanan</strong><br>
-                                <small class="text-muted">Layanan maintenance selama 3 bulan</small>
-                            </td>
-                            <td class="text-right">Rp 750.000</td>
-                            <td class="text-center">3</td>
-                            <td class="text-right">Rp 2.250.000</td>
-                        </tr>
-                        <tr>
-                            <td>4</td>
-                            <td>
-                                <strong>Pelatihan Penggunaan CMS</strong><br>
-                                <small class="text-muted">Sesi pelatihan selama 2 jam</small>
-                            </td>
-                            <td class="text-right">Rp 1.000.000</td>
-                            <td class="text-center">1</td>
-                            <td class="text-right">Rp 1.000.000</td>
-                        </tr>
+                        @php $no = 1; @endphp
+                        @foreach ($tagihan->tagihanDetail as $item)
+                            <tr>
+                                <td>{{ $no++ }}</td>
+                                <td>
+                                    <strong>{{ $item->namaItem }}</strong><br>
+                                    {{-- <small class="text-muted">{{ $item->namaItem }}</small> --}}
+                                </td>
+                                <td class="text-right">@currency($item->hargaSatuan)</td>
+                                <td class="text-center">@currency($item->jumlah) </td>
+                                <td class="text-right">@currency($item->subtotal)  </td>
+                            </tr>
+
+                        @endforeach
+
                     </tbody>
                 </table>
             </div>
@@ -146,7 +113,7 @@
                                 <strong>Subtotal:</strong>
                             </div>
                             <div class="col-6 text-right">
-                                Rp 9.750.000
+                                @currency($tagihan->totaltagihan)
                             </div>
                         </div>
                         <div class="row mb-2">

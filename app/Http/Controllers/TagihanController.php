@@ -6,6 +6,7 @@ use App\Models\Tagihan;
 use App\Models\Vendor;
 use Illuminate\Http\Request;
 use App\Helpers\Helpers;
+use App\Models\StatusTagihan;
 use App\Models\TagihanDetail;
 
 class TagihanController extends Controller
@@ -16,8 +17,9 @@ class TagihanController extends Controller
     public function index()
     {
         $title = "tagihan ";
+        $statusTagihan= StatusTagihan::all();
         $tagihan = Tagihan::all();
-        return view('tagihan.index', compact('tagihan', 'title'));
+        return view('tagihan.index', compact('tagihan', 'title','statusTagihan'));
     }
 
     /**
@@ -113,6 +115,9 @@ class TagihanController extends Controller
     public function show(Tagihan $tagihan)
     {
 
+        // $tes= Tagihan::with('statusTagihan')->get();
+        $data= $tagihan->statusTagihan ;
+        return $data['']
 
         return view('tagihan.show', compact('tagihan'));
     }

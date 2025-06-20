@@ -55,4 +55,9 @@ class Tagihan extends Model
     }
 
 
+   public function statusTagihan()
+   {
+       return $this->hasOne(StatusTagihan::class, 'id', 'statusTagihan');
+   }
+
 }

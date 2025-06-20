@@ -32,7 +32,7 @@
                         <p class="mb-1"><small class="text-muted">Tanggal: {{ $tagihan->tanggalTagihan }}</small></p>
                         <p class="mb-0 due-date"><small>Jatuh Tempo: {{ $tagihan->dueDateTagihan }}</small></p>
                         <div class="mt-3">
-                            <span class="status-badge status-unpaid"><i class="fas fa-exclamation-circle mr-1"></i> {{ $tagihan->statusTagihan }}</span>
+                            <span class="status-badge status-unpaid"><i class="fas fa-exclamation-circle mr-1"></i> {{ $tagihan->statusTagihan->namaStatusTagihan }}</span>
                         </div>
                     </div>
                 </div>

@@ -52,6 +52,13 @@ class TagihanController extends Controller
             'jumlah.*' => 'required|nullable|string',
             'hargaSatuan.*' => 'required|nullable|string',
             'subtotal.*' => 'required|nullable|string',
+
+            'picUser' => 'nullable|string',
+            'picAlamat' => 'nullable|string',
+            'picTlp' => 'nullable|string',
+            'picEmail' => 'nullable|emial',
+            'statusTagihan' => 'nullable|string',
+
         ]);
 
         $data['tanggalTagihan']= Helpers::formatDate($data['tanggalTagihan']);
@@ -68,6 +75,13 @@ class TagihanController extends Controller
                 'totaltagihan' => $data['totaltagihan'],
                 'lampiran' => $data['lampiran'],
                 'keterangan' => $data['keterangan'] ?? null,
+
+                'picUser' => $data['picUser'],
+                'picAlamat' => $data['picAlamat'],
+                'picTlp' => $data['picTlp'],
+                'picEmail' => $data['picEmail'],
+                'statusTagihan' => $data['statusTagihan'],
+
                 'created_at' => now(),
             ]);
 
@@ -95,7 +109,9 @@ class TagihanController extends Controller
      */
     public function show(Tagihan $tagihan)
     {
-        //
+
+
+        return view('tagihan.show', compact('tagihan'));
     }
 
     /**

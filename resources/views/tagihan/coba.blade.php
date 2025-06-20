@@ -125,6 +125,26 @@
                                 <textarea name="keterangan" id="" cols="30" class="form-control" rows="10"></textarea>
                             </div>
 
+                            <div class="form-group">
+                                <label for="picUser">picUser</label>
+                                <input type="text" class="form-control" id="picUser" aria-describedby="emailHelp" name="picUser">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="picAlamat">picAlamat</label>
+                                <input type="text" class="form-control" id="picAlamat" aria-describedby="emailHelp" name="picAlamat">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="picTlp">picTlp</label>
+                                <input type="text" class="form-control" id="picTlp" aria-describedby="emailHelp" name="picTlp">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="picEmail">picEmail</label>
+                                <input type="text" class="form-control" id="picEmail" aria-describedby="emailHelp" name="picEmail">
+                            </div>
+
                             <div class="f1-buttons">
                                 <button type="button" class="btn btn-warning btn-previous"><i class="fa fa-arrow-left"></i> Sebelumnya</button>
                                 <button type="button" class="btn btn-primary btn-next">Selanjutnya <i class="fa fa-arrow-right"></i></button>

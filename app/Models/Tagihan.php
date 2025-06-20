@@ -31,6 +31,13 @@ class Tagihan extends Model
         'dueDateTagihan',
         'periodeTagihan',
         'totaltagihan',
+
+        'picUser',
+        'picAlamat',
+        'picTlp',
+        'picEmail',
+        'statusTagihan',
+
         'lampiran',
         'keterangan'
     ];

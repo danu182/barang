@@ -1,0 +1,58 @@
+.invoice-container {
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    padding: 30px;
+    margin: 30px auto;
+}
+.invoice-header {
+    border-bottom: 2px solid #eee;
+    padding-bottom: 20px;
+    margin-bottom: 20px;
+}
+.invoice-title {
+    font-size: 24px;
+    font-weight: 700;
+    color: #2c3e50;
+}
+.invoice-number {
+    font-size: 18px;
+    color: #7f8c8d;
+}
+.client-info {
+    background-color: #f8f9fa;
+    border-radius: 5px;
+    padding: 15px;
+}
+.table-items th {
+    border-top: none;
+    background-color: #f8f9fa;
+}
+.total-section {
+    background-color: #f8f9fa;
+    border-radius: 5px;
+    padding: 15px;
+}
+.payment-info {
+    background-color: #e8f4fd;
+    border-radius: 5px;
+    padding: 15px;
+    margin-top: 20px;
+}
+.status-badge {
+    padding: 5px 10px;
+    border-radius: 20px;
+    font-size: 14px;
+    font-weight: 600;
+}
+.status-unpaid {
+    background-color: #ffebee;
+    color: #c62828;
+}
+.logo-container {
+    max-width: 180px;
+}
+.due-date {
+    color: #e74c3c;
+    font-weight: 600;
+}

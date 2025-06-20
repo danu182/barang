@@ -29,7 +29,8 @@
 <div class="container">
             <div class="row">
                 <div class="col-md-10 col-md-offset-1">
-                	<form action="" method="post" class="f1">
+                	<form action="{{ route('tagihan.store') }}" method="post" class="f1">
+                        @csrf
                 		{{-- <h3>www.ayongoding.com</h3> --}}
                 		<p>Membuat Form Wizard Bootstrap</p>
                 		<div class="f1-steps">

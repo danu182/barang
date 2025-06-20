@@ -36,7 +36,7 @@ class Tagihan extends Model
         'picAlamat',
         'picTlp',
         'picEmail',
-        'statusTagihan',
+        'statusTagihan_id',
 
         'lampiran',
         'keterangan'
@@ -55,9 +55,10 @@ class Tagihan extends Model
     }
 
 
-   public function statusTagihan()
+
+   public function comments()
    {
-       return $this->hasOne(StatusTagihan::class, 'id', 'statusTagihan');
+       return $this->hasMany(StatusTagihan::class, 'id', 'statusTagihan_id');
    }
 
 }

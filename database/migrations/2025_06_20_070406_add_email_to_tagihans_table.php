@@ -17,7 +17,8 @@ return new class extends Migration
             $table->string('picAlamat')->nullable()->after('picUser');
             $table->string('picTlp')->nullable()->after('picAlamat');
             $table->string('picEmail')->nullable()->after('picTlp');
-            $table->string('statusTagihan')->nullable()->default('1')->after('picEmail');
+            // $table->string('statusTagihan')->nullable()->default('1')->after('picEmail');
+            // $table->foreignId('statusTagihan_id')->constrained('status_tagihans')->onDelete('cascade')->default('1')->after('picEmail'); // Foreign key referenc
 
         });
     }
@@ -33,7 +34,7 @@ return new class extends Migration
             $table->dropColumn('picAlamat');
             $table->dropColumn('picTlp');
             $table->dropColumn('picEmail');
-            $table->dropColumn('statusTagihan');
+            // $table->dropColumn('statusTagihan_id');
         });
     }
 };

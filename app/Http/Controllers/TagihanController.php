@@ -87,6 +87,8 @@ class TagihanController extends Controller
                 'picTlp' => $data['picTlp'],
                 'picEmail' => $data['picEmail'],
 
+                'statusTagihan_id' => '1',
+
                 'created_at' => now(),
             ]);
 
@@ -115,9 +117,8 @@ class TagihanController extends Controller
     public function show(Tagihan $tagihan)
     {
 
-        // $tes= Tagihan::with('statusTagihan')->get();
-        $data= $tagihan->statusTagihan ;
-        return $data['']
+        // $tagihan= Tagihan::with('statusTagihan')->where('id', $tagihan->id)->first();
+
 
         return view('tagihan.show', compact('tagihan'));
     }

@@ -25,21 +25,18 @@ class Tagihan extends Model
 
     protected $fillable=[
         'vendor_id',
+        'pelanggan_id',
         'noTagihan',
         'upTagihan',
         'tanggalTagihan',
         'dueDateTagihan',
         'periodeTagihan',
         'totaltagihan',
-
-        'picUser',
-        'picAlamat',
-        'picTlp',
-        'picEmail',
         'statusTagihan_id',
 
+
         'lampiran',
-        'keterangan'
+        'keterangan',
     ];
 
 

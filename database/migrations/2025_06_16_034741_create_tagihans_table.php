@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
 
             $table->foreignId('vendor_id')->constrained('vendors')->onDelete('cascade'); // Foreign key referenc
+            $table->foreignId('pelanggan_id')->constrained('pelanggans')->onDelete('cascade'); // Foreign key referenc
 
             $table->string('noTagihan');
             $table->string('upTagihan');
@@ -22,7 +23,9 @@ return new class extends Migration
             $table->date('dueDateTagihan');
             $table->string('periodeTagihan')->nullable();
             $table->string('totaltagihan');
-            $table->foreignId('statusTagihan_id')->constrained('status_tagihans')->onDelete('cascade')->default(1);
+            $table->bigInteger('statusTagihan_id');
+
+            // $table->foreignId('statusTagihan_id')->constrained('status_tagihans')->onDelete('cascade')->default(1);
             $table->string('lampiran');
             $table->text('keterangan')->nullable();
 

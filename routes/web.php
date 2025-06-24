@@ -3,6 +3,7 @@
 use App\Http\Controllers\BarangController;
 use App\Http\Controllers\HarddiskController;
 use App\Http\Controllers\KategoriController;
+use App\Http\Controllers\PelangganController;
 use App\Http\Controllers\ProsesorController;
 use App\Http\Controllers\RamController;
 use App\Http\Controllers\SosmedController;
@@ -32,6 +33,7 @@ Route::resource('sosmed.detail.login', SosmedDetailLoginController::class);
 
 
 Route::resource('subcont', VendorController::class);
+Route::resource('pelanggan', PelangganController::class);
 
 Route::resource('tagihan', TagihanController::class);
 

@@ -34,7 +34,7 @@
                     <div class="table-responsive">
 
                         <form method="POST" action="{{ route('subcont.store') }}">
-                            <input type="hidden" name="_token" value="MmgmDjUq6M4Gxdb9EXOjwAWWEkC6uMZQeucyJXLG" autocomplete="off">
+                            @csrf
 
                             <div class="form-group">
                                 <label for="namaVendor">namaVendor</label>

@@ -6,6 +6,7 @@ use App\Models\Tagihan;
 use App\Models\Vendor;
 use Illuminate\Http\Request;
 use App\Helpers\Helpers;
+use App\Models\Pelanggan;
 use App\Models\StatusTagihan;
 use App\Models\TagihanDetail;
 
@@ -19,18 +20,27 @@ class TagihanController extends Controller
         $title = "tagihan ";
         $statusTagihan= StatusTagihan::all();
         $tagihan = Tagihan::all();
+
         return view('tagihan.index', compact('tagihan', 'title','statusTagihan'));
     }
 
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(Tagihan $tagihan)
     {
 
-        $title="tambah tagihan";
-        $vendor= Vendor::all();
-        return view('tagihan.coba', compact('vendor','title'));
+        // $title="tambah tagihan";
+        // $vendor= Vendor::all();
+        // $pelanggan=Pelanggan::all();
+
+        // return view('tagihan.lagi', compact('vendor','title','pelanggan'));
+        // return view('tagihan.lagi');
+        $pelanggan =Pelanggan::all();
+
+        return view('tagihan.lagi', compact('tagihan','pelanggan'));
+
+
     }
 
     /**
@@ -38,6 +48,9 @@ class TagihanController extends Controller
      */
     public function store(Request $request)
     {
+
+
+
        $data = $request->validate([
             'vendor_id' => 'required|exists:vendors,id',
             'noTagihan' => 'required|string|max:255',
@@ -156,5 +169,20 @@ class TagihanController extends Controller
         //     return redirect()->route('tagihan.index')->with('error', ' tagihan '.'>> ' . $tagihan->vendor_id .' <<'.' tidak bisa di hapus - '. $e->getMessage());
         // }
         // return redirect()->route('tagihan.index')->with('success', ' tagihan ' . $tagihan->vendor_id . ' berhasil di delete.');
+    }
+
+
+     public function fetchPelanggan($id)
+    {
+        $pelanggan = Pelanggan::find($id);
+        if ($pelanggan) {
+            return response()->json([
+                'picUser ' => $pelanggan->picUser ,
+                'picAlamat' => $pelanggan->picAlamat,
+                'picTlp' => $pelanggan->picTlp,
+                'picEmail' => $pelanggan->picEmail,
+            ]);
+        }
+        return response()->json([]);
     }
 }

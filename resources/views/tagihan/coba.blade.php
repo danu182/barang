@@ -75,10 +75,10 @@
                                 <input type="text" class="form-control" id="noTagihan" aria-describedby="emailHelp" name="noTagihan">
                             </div>
 
-                            <div class="form-group">
+                            {{-- <div class="form-group">
                                 <label for="upTagihan">upTagihan</label>
                                 <input type="text" class="form-control" id="upTagihan" aria-describedby="emailHelp" name="upTagihan">
-                            </div>
+                            </div> --}}
 
                             <div class="form-group">
                                 <label for="tanggalTagihan">tanggalTagihan</label>
@@ -123,6 +123,15 @@
                             <div class="form-group">
                                 <label for="keterangan">keterangan</label>
                                 <textarea name="keterangan" id="" cols="30" class="form-control" rows="10"></textarea>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="picUser">Pilih pelanggan</label>
+                                <select name="pelanggan" id="" class="form-control">
+                                    @foreach ($pelanggan as $item)
+                                        <option value="{{ $item->id }}">{{ $item->namaPelanggan }}</option>
+                                    @endforeach
+                                </select>
                             </div>
 
                             <div class="form-group">
@@ -277,152 +286,154 @@
 
 
 
-         @push('js') {{-- Or just place inside <script> tags directly --}}
+@push('js') {{-- Or just place inside <script> tags directly --}}
 
-        <script type="text/javascript">
-        $(document).ready(function() {
-            var maxField = 10; // Input fields increment limitation
-            var addButton = $('#add_button'); // Add button selector
-            var wrapper = $('.field_wrapper'); // Input field wrapper
-            var fieldHTML = '<div class="form-row">'+
-                            '<div class="col-6 col-sm-4 form-group">'+
-                            '<label>namaItem</label>'+
-                            '<input type="text" name="namaItem[]" class="form-control" placeholder="namaItem">'+
-                            '</div>'+
-                            '<div class="col-3 col-sm-2 form-group">'+
-                            '<label>jumlah</label>'+
-                            '<input type="text" name="jumlah[]" class="form-control" placeholder="jumlah">'+
-                            '</div>'+
-                            '<div class="col-6 col-sm-2 form-group">'+
-                            '<label>hargaSatuan</label>'+
-                            '<input type="text" name="hargaSatuan[]" class="form-control" placeholder="hargaSatuan">'+
-                            '</div>'+
-                            '<div class="col-6 col-sm-3 form-group">'+
-                            '<label>subtotal</label>'+
-                            '<input type="text" name="subtotal[]" class="form-control" placeholder="subtotal">'+
-                            '</div>'+
-                            '<div class="col-6 col-sm-1 form-group">'+
-                            '<div class="form-group row mr-2 ml-2"><a href="javascript:void(0);" class="remove_button btn btn-danger" aria-label="Remove row">-</a></div>' +
-                            '</div>'+
-                            '</div>';
+    <script type="text/javascript">
+    $(document).ready(function() {
+        var maxField = 10; // Input fields increment limitation
+        var addButton = $('#add_button'); // Add button selector
+        var wrapper = $('.field_wrapper'); // Input field wrapper
+        var fieldHTML = '<div class="form-row">'+
+                        '<div class="col-6 col-sm-4 form-group">'+
+                        '<label>namaItem</label>'+
+                        '<input type="text" name="namaItem[]" class="form-control" placeholder="namaItem">'+
+                        '</div>'+
+                        '<div class="col-3 col-sm-2 form-group">'+
+                        '<label>jumlah</label>'+
+                        '<input type="text" name="jumlah[]" class="form-control" placeholder="jumlah">'+
+                        '</div>'+
+                        '<div class="col-6 col-sm-2 form-group">'+
+                        '<label>hargaSatuan</label>'+
+                        '<input type="text" name="hargaSatuan[]" class="form-control" placeholder="hargaSatuan">'+
+                        '</div>'+
+                        '<div class="col-6 col-sm-3 form-group">'+
+                        '<label>subtotal</label>'+
+                        '<input type="text" name="subtotal[]" class="form-control" placeholder="subtotal">'+
+                        '</div>'+
+                        '<div class="col-6 col-sm-1 form-group">'+
+                        '<div class="form-group row mr-2 ml-2"><a href="javascript:void(0);" class="remove_button btn btn-danger" aria-label="Remove row">-</a></div>' +
+                        '</div>'+
+                        '</div>';
 
-            var x = 1; // Initial field counter is 1
+        var x = 1; // Initial field counter is 1
 
-            // Fungsi untuk menghitung subtotal
-            function calculateSubtotal() {
-                $('.form-row').each(function() {
-                    var jumlah = $(this).find('input[name="jumlah[]"]').val().trim() || 0;
-                    var hargaSatuan = $(this).find('input[name="hargaSatuan[]"]').val().trim() || 0;
-                    // Menghitung subtotal
-                    var subtotal = parseFloat(jumlah) * parseFloat(hargaSatuan);
-                    // Memperbarui input subtotal
-                    $(this).find('input[name="subtotal[]"]').val(isNaN(subtotal) ? 0 : subtotal);
-                });
-            }
-            // Memperbarui subtotal saat input jumlah atau hargaSatuan berubah
-            $('.field_wrapper').on('input', 'input[name="jumlah[]"], input[name="hargaSatuan[]"]', function() {
-                calculateSubtotal();
+        // Fungsi untuk menghitung subtotal
+        function calculateSubtotal() {
+            $('.form-row').each(function() {
+                var jumlah = $(this).find('input[name="jumlah[]"]').val().trim() || 0;
+                var hargaSatuan = $(this).find('input[name="hargaSatuan[]"]').val().trim() || 0;
+                // Menghitung subtotal
+                var subtotal = parseFloat(jumlah) * parseFloat(hargaSatuan);
+                // Memperbarui input subtotal
+                $(this).find('input[name="subtotal[]"]').val(isNaN(subtotal) ? 0 : subtotal);
             });
-
-
-
-            // Function to update preview table
-            function updatePreview() {
-                const rows = wrapper.find('.form-row');
-                const tbody = $('#preview-table tbody');
-
-
-                tbody.empty();
-                if (rows.length === 0) {
-                tbody.append('<tr id="preview-empty"><td colspan="4">Belum ada data yang diisi.</td></tr>');
-                return;
-                }
-                rows.each(function() {
-                var namaItem = $(this).find('input[name="namaItem[]"]').val().trim() || '-';
-                var jumlah = $(this).find('input[name="jumlah[]"]').val().trim() || '-';
-                var hargaSatuan = $(this).find('input[name="hargaSatuan[]"]').val().trim() || '-';
-                var subtotal = $(this).find('input[name="subtotal[]"]').val().trim() || '-';
-
-
-                // Optional: Format numbers with thousand separators if numeric
-                function formatNumber(num) {
-                    return isNaN(num) || num === '-' ? num : Number(num).toLocaleString();
-                }
-
-                var row = '<tr>'+
-                    `<td>${namaItem}</td>`+
-                    `<td>${formatNumber(jumlah)}</td>`+
-                    `<td>${formatNumber(hargaSatuan)}</td>`+
-                    `<td>${formatNumber(subtotal)}</td>`+
-                    '</tr>';
-                tbody.append(row);
-                });
-
-
-
-            }
-
-            // Update preview initially
-            updatePreview();
-
-            // Once add button is clicked
-            $(addButton).click(function() {
-                // Check maximum number of input fields
-                if (x < maxField) {
-                    x++; // Increment field counter
-                    $(wrapper).append(fieldHTML); // Add field html
-                    updatePreview();
-                }
-            });
-
-            // Once remove button is clicked
-            $(wrapper).on('click', '.remove_button', function(e) {
-                e.preventDefault();
-                $(this).closest('.form-row').remove(); // Remove field html
-                x--; // Decrement field counter
-                updatePreview();
-            });
-
-            // Update preview on input change in any input within the wrapper
-            wrapper.on('input', 'input', function() {
-                updatePreview();
-            });
+        }
+        // Memperbarui subtotal saat input jumlah atau hargaSatuan berubah
+        $('.field_wrapper').on('input', 'input[name="jumlah[]"], input[name="hargaSatuan[]"]', function() {
+            calculateSubtotal();
         });
 
-        </script>
-
-<script>
-    document.getElementById("tampilkan_tagihan").addEventListener("click", tampilkan_nilai_form);
-
-    function tampilkan_nilai_form(){
-        const inputNoTagihan = document.getElementById("noTagihan");
-        const spanNoTagihan = document.getElementById("noTagihanSpan");
-        const inputUpTagihan = document.getElementById("upTagihan");
-        const spanUpTagihan = document.getElementById("upTagihanSpan");
-        const inputTanggalTagihan = document.getElementById("tanggalTagihan");
-        const spanTanggalTagihan = document.getElementById("tanggalTagihanSpan");
-
-        // document.getElementById("hasil").innerHTML=nilai_form;
-        spanNoTagihan.textContent = inputNoTagihan.value;
-        spanUpTagihan.textContent= inputUpTagihan.value;
-        spanTanggalTagihan.textContent= inputTanggalTagihan.value;
-
-    }
 
 
-    // const inputNoTagihan = document.getElementById("noTagihan");
-    // const spanNoTagihan = document.getElementById("noTagihanSpan");
-    // const inputUpTagihan = document.getElementById("upTagihan");
-    // const spanUpTagihan = document.getElementById("upTagihanSpan");
-    // const inputTanggalTagihan = document.getElementById("tanggalTagihan");
-    // const spanTanggalTagihan = document.getElementById("tanggalTagihanSpan");
+        // Function to update preview table
+        function updatePreview() {
+            const rows = wrapper.find('.form-row');
+            const tbody = $('#preview-table tbody');
 
-    // inputTanggalTagihan.addEventListener("input", function() {
-    //     spanNoTagihan.textContent = inputNoTagihan.value;
-    //     spanUpTagihan.textContent= inputUpTagihan.value;
-    //     spanTanggalTagihan.textContent= inputTanggalTagihan.value;
-    // });
-</script>
+
+            tbody.empty();
+            if (rows.length === 0) {
+            tbody.append('<tr id="preview-empty"><td colspan="4">Belum ada data yang diisi.</td></tr>');
+            return;
+            }
+            rows.each(function() {
+            var namaItem = $(this).find('input[name="namaItem[]"]').val().trim() || '-';
+            var jumlah = $(this).find('input[name="jumlah[]"]').val().trim() || '-';
+            var hargaSatuan = $(this).find('input[name="hargaSatuan[]"]').val().trim() || '-';
+            var subtotal = $(this).find('input[name="subtotal[]"]').val().trim() || '-';
+
+
+            // Optional: Format numbers with thousand separators if numeric
+            function formatNumber(num) {
+                return isNaN(num) || num === '-' ? num : Number(num).toLocaleString();
+            }
+
+            var row = '<tr>'+
+                `<td>${namaItem}</td>`+
+                `<td>${formatNumber(jumlah)}</td>`+
+                `<td>${formatNumber(hargaSatuan)}</td>`+
+                `<td>${formatNumber(subtotal)}</td>`+
+                '</tr>';
+            tbody.append(row);
+            });
+
+
+
+        }
+
+        // Update preview initially
+        updatePreview();
+
+        // Once add button is clicked
+        $(addButton).click(function() {
+            // Check maximum number of input fields
+            if (x < maxField) {
+                x++; // Increment field counter
+                $(wrapper).append(fieldHTML); // Add field html
+                updatePreview();
+            }
+        });
+
+        // Once remove button is clicked
+        $(wrapper).on('click', '.remove_button', function(e) {
+            e.preventDefault();
+            $(this).closest('.form-row').remove(); // Remove field html
+            x--; // Decrement field counter
+            updatePreview();
+        });
+
+        // Update preview on input change in any input within the wrapper
+        wrapper.on('input', 'input', function() {
+            updatePreview();
+        });
+    });
+
+    </script>
+
+    <script>
+        document.getElementById("tampilkan_tagihan").addEventListener("click", tampilkan_nilai_form);
+
+        function tampilkan_nilai_form(){
+            const inputNoTagihan = document.getElementById("noTagihan");
+            const spanNoTagihan = document.getElementById("noTagihanSpan");
+            const inputUpTagihan = document.getElementById("upTagihan");
+            const spanUpTagihan = document.getElementById("upTagihanSpan");
+            const inputTanggalTagihan = document.getElementById("tanggalTagihan");
+            const spanTanggalTagihan = document.getElementById("tanggalTagihanSpan");
+
+            // document.getElementById("hasil").innerHTML=nilai_form;
+            spanNoTagihan.textContent = inputNoTagihan.value;
+            spanUpTagihan.textContent= inputUpTagihan.value;
+            spanTanggalTagihan.textContent= inputTanggalTagihan.value;
+
+        }
+
+
+        // const inputNoTagihan = document.getElementById("noTagihan");
+        // const spanNoTagihan = document.getElementById("noTagihanSpan");
+        // const inputUpTagihan = document.getElementById("upTagihan");
+        // const spanUpTagihan = document.getElementById("upTagihanSpan");
+        // const inputTanggalTagihan = document.getElementById("tanggalTagihan");
+        // const spanTanggalTagihan = document.getElementById("tanggalTagihanSpan");
+
+        // inputTanggalTagihan.addEventListener("input", function() {
+        //     spanNoTagihan.textContent = inputNoTagihan.value;
+        //     spanUpTagihan.textContent= inputUpTagihan.value;
+        //     spanTanggalTagihan.textContent= inputTanggalTagihan.value;
+        // });
+    </script>
+
+@endpush
 
 @endpush
 

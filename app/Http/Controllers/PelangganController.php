@@ -51,7 +51,7 @@ class PelangganController extends Controller
      */
     public function show(Pelanggan $pelanggan)
     {
-        //
+
     }
 
     /**
@@ -97,4 +97,22 @@ class PelangganController extends Controller
         }
         return redirect()->route('pelanggan.index')->with('success', ' barang ' . $pelanggan->namaPelanggan . ' berhasil di delete.');
     }
+
+
+    public function getCustomerPic($id)
+    {
+        $pelanggan = Pelanggan::find($id);
+
+        if ($pelanggan) {
+            return response()->json([
+                'picUser' => $pelanggan->picUser, // Adjust these to your actual column names
+                'picAlamat' => $pelanggan->picAlamat,
+                'picTlp' => $pelanggan->picTlp,
+                'picEmail' => $pelanggan->picEmail,
+            ]);
+        }
+
+        return response()->json([], 404); // Return empty if not found
+    }
+
 }

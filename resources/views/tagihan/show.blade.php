@@ -3,7 +3,7 @@
 @section('content')
 
 @push('css')
-    <link href="{{asset('vendor/datatables/dataTables.bootstrap4.min.css')}}" rel="stylesheet">
+    {{-- <link href="{{asset('vendor/datatables/dataTables.bootstrap4.min.css')}}" rel="stylesheet"> --}}
     <link rel="stylesheet" href="{{ asset('css/showTagihan.css') }}">
 @endpush
 
@@ -21,18 +21,18 @@
                         <div class="logo-container mb-3">
                             <img src="https://via.placeholder.com/180x60?text=Company+Logo" alt="Company Logo" class="img-fluid">
                         </div>
-                        <h5 class="mb-1">{{ $tagihan->vendor->namaVendor }}</h5>
-                        <p class="mb-1"><small class="text-muted">{{ $tagihan->vendor->alamatVendor }}</small></p>
-                        <p class="mb-1"><small class="text-muted">{{ $tagihan->vendor->tlpVendor }}</small></p>
-                        <p class="mb-0"><small class="text-muted">Email: {{ $tagihan->vendor->emailVendor }}</small></p>
+                        <h5 class="mb-1">Nama : nama vendor</h5>
+                        <p class="mb-1"><small class="text-muted">Alamat : Alamat Vendor</small></p>
+                        <p class="mb-1"><small class="text-muted">Tlp :tlpVendor</small></p>
+                        <p class="mb-0"><small class="text-muted">Email: emailVendor </small></p>
                     </div>
                     <div class="col-md-6 text-right">
                         <h1 class="invoice-title">INVOICE</h1>
-                        <p class="invoice-number mb-1">{{ $tagihan->noTagihan}}</p>
-                        <p class="mb-1"><small class="text-muted">Tanggal: {{ $tagihan->tanggalTagihan }}</small></p>
-                        <p class="mb-0 due-date"><small>Jatuh Tempo: {{ $tagihan->dueDateTagihan }}</small></p>
+                        <p class="invoice-number mb-1">noTagihan</p>
+                        <p class="mb-1"><small class="text-muted">Tanggal: tanggal Tagihan</small></p>
+                        <p class="mb-0 due-date"><small>Jatuh Tempo: dueDateTagihan</small></p>
                         <div class="mt-3">
-                            <span class="status-badge status-unpaid"><i class="fas fa-exclamation-circle mr-1"></i> {{ $tagihan->statusTagihan->namaStatusTagihan }}</span>
+                            <span class="status-badge status-unpaid"><i class="fas fa-exclamation-circle mr-1"></i> namaStatusTagihan </span>
                         </div>
                     </div>
                 </div>
@@ -43,11 +43,11 @@
                 <div class="col-md-6">
                     <div class="client-info">
                         <h5 class="mb-3">Tagihan Untuk:</h5>
-                        <h6 class="mb-1">{{ $tagihan->upTagihan }}</h6>
-                        <p class="mb-1">{{ $tagihan->picUser }} </p>
-                        <p class="mb-1">{{ $tagihan->picAlamat }}</p>
-                        <p class="mb-1">Telp: {{ $tagihan->picTlp }}</p>
-                        <p class="mb-0">Email: {{ $tagihan->picEmail }}</p>
+                        <h6 class="mb-1">Pelanggan</h6>
+                        <p class="mb-1">picUser  </p>
+                        <p class="mb-1">picAlamat</p>
+                        <p class="mb-1">Telp: 021-4678912345 </p>
+                        <p class="mb-0">Email: email</p>
                     </div>
                 </div>
                 <div class="col-md-6">

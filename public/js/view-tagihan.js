@@ -4,12 +4,18 @@
         function tampilkan_nilai_form(){
             const inputNoTagihan = document.getElementById("inputnoTagihan").value;
             const inputtanggalTagihan = document.getElementById("inputtanggalTagihan").value;
+
             const inputdueDateTagihan = document.getElementById("inputdueDateTagihan").value;
+            const inputperiodeTagihan = document.getElementById("inputperiodeTagihan").value;
+            const inputtotaltagihan = document.getElementById("inputtotaltagihan").value;
 
 
 
             console.log(inputNoTagihan);
             document.getElementById('noTagihan').textContent = inputNoTagihan;
+            document.getElementById('tanggalTagihan').textContent = inputtanggalTagihan;
+            document.getElementById('tanggalTagihanValue').textContent = inputtanggalTagihan;
+            document.getElementById('dueDateTagihan').textContent = inputdueDateTagihan;
 
         }
 

@@ -230,8 +230,8 @@
                                             <div class="col-md-6 text-right">
                                                 <h1 class="invoice-title">INVOICE</h1>
                                                 <p class="invoice-number mb-1" id="noTagihan"></p>
-                                                <p class="mb-1"><small class="text-muted">Tanggal: tanggal Tagihan</small></p>
-                                                <p class="mb-0 due-date"><small>Jatuh Tempo: dueDateTagihan</small></p>
+                                                <p class="mb-1" id="tanggalTagihan"><small class="text-muted" id="tanggalTagihanValue">Tanggal: tanggal Tagihan</small></p>
+                                                <p class="mb-0 due-date" ><small id="dueDateTagihan">Jatuh Tempo: dueDateTagihan</small></p>
                                                 <div class="mt-3">
                                                     <span class="status-badge status-unpaid"><i class="fas fa-exclamation-circle mr-1"></i> namaStatusTagihan </span>
                                                 </div>

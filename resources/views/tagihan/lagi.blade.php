@@ -134,28 +134,28 @@
                             <div class="form-group row">
                                 <label for="staticEmail" class="col-sm-2 col-form-label">picUser</label>
                                 <div class="col-sm-10">
-                                <input type="text" name="picUser" class="form-control" id="inputpicUser">
+                                <input type="text" name="picUser" class="form-control" id="inputpicUser" disabled>
                                 </div>
                             </div>
 
                             <div class="form-group row">
                                 <label for="staticEmail" class="col-sm-2 col-form-label">picAlamat</label>
                                 <div class="col-sm-10">
-                                <input type="text" name="picAlamat" class="form-control" id="inputpicAlamat">
+                                <input type="text" name="picAlamat" class="form-control" id="inputpicAlamat" disabled>
                                 </div>
                             </div>
 
                             <div class="form-group row">
                                 <label for="staticEmail" class="col-sm-2 col-form-label">picTlp</label>
                                 <div class="col-sm-10">
-                                <input type="text" name="picTlp" class="form-control" id="inputpicTlp">
+                                <input type="text" name="picTlp" class="form-control" id="inputpicTlp" disabled>
                                 </div>
                             </div>
 
                             <div class="form-group row">
                                 <label for="staticEmail" class="col-sm-2 col-form-label">picEmail</label>
                                 <div class="col-sm-10">
-                                <input type="email" name="picEmail" class="form-control" id="inputpicEmail">
+                                <input type="email" name="picEmail" class="form-control" id="inputpicEmail" disabled>
                                 </div>
                             </div>
 
@@ -220,7 +220,7 @@
                                         <div class="row">
                                             <div class="col-md-6">
                                                 <div class="logo-container mb-3">
-                                                    <img src="https://via.placeholder.com/180x60?text=Company+Logo" alt="Company Logo" class="img-fluid">
+                                                    <img src="{{ asset('img/undraw_rocket.svg') }}" alt="Company Logo" class="img-fluid">
                                                 </div>
                                                 <h5 class="mb-1">Nama : nama vendor</h5>
                                                 <p class="mb-1"><small class="text-muted">Alamat : Alamat Vendor</small></p>
@@ -229,10 +229,14 @@
                                             </div>
                                             <div class="col-md-6 text-right">
                                                 <h1 class="invoice-title">INVOICE</h1>
+
                                                 <p class="invoice-number mb-1" id="noTagihan"></p>
-                                                <p class="mb-1" id="tanggalTagihan"><small class="text-muted" id="tanggalTagihanValue">Tanggal: tanggal Tagihan</small></p>
-                                                <p class="mb-0 due-date" ><small id="dueDateTagihan">Jatuh Tempo: dueDateTagihan</small></p>
-                                                <div class="mt-3">
+
+                                                <p class="mb-1" id="tanggalTagihan"><small class="text-muted" ></small></p>
+
+                                                <p class="mb-0 due-date" id="dueDateTagihan"><small class="text-muted" ></p>
+
+                                                    <div class="mt-3">
                                                     <span class="status-badge status-unpaid"><i class="fas fa-exclamation-circle mr-1"></i> namaStatusTagihan </span>
                                                 </div>
                                             </div>
@@ -243,12 +247,12 @@
                                     <div class="row mb-4">
                                         <div class="col-md-6">
                                             <div class="client-info">
-                                                <h5 class="mb-3">Tagihan Untuk:</h5>
+                                                <h5 class="mb-3">Tagihan Untuk : </h5>
                                                 <h6 class="mb-1">Pelanggan</h6>
-                                                <p class="mb-1">picUser  </p>
-                                                <p class="mb-1">picAlamat</p>
-                                                <p class="mb-1">Telp: 021-4678912345 </p>
-                                                <p class="mb-0">Email: email</p>
+                                                <p class="mb-1" id="picUser"></p>
+                                                <p class="mb-1" id="picAlamat"></p>
+                                                <p class="mb-1" id="picTlp"> </p>
+                                                <p class="mb-0" id="picEmail"></p>
                                             </div>
                                         </div>
                                         <div class="col-md-6">
@@ -264,7 +268,7 @@
 
                                     <!-- Tabel Item -->
                                     <div class="table-responsive mb-4">
-                                        <table class="table table-bordered table-items">
+                                        <table class="table table-bordered table-items" id="tagihanTable">
                                             <thead>
                                                 <tr>
                                                     <th width="5%">No</th>
@@ -275,21 +279,7 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                @php $no = 1; @endphp
-                                                @foreach ($tagihan->tagihanDetail as $item)
-                                                    <tr>
-                                                        <td>{{ $no++ }}</td>
-                                                        <td>
-                                                            <strong>{{ $item->namaItem }}</strong><br>
-                                                            {{-- <small class="text-muted">{{ $item->namaItem }}</small> --}}
-                                                        </td>
-                                                        <td class="text-right">@currency($item->hargaSatuan)</td>
-                                                        <td class="text-center">@currency($item->jumlah) </td>
-                                                        <td class="text-right">@currency($item->subtotal)  </td>
-                                                    </tr>
-
-                                                @endforeach
-
+                                                <!-- Data will be inserted here -->
                                             </tbody>
                                         </table>
                                     </div>
@@ -354,7 +344,7 @@
                                             </div>
                                             <div class="col-md-6 text-right">
                                                 <div class="mt-3">
-                                                    <img src="https://via.placeholder.com/150x50?text=Signature" alt="Signature" class="img-fluid">
+                                                    <img src="{{ asset('favicon.ico') }}" alt="Signature" class="img-fluid">
                                                     <p class="mb-0"><small class="text-muted">Hormat kami,</small></p>
                                                     <p class="mb-0"><strong>Budi Santoso</strong></p>
                                                     <p class="mb-0"><small class="text-muted">Finance Manager</small></p>

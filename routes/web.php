@@ -41,8 +41,12 @@ Route::get('/get-customer-pic/{id}', [PelangganController::class, 'getCustomerPi
 Route::resource('tagihan', TagihanController::class);
 
 
+
 // Route::get('/get-customer-pic/{id}', [JavaScriptController::class, 'fetchPelanggan'])->name('get.customer.pic');
+// get pelanggam
 Route::get('/get-customer-pic/{id}', [JavaScriptController::class, 'fetchPelanggan']);
+// get vendor
+Route::get('/get-vendor-pic/{id}', [JavaScriptController::class, 'fetchVendor']);
 
 
 

@@ -31,7 +31,7 @@
 
     <div class="row">
                 <div class="col-md-10 col-md-offset-1">
-                	<form action="" method="post" class="f1">
+                	<form action="{{ route('tagihan.store') }}" method="post" class="f1">
                 		@csrf
 
                         {{-- header step form start --}}
@@ -65,9 +65,10 @@
                             <div class="form-group row">
                                 <label for="staticEmail" class="col-sm-2 col-form-label">vendor</label>
                                 <div class="col-sm-10">
-                                <select name="vendor_id" id="" class="form-control" >
-                                    <option value="1">satu</option>
-                                    <option value="2">dua</option>
+                                <select name="vendor_id" id="vendor_id" class="form-control text-uppercase" >
+                                    @foreach ($vendor as $item2)
+                                        <option  value="{{ $item2->id }}">{{ $item2->namaVendor }}</option>
+                                    @endforeach
                                 </select>
                                 </div>
                             </div>
@@ -101,9 +102,37 @@
                             </div>
 
                             <div class="form-group row">
+                                <label for="staticEmail" class="col-sm-2 col-form-label">subttotal</label>
+                                <div class="col-sm-10">
+                                <input type="number" name="subttotal" class="form-control" id="inputsubttotal">
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="staticEmail" class="col-sm-2 col-form-label">vat / pajak</label>
+                                <div class="col-sm-10">
+                                <input type="number" name="vat" class="form-control" id="inputvat">
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="staticEmail" class="col-sm-2 col-form-label">Denda</label>
+                                <div class="col-sm-10">
+                                <input type="number" name="denda" class="form-control" id="inputdenda">
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="staticEmail" class="col-sm-2 col-form-label">diskon</label>
+                                <div class="col-sm-10">
+                                <input type="number" name="diskon" class="form-control" id="inputdiskon">
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
                                 <label for="staticEmail" class="col-sm-2 col-form-label">totaltagihan</label>
                                 <div class="col-sm-10">
-                                <input type="text" name="totaltagihan" class="form-control" id="inputtotaltagihan">
+                                <input type="number" name="totaltagihan" class="form-control" id="inputtotaltagihan">
                                 </div>
                             </div>
 
@@ -182,15 +211,15 @@
                                         </div>
                                         <div class="col-3 col-sm-2 form-group">
                                             <label>jumlah</label>
-                                            <input type="text" name="jumlah[]" class="form-control" placeholder="jumlah">
+                                            <input type="number" name="jumlah[]" class="form-control" placeholder="jumlah">
                                         </div>
                                         <div class="col-6 col-sm-2 form-group">
                                             <label>hargaSatuan</label>
-                                            <input type="text" name="hargaSatuan[]" class="form-control" placeholder="hargaSatuan">
+                                            <input type="number" name="hargaSatuan[]" class="form-control" placeholder="hargaSatuan">
                                         </div>
                                         <div class="col-6 col-sm-3 form-group">
                                             <label>subtotal</label>
-                                            <input type="text" name="subtotal[]" class="form-control" placeholder="subtotal">
+                                            <input type="number" name="subtotal[]" class="form-control" placeholder="subtotal" disabled>
 
                                         </div>
                                         <div class="col-6 col-sm-1 form-group">
@@ -222,15 +251,18 @@
                                                 <div class="logo-container mb-3">
                                                     <img src="{{ asset('img/undraw_rocket.svg') }}" alt="Company Logo" class="img-fluid">
                                                 </div>
-                                                <h5 class="mb-1">Nama : nama vendor</h5>
-                                                <p class="mb-1"><small class="text-muted">Alamat : Alamat Vendor</small></p>
-                                                <p class="mb-1"><small class="text-muted">Tlp :tlpVendor</small></p>
-                                                <p class="mb-0"><small class="text-muted">Email: emailVendor </small></p>
+                                                <h6 class="mb-3">Tagihan Dari : </h6>
+                                                {{-- <h5 class="mb-1" class="font-weight-bold text-uppercase" id="namaVendor"><strong></strong></h5> --}}
+                                                <h5  class="mb-1 font-weight-bold text-uppercase" id="namaVendor"><strong></strong></h5>
+                                                <p class="mb-1"><small class="text-muted" id="alamatVendor"></small></p>
+                                                <p class="mb-1"><small class="text-muted" id="tlpVendor"></small></p>
+                                                <p class="mb-0"><small class="text-muted" id="emailVendor"></small></p>
+
                                             </div>
                                             <div class="col-md-6 text-right">
                                                 <h1 class="invoice-title">INVOICE</h1>
 
-                                                <p class="invoice-number mb-1" id="noTagihan"></p>
+                                                <p class="invoice-number mb-1 text-uppercase" id="noTagihan"></p>
 
                                                 <p class="mb-1" id="tanggalTagihan"><small class="text-muted" ></small></p>
 
@@ -248,11 +280,11 @@
                                         <div class="col-md-6">
                                             <div class="client-info">
                                                 <h5 class="mb-3">Tagihan Untuk : </h5>
-                                                <h6 class="mb-1">Pelanggan</h6>
-                                                <p class="mb-1" id="picUser"></p>
-                                                <p class="mb-1" id="picAlamat"></p>
-                                                <p class="mb-1" id="picTlp"> </p>
-                                                <p class="mb-0" id="picEmail"></p>
+                                                <h6 class="mb-1 font-weight-bold text-uppercase" id="inputPelanggan"><strong></strong></h6>
+                                                <p class="mb-1 text-uppercase font-weight-bolder" id="picUser"></p>
+                                                <p class="mb-1 text-uppercase" id="picAlamat"></p>
+                                                <p class="mb-1 text-uppercase" id="picTlp"> </p>
+                                                <p class="mb-0 " id="picEmail"></p>
                                             </div>
                                         </div>
                                         <div class="col-md-6">
@@ -299,36 +331,44 @@
                                         </div>
                                         <div class="col-md-6">
                                             <div class="total-section">
-                                                <div class="row mb-2">
+                                                <div class="row mb-1">
                                                     <div class="col-6 text-right">
                                                         <strong>Subtotal:</strong>
                                                     </div>
                                                     <div class="col-6 text-right">
-                                                        @currency($tagihan->totaltagihan)
+                                                        <p class="font-weight-bolder" id="subttotal"></p>
                                                     </div>
                                                 </div>
-                                                <div class="row mb-2">
+                                                <div class="row mb-1">
                                                     <div class="col-6 text-right">
                                                         <strong>PPN (10%):</strong>
                                                     </div>
                                                     <div class="col-6 text-right">
-                                                        Rp 975.000
+                                                        <p id="vat"></p>
                                                     </div>
                                                 </div>
-                                                <div class="row mb-2">
+                                                <div class="row mb-1">
+                                                    <div class="col-6 text-right">
+                                                        <strong>Denda:</strong>
+                                                    </div>
+                                                    <div class="col-6 text-right">
+                                                        <p id="denda"></p>
+                                                    </div>
+                                                </div>
+                                                <div class="row mb-1">
                                                     <div class="col-6 text-right">
                                                         <strong>Diskon:</strong>
                                                     </div>
                                                     <div class="col-6 text-right">
-                                                        - Rp 500.000
+                                                        <p id="diskon"></p>
                                                     </div>
                                                 </div>
                                                 <div class="row">
                                                     <div class="col-6 text-right">
-                                                        <h5 class="mb-0">Total:</h5>
+                                                        <h5 class="mb-0" id="">totaltagihan</h5>
                                                     </div>
                                                     <div class="col-6 text-right">
-                                                        <h5 class="mb-0">Rp 10.225.000</h5>
+                                                        <h5 class="mb-0 font-weight-bold" id="totaltagihan"></h5>
                                                     </div>
                                                 </div>
                                             </div>
@@ -355,11 +395,11 @@
                                 </div>
 
                                 <!-- Tombol Aksi -->
-                                <div class="text-center mb-5">
+                                {{-- <div class="text-center mb-5">
                                     <button class="btn btn-primary mr-2"><i class="fas fa-print mr-1"></i> Cetak Invoice</button>
                                     <button class="btn btn-success mr-2"><i class="fas fa-file-pdf mr-1"></i> Download PDF</button>
                                     <button class="btn btn-outline-secondary"><i class="fas fa-envelope mr-1"></i> Kirim via Email</button>
-                                </div>
+                                </div> --}}
                             </div>
 
 
@@ -372,181 +412,126 @@
                             </div>
                         </fieldset>
                         <!-- step 4 end -->
+
+
                 	</form>
                 </div>
             </div>
 
 
-</div>
+    </div>
 
 {{-- end --}}
 
 
 @push('js') {{-- Or just place inside <script> tags directly --}}
 
-
     <script type="text/javascript">
-    $(document).ready(function() {
-        var maxField = 10; // Input fields increment limitation
-        var addButton = $('#add_button'); // Add button selector
-        var wrapper = $('.field_wrapper'); // Input field wrapper
-        var fieldHTML = '<div class="form-row">'+
-                        '<div class="col-6 col-sm-4 form-group">'+
-                        '<input type="text" name="namaItem[]" class="form-control" placeholder="namaItem">'+
-                        '</div>'+
-                        '<div class="col-3 col-sm-2 form-group">'+
-                        '<input type="text" name="jumlah[]" class="form-control" placeholder="jumlah">'+
-                        '</div>'+
-                        '<div class="col-6 col-sm-2 form-group">'+
-                        '<input type="text" name="hargaSatuan[]" class="form-control" placeholder="hargaSatuan">'+
-                        '</div>'+
-                        '<div class="col-6 col-sm-3 form-group">'+
-                        '<input type="text" name="subtotal[]" class="form-control" placeholder="subtotal">'+
-                        '</div>'+
-                        '<div class="col-6 col-sm-1 form-group">'+
-                        '<div class="form-group row mr-2 ml-2">'+
-                        '<a href="javascript:void(0);" class="remove_button btn btn-danger" aria-label="Remove row">-</a></div>' +
-                        '</div>'+
-                        '</div>'+
-                        '</div>';
 
-        var x = 1; // Initial field counter is 1
+        $(document).ready(function() {
+            var maxField = 10; // Input fields increment limitation
+            var addButton = $('#add_button'); // Add button selector
+            var wrapper = $('.field_wrapper'); // Input field wrapper
+            var fieldHTML = '<div class="form-row">'+
+                            '<div class="col-6 col-sm-4 form-group">'+
+                            '<input type="text" name="namaItem[]" class="form-control" placeholder="namaItem">'+
+                            '</div>'+
+                            '<div class="col-3 col-sm-2 form-group">'+
+                            '<input type="text" name="jumlah[]" class="form-control" placeholder="jumlah">'+
+                            '</div>'+
+                            '<div class="col-6 col-sm-2 form-group">'+
+                            '<input type="text" name="hargaSatuan[]" class="form-control" placeholder="hargaSatuan">'+
+                            '</div>'+
+                            '<div class="col-6 col-sm-3 form-group">'+
+                            '<input type="text" name="subtotal[]" class="form-control" placeholder="subtotal">'+
+                            '</div>'+
+                            '<div class="col-6 col-sm-1 form-group">'+
+                            '<div class="form-group row mr-2 ml-2">'+
+                            '<a href="javascript:void(0);" class="remove_button btn btn-danger" aria-label="Remove row">-</a></div>' +
+                            '</div>'+
+                            '</div>'+
+                            '</div>';
 
-        // Fungsi untuk menghitung subtotal
-        function calculateSubtotal() {
-            $('.form-row').each(function() {
-                var jumlah = $(this).find('input[name="jumlah[]"]').val().trim() || 0;
-                var hargaSatuan = $(this).find('input[name="hargaSatuan[]"]').val().trim() || 0;
-                // Menghitung subtotal
-                var subtotal = parseFloat(jumlah) * parseFloat(hargaSatuan);
-                // Memperbarui input subtotal
-                $(this).find('input[name="subtotal[]"]').val(isNaN(subtotal) ? 0 : subtotal);
-            });
-        }
-        // Memperbarui subtotal saat input jumlah atau hargaSatuan berubah
-        $('.field_wrapper').on('input', 'input[name="jumlah[]"], input[name="hargaSatuan[]"]', function() {
-            calculateSubtotal();
-        });
+            var x = 1; // Initial field counter is 1
 
-
-        // Function to update preview table
-        function updatePreview() {
-
-            const rows = wrapper.find('.form-row');
-            const tbody = $('#preview-table');
-            tbody.empty(); // Clear existing rows
-            if (rows.length === 0) {
-                tbody.append('<tr id="preview-empty"><td colspan="5">Belum ada data yang diisi.</td></tr>');
-                return;
+            // Fungsi untuk menghitung subtotal
+            function calculateSubtotal() {
+                $('.form-row').each(function() {
+                    var jumlah = $(this).find('input[name="jumlah[]"]').val().trim() || 0;
+                    var hargaSatuan = $(this).find('input[name="hargaSatuan[]"]').val().trim() || 0;
+                    // Menghitung subtotal
+                    var subtotal = parseFloat(jumlah) * parseFloat(hargaSatuan);
+                    // Memperbarui input subtotal
+                    $(this).find('input[name="subtotal[]"]').val(isNaN(subtotal) ? 0 : subtotal);
+                });
             }
+            // Memperbarui subtotal saat input jumlah atau hargaSatuan berubah
+            $('.field_wrapper').on('input', 'input[name="jumlah[]"], input[name="hargaSatuan[]"]', function() {
+                calculateSubtotal();
+            });
 
-            rows.each(function(index) {
-                var namaItem = $(this).find('input[name="namaItem[]"]').val().trim() || '-';
-                var jumlah = $(this).find('input[name="jumlah[]"]').val().trim() || '0';
-                var hargaSatuan = $(this).find('input[name="hargaSatuan[]"]').val().trim() || '0';
-                var subtotal = $(this).find('input[name="subtotal[]"]').val().trim() || '0';
-                // Optional: Format numbers with thousand separators if numeric
-                function formatNumber(num) {
-                    return isNaN(num) || num === '-' ? num : Number(num).toLocaleString();
+
+            // Function to update preview table
+            function updatePreview() {
+
+                const rows = wrapper.find('.form-row');
+                const tbody = $('#preview-table');
+                tbody.empty(); // Clear existing rows
+                if (rows.length === 0) {
+                    tbody.append('<tr id="preview-empty"><td colspan="5">Belum ada data yang diisi.</td></tr>');
+                    return;
                 }
-                var row = '<tr>' +
-                    `<td>${index + 1}</td>` +
-                    `<td>${namaItem}</td>` +
-                    `<td class="text-right">${formatNumber(hargaSatuan)}</td>` +
-                    `<td class="text-center">${formatNumber(jumlah)}</td>` +
-                    `<td class="text-right">${formatNumber(subtotal)}</td>` +
-                    '</tr>';
-                tbody.append(row);
+
+                rows.each(function(index) {
+                    var namaItem = $(this).find('input[name="namaItem[]"]').val().trim() || '-';
+                    var jumlah = $(this).find('input[name="jumlah[]"]').val().trim() || '0';
+                    var hargaSatuan = $(this).find('input[name="hargaSatuan[]"]').val().trim() || '0';
+                    var subtotal = $(this).find('input[name="subtotal[]"]').val().trim() || '0';
+                    // Optional: Format numbers with thousand separators if numeric
+                    function formatNumber(num) {
+                        return isNaN(num) || num === '-' ? num : Number(num).toLocaleString();
+                    }
+                    var row = '<tr>' +
+                        `<td>${index + 1}</td>` +
+                        `<td>${namaItem}</td>` +
+                        `<td class="text-right">${formatNumber(hargaSatuan)}</td>` +
+                        `<td class="text-center">${formatNumber(jumlah)}</td>` +
+                        `<td class="text-right">${formatNumber(subtotal)}</td>` +
+                        '</tr>';
+                    tbody.append(row);
+                });
+            }
+
+            // Update preview initially
+            updatePreview();
+
+            // Once add button is clicked
+            $(addButton).click(function() {
+                // Check maximum number of input fields
+                if (x < maxField) {
+                    x++; // Increment field counter
+                    $(wrapper).append(fieldHTML); // Add field html
+                    updatePreview();
+                }
             });
-        }
 
-        // Update preview initially
-        updatePreview();
-
-        // Once add button is clicked
-        $(addButton).click(function() {
-            // Check maximum number of input fields
-            if (x < maxField) {
-                x++; // Increment field counter
-                $(wrapper).append(fieldHTML); // Add field html
+            // Once remove button is clicked
+            $(wrapper).on('click', '.remove_button', function(e) {
+                e.preventDefault();
+                $(this).closest('.form-row').remove(); // Remove field html
+                x--; // Decrement field counter
                 updatePreview();
-            }
-        });
+            });
 
-        // Once remove button is clicked
-        $(wrapper).on('click', '.remove_button', function(e) {
-            e.preventDefault();
-            $(this).closest('.form-row').remove(); // Remove field html
-            x--; // Decrement field counter
-            updatePreview();
+            // Update preview on input change in any input within the wrapper
+            wrapper.on('input', 'input', function() {
+                updatePreview();
+            });
         });
-
-        // Update preview on input change in any input within the wrapper
-        wrapper.on('input', 'input', function() {
-            updatePreview();
-        });
-    });
 
     </script>
 
-    {{-- <script>
-        document.getElementById("tampilkan_tagihan").addEventListener("click", tampilkan_nilai_form);
 
-        function tampilkan_nilai_form(){
-            const inputNoTagihan = document.getElementById("noTagihan");
-            const spanNoTagihan = document.getElementById("noTagihanSpan");
-            const inputUpTagihan = document.getElementById("upTagihan");
-            const spanUpTagihan = document.getElementById("upTagihanSpan");
-            const inputTanggalTagihan = document.getElementById("tanggalTagihan");
-            const spanTanggalTagihan = document.getElementById("tanggalTagihanSpan");
-
-            // document.getElementById("hasil").innerHTML=nilai_form;
-            spanNoTagihan.textContent = inputNoTagihan.value;
-            spanUpTagihan.textContent= inputUpTagihan.value;
-            spanTanggalTagihan.textContent= inputTanggalTagihan.value;
-
-        }
-
-
-        // const inputNoTagihan = document.getElementById("noTagihan");
-        // const spanNoTagihan = document.getElementById("noTagihanSpan");
-        // const inputUpTagihan = document.getElementById("upTagihan");
-        // const spanUpTagihan = document.getElementById("upTagihanSpan");
-        // const inputTanggalTagihan = document.getElementById("tanggalTagihan");
-        // const spanTanggalTagihan = document.getElementById("tanggalTagihanSpan");
-
-        // inputTanggalTagihan.addEventListener("input", function() {
-        //     spanNoTagihan.textContent = inputNoTagihan.value;
-        //     spanUpTagihan.textContent= inputUpTagihan.value;
-        //     spanTanggalTagihan.textContent= inputTanggalTagihan.value;
-        // });
-    </script> --}}
-
-
-    <script>
-    // membuat data berbah pada saat dropdown berubah
-        function fetchData() {
-            const pelangganId = document.getElementById('pelanggan_id').value;
-
-            if (pelangganId) {
-                fetch(`/get-customer-pic/${pelangganId}`)
-                    .then(response => response.json())
-                    .then(data => {
-                        document.getElementById('inputpicUser').value = data.picUser  || '';
-                        document.getElementById('inputpicAlamat').value = data.picAlamat || '';
-                        document.getElementById('inputpicTlp').value = data.picTlp || '';
-                        document.getElementById('inputpicEmail').value = data.picEmail || '';
-                    })
-                    .catch(error => console.error('Error fetching data:', error));
-            } else {
-                // Clear fields if no pelanggan is selected
-                document.getElementById('inputpicUser').value = '';
-                document.getElementById('inputpicAlamat').value = '';
-                document.getElementById('inputpicTlp').value = '';
-                document.getElementById('inputpicEmail').value = '';
-            }
-        }
-    </script>
 
 @endpush
 

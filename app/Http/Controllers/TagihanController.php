@@ -20,8 +20,10 @@ class TagihanController extends Controller
         $title = "tagihan ";
         $statusTagihan= StatusTagihan::all();
         $tagihan = Tagihan::all();
+        $vendor= Vendor::all();
 
-        return view('tagihan.index', compact('tagihan', 'title','statusTagihan'));
+
+        return view('tagihan.index', compact('tagihan', 'title','statusTagihan','vendor'));
     }
 
     /**
@@ -37,8 +39,9 @@ class TagihanController extends Controller
         // return view('tagihan.lagi', compact('vendor','title','pelanggan'));
         // return view('tagihan.lagi');
         $pelanggan =Pelanggan::all();
+        $vendor= Vendor::all();
 
-        return view('tagihan.lagi', compact('tagihan','pelanggan'));
+        return view('tagihan.lagi', compact('tagihan','pelanggan','vendor'));
 
 
     }
@@ -49,6 +52,8 @@ class TagihanController extends Controller
     public function store(Request $request)
     {
 
+
+        return $request->all();
 
 
        $data = $request->validate([

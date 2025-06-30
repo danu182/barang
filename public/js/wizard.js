@@ -35,7 +35,7 @@ $(document).ready(function() {
     	var progress_line = $(this).parents('.f1').find('.f1-progress-line');
 
     	// validasi form
-    	parent_fieldset.find('input[type="text"], input[type="password"], textarea').each(function() {
+    	parent_fieldset.find('input[type="text"], input[type="password"], input[type="email"], input[type="number"], input[type="date"], textarea').each(function() {
     		if( $(this).val() == "" ) {
     			$(this).addClass('input-error');
     			next_step = false;
@@ -91,3 +91,7 @@ $(document).ready(function() {
     	});
     });
 });
+
+
+
+

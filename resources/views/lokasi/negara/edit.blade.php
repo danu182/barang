@@ -33,16 +33,18 @@
                 <div class="card-body">
                     <div class="table-responsive">
 
-                         {{-- <form action="{{ route('negara.store') }}" method="POST"> --}}
-                        <form method="POST" action="{{route('negara.store')}}">
+
+                        <form method="POST" action="{{route('negara.update', $negara['id'])}}">
                             @csrf
+                            @method('PUT')
+
                             <div class="form-group">
                                 <label for="exampleFormControlInput1">nama Negara</label>
-                                <input type="text" class="form-control text-uppercase" name="namaNegara" id="namaNegara" placeholder="nama negara">
+                                <input type="text" class="form-control text-uppercase" name="namaNegara" id="namaNegara" placeholder="nama negara" value="{{ $negara->namaNegara }}">
                             </div>
                             <div class="form-group">
                                 <label for="keteranganNegara">keteranganNegara</label>
-                                <textarea name="keteranganNegara" class="form-control" id="keteranganNegara" rows="3" placeholder="keterangan"></textarea>
+                                <textarea name="keteranganNegara" class="form-control" id="keteranganNegara" rows="3" placeholder="keterangan">{{ $negara->keteranganNegara }}</textarea>
                             </div>
                             <button type="submit" class="btn btn-primary">Submit</button>
                          </form>

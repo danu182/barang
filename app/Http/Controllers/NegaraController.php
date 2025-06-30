@@ -14,7 +14,7 @@ class NegaraController extends Controller
     {
         $title= "Negara";
         $negara = Negara::all();
-        return view('lokasi.negara.index', compact('title','negara'));s
+        return view('lokasi.negara.index', compact('title','negara'));
     }
 
     /**
@@ -22,7 +22,10 @@ class NegaraController extends Controller
      */
     public function create()
     {
-        //
+
+        $title="tambah negara";
+        return view('lokasi.negara.create', compact('title'));
+
     }
 
     /**
@@ -30,7 +33,13 @@ class NegaraController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->validate([
+            'namaNegara' => 'required|string|max:255',
+            'keteranganNegara' => 'string|max:255',
+        ]);
+
+        $kategori = Negara::create($data);
+        return redirect()->route('negara.index')->with('success', ' negara = ' . $request->namaNegara . ' added successfully ');
     }
 
     /**
@@ -46,7 +55,11 @@ class NegaraController extends Controller
      */
     public function edit(Negara $negara)
     {
-        //
+        $title='edit Negara`';
+
+        $negara= Negara::first();
+
+        return view('lokasi.negara.edit', compact('negara','title'));
     }
 
     /**
@@ -54,7 +67,14 @@ class NegaraController extends Controller
      */
     public function update(Request $request, Negara $negara)
     {
-        //
+        $data = $request->validate([
+            'namaNegara' => 'required|string|max:255',
+            'keteranganNegara' => 'string|max:255',
+        ]);
+
+        $negara->update($data);
+        return redirect()->route('negara.index')->with('success', ' negara = ' . $request->namaNegara . ' updated successfully ');
+
     }
 
     /**
@@ -62,6 +82,14 @@ class NegaraController extends Controller
      */
     public function destroy(Negara $negara)
     {
-        //
+        try{
+            $negara->delete();
+
+        }
+        catch(\Exception $e){
+            return redirect()->route('negara.index')->with('error', ' kategori ' . $negara->namaProfinsi . $e->getMessage());
+
+        }
+        return redirect()->route('negara.index')->with('success', ' kategori ' . $negara->namaProfinsi . ' berhasil di delete.');
     }
 }

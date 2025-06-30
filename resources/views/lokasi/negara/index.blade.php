@@ -78,11 +78,12 @@
                                 @foreach ($negara as $item)
                                     <tr>
                                         <td>{{$item['id']}}</td>
-                                        <td>{{$item['namaNegara']}}</td>
+                                        <td class="text-uppercase">{{$item['namaNegara']}}</td>
                                         <td>{{$item['keteranganNegara']}}</td>
 
                                         <td>
-                                            <a href="{{ route('negara.show',['negara'=>$item['id'], 'ram'=>$item['id']] )  }}" class="btn btn-info">detail</a>
+                                            <a href="{{ route('negara.show',$item['id'] )  }}" class="btn btn-info">detail</a>
+                                            <a href="{{ route('negara.edit',$item['id'] )  }}" class="btn btn-warning">edit</a>
 
                                             <form action="{{ route('negara.destroy',  ['negara' => $item['id']]  ) }}" method="POST" style="display:inline;">
                                                 @csrf

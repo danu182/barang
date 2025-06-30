@@ -36,5 +36,15 @@ class Barang extends Model
         return $this->hasMany(Ram::class, 'barang_id', 'id');
     }
 
+    public function hd()
+    {
+        return $this->hasMany(Harddisk::class, 'barang_id', 'id');
+    }
+
+    public function prosesor()
+    {
+        return $this->hasMany(Prosesor::class, 'barang_id', 'id');
+    }
+
 
 }

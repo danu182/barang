@@ -4,6 +4,7 @@ use App\Http\Controllers\BarangController;
 use App\Http\Controllers\HarddiskController;
 use App\Http\Controllers\JavaScriptController;
 use App\Http\Controllers\KategoriController;
+use App\Http\Controllers\NegaraController;
 use App\Http\Controllers\PelangganController;
 use App\Http\Controllers\ProsesorController;
 use App\Http\Controllers\RamController;
@@ -36,6 +37,9 @@ Route::resource('sosmed.detail.login', SosmedDetailLoginController::class);
 Route::resource('subcont', VendorController::class);
 Route::resource('pelanggan', PelangganController::class);
 Route::get('/get-customer-pic/{id}', [PelangganController::class, 'getCustomerPic'])->name('get.customer.pic');
+
+Route::resource('negara', NegaraController::class);
+
 
 
 Route::resource('tagihan', TagihanController::class);

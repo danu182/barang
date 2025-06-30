@@ -19,7 +19,9 @@ class BarangController extends Controller
         // $tgl = date('Y-m-d');
         // return Helpers::formatDate($tgl);
 
-        // $barang =Barang::with('kategori')->get();
+        // $barang =Barang::with('kategori','hd', 'ram','prosesor')->get();
+        // return $barang;
+
         $barang =Barang::with('kategori')->get();
         // return $barang;
 

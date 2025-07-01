@@ -35,11 +35,21 @@ class KotaController extends Controller
      */
     public function store(Request $request)
     {
-        $data = $request->validate([
-            'profinsi_id' => 'exists:negaras,id',
-            'namaKota' => 'required|string|max:255',
-            'keteranganKota'=>'nullable',
-        ]);
+
+        // return $request->all();
+        // $data = $request->validate([
+        //     'profinsi_id' => 'exists:negaras,id',
+        //     'namaKota' => 'required|string|max:255',
+        //     'keteranganKota'=>'nullable',
+        // ]);
+
+        // return $request->all();
+        $data = [
+            'profinsi_id' => $request->profinsi_id,
+            'namaKota' => $request->namaKota,
+            'keteranganKota'=>$request->keteranganKota,
+        ];
+
         $kota = Kota::create($data);
         return redirect()->route('kota.index')->with('success', ' Kota  ' . $request->namaKota . ' add successfully ');
     }
@@ -75,11 +85,19 @@ class KotaController extends Controller
      */
     public function update(Request $request, Kota $kota, $id)
     {
-        $data = $request->validate([
-            'profinsi_id' => 'exists:profinsis,id',
-            'namaKota' => 'required|string|max:255',
-            'keteranganKota'=>'nullable',
-        ]);
+        // $data = $request->validate([
+        //     'profinsi_id' => 'exists:profinsis,id',
+        //     'namaKota' => 'required|string|max:255',
+        //     'keteranganKota'=>'nullable',
+        // ]);
+
+
+        $data = [
+            'profinsi_id' => $request->profinsi_id,
+            'namaKota' => $request->namaKota,
+            'keteranganKota'=>$request->keteranganKota,
+        ];
+
 
         $kota = Kota::find($id);
         $kota->update($data);

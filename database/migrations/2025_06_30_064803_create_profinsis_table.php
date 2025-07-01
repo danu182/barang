@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('profinsis', function (Blueprint $table) {
             $table->id();
 
-            $table->foreignId('negara_id')->constrained('negaras')->onDelete('restrict'); // Foreign key reference
+            $table->foreignId('negara_id')->constrained('negaras')->onDelete('cascade'); // Foreign key reference
 
             $table->string('namaProfinsi')->nullable();
             $table->text('keteranganProfinsi');

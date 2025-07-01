@@ -4,8 +4,10 @@ use App\Http\Controllers\BarangController;
 use App\Http\Controllers\HarddiskController;
 use App\Http\Controllers\JavaScriptController;
 use App\Http\Controllers\KategoriController;
+use App\Http\Controllers\KotaController;
 use App\Http\Controllers\NegaraController;
 use App\Http\Controllers\PelangganController;
+use App\Http\Controllers\ProfinsiController;
 use App\Http\Controllers\ProsesorController;
 use App\Http\Controllers\RamController;
 use App\Http\Controllers\SosmedController;
@@ -39,6 +41,8 @@ Route::resource('pelanggan', PelangganController::class);
 Route::get('/get-customer-pic/{id}', [PelangganController::class, 'getCustomerPic'])->name('get.customer.pic');
 
 Route::resource('negara', NegaraController::class);
+Route::resource('profinsi', ProfinsiController::class);
+Route::resource('kota', KotaController::class);
 
 
 

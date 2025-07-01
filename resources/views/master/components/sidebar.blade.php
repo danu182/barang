@@ -39,6 +39,8 @@
                         <h6 class="collapse-header">Custom Lokasi:</h6>
 
                         <a class="collapse-item" href="{{ route('negara.index') }}">negara</a>
+                        <a class="collapse-item" href="{{ route('profinsi.index') }}">profinsi</a>
+                        <a class="collapse-item" href="{{ route('kota.index') }}">kota</a>
                         {{-- <a class="collapse-item" href="{{ route('city.index') }}">kota</a>
                         <a class="collapse-item" href="{{ route('gedung.index') }}">gedung</a> --}}
 

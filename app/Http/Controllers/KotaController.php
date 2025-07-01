@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Kota;
+use App\Models\Profinsi;
 use Illuminate\Http\Request;
 
 class KotaController extends Controller
@@ -12,7 +13,11 @@ class KotaController extends Controller
      */
     public function index()
     {
-        //
+        $title="";
+        $kota =Kota::all();
+
+
+        return view('lokasi.kota.index', compact('kota'));
     }
 
     /**
@@ -20,7 +25,9 @@ class KotaController extends Controller
      */
     public function create()
     {
-        //
+        $title ="tambah kota";
+        $profinsi =Profinsi::All();
+        return view('lokasi.kota.create', compact('profinsi','title'));
     }
 
     /**
@@ -28,7 +35,13 @@ class KotaController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->validate([
+            'profinsi_id' => 'exists:negaras,id',
+            'namaKota' => 'required|string|max:255',
+            'keteranganKota'=>'nullable',
+        ]);
+        $kota = Kota::create($data);
+        return redirect()->route('kota.index')->with('success', ' Kota  ' . $request->namaKota . ' add successfully ');
     }
 
     /**

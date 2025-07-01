@@ -19,6 +19,7 @@ class Profinsi extends Model
 
     public function negara()
     {
-        return $this->hasOne(Negara::class, 'negara_id', 'id');
+        return $this->hasOne(Negara::class, 'id', 'negara_id');
     }
+
 }

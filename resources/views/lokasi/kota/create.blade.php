@@ -33,14 +33,12 @@
                 <div class="card-body">
                     <div class="table-responsive">
 
-                         {{-- <form action="{{ route('negara.store') }}" method="POST"> --}}
                         <form method="POST" action="{{route('kota.store')}}">
                             @csrf
 
-
                             <div class="form-group">
-                                <label for="exampleFormControlInput1">nama Negara</label>
-                                <select name="negara_id" class="form-control text-uppercase">
+                                <label for="exampleFormControlInput1">nama profinsi</label>
+                                <select name="profinsi_id" class="form-control text-uppercase">
                                     <option disabled>----------------------------</option>
                                     @foreach ($profinsi as $item)
                                     <option value="{{ $item->id }}">{{ $item->namaProfinsi }}</option>
@@ -60,6 +58,7 @@
                             </div>
                             <button type="submit" class="btn btn-primary">Submit</button>
                          </form>
+
                     </div>
                 </div>
             </div>

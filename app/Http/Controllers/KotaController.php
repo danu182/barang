@@ -49,30 +49,57 @@ class KotaController extends Controller
      */
     public function show(Kota $kota)
     {
-        //
+        return $kota;
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Kota $kota)
+    public function edit(Kota $kota, $id)
     {
-        //
+        $kota = Kota::find($id); // Manually find the Kota by ID
+
+        if (!$kota) {
+            // If not found, redirect back to the index with an error message
+            return redirect()->route('lokasi.kota.index')->with('error', 'Data kota tidak ditemukan.');
+        }
+
+        $title = "Edit Data Kota";
+        $profinsi= Profinsi::all();
+
+        return view('lokasi.kota.edit',compact('kota', 'title','profinsi'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Kota $kota)
+    public function update(Request $request, Kota $kota, $id)
     {
-        //
+        $data = $request->validate([
+            'profinsi_id' => 'exists:profinsis,id',
+            'namaKota' => 'required|string|max:255',
+            'keteranganKota'=>'nullable',
+        ]);
+
+        $kota = Kota::find($id);
+        $kota->update($data);
+        return redirect()->route('kota.index')->with('success', ' Kota = ' . $request->namaKota . ' added successfully ');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Kota $kota)
+    public function destroy(Kota $kota, $id)
     {
-        //
+        try{
+            $kota=Kota::find($id);
+            $kota->delete();
+
+        }
+        catch(\Exception $e){
+            return redirect()->route('kota.index')->with('error', ' kota ' . $kota->namaKota . $e->getMessage());
+
+        }
+        return redirect()->route('kota.index')->with('success', ' kota ' . $kota->namaKota . ' berhasil di delete.');
     }
 }

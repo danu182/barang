@@ -18,9 +18,9 @@ class Kota extends Model
 
 
 
-    public function user()
+    public function profinsi()
     {
-        return $this->hasOne(Profinsi::class, 'profinsi_id', 'id');
+        return $this->hasOne(Profinsi::class, 'id', 'profinsi_id');
     }
 
 }

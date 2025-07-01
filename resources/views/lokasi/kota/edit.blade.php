@@ -34,31 +34,34 @@
                     <div class="table-responsive">
 
 
-                        <form method="POST" action="{{route('profinsi.update', $profinsi['id'])}}">
+                        <form method="POST" action="{{route('kota.update', $kota['id'])}}">
                             @csrf
                             @method('PUT')
 
                             <div class="form-group">
-                                <label for="exampleFormControlInput1">nama Negara</label>
-                                <select name="negara_id" id="" class="form-control">
-                                    <option value="{{ $profinsi->negara_id }}">{{ $profinsi->negara->namaNegara  }}</option>
-                                    <option value="">-- Pilih Negara --</option>
-                                    @foreach ($negara as $item)
-                                        <option value="{{ $item->id }}">{{ $item->namaNegara }}</option>
+                                <label for="exampleFormControlInput1">nama profinsi</label>
+                                <select name="profinsi_id" class="form-control text-uppercase">
+                                    <option value="{{ $kota->profinsi_id }}">{{ $kota->profinsi->namaProfinsi }}</option>
+                                    <option disabled>----------------------------</option>
+                                    @foreach ($profinsi as $item)
+                                    <option value="{{ $item->id }}">{{ $item->namaProfinsi }}</option>
+
                                     @endforeach
                                 </select>
                             </div>
 
                             <div class="form-group">
-                                <label for="exampleFormControlInput1">nama profinsi</label>
-                                <input type="text" class="form-control text-uppercase" name="namaProfinsi" id="namaProfinsi" placeholder="nama Profinsi" value="{{ $profinsi->namaProfinsi }}">
+                                <label for="exampleFormControlInput1">nama Kota</label>
+                                <input type="text" class="form-control text-uppercase" name="namaKota" id="namaKota" placeholder="nama Kota" value="{{ $kota->namaKota }}">
                             </div>
+
                             <div class="form-group">
-                                <label for="keteranganNegara">keterangan Profinsi</label>
-                                <textarea name="keteranganProfinsi" class="form-control" id="keteranganProfinsi" rows="3" placeholder="keterangan">{{ $profinsi->keteranganProfinsi }}</textarea>
+                                <label for="keteranganKota">keteranganKota</label>
+                                <textarea name="keteranganKota" class="form-control" id="keteranganProfinsi" rows="3" placeholder="keterangan">{{ $kota->keteranganKota }}</textarea>
                             </div>
                             <button type="submit" class="btn btn-primary">Submit</button>
                          </form>
+
                     </div>
                 </div>
             </div>

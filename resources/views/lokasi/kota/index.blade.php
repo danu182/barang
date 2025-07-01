@@ -49,7 +49,7 @@
                             <thead>
                                 <tr>
                                     <th>id</th>
-                                    <th>profinsi_id</th>
+                                    <th>profinsi</th>
                                     <th>namaKota</th>
                                     <th>keteranganKota</th>
                                     <th>aksi</th>
@@ -59,7 +59,7 @@
 
                                 <tr>
                                     <th>id</th>
-                                    <th>profinsi_id</th>
+                                    <th>profinsi</th>
                                     <th>namaKota</th>
                                     <th>keteranganKota</th>
                                     <th>aksi</th>
@@ -71,14 +71,15 @@
                                 @foreach ($kota as $item)
                                     <tr>
                                         <td>{{$item['id']}}</td>
+                                        <td class="text-uppercase">{{$item->profinsi->namaProfinsi}}</td>
                                         <td class="text-uppercase">{{$item['namaKota']}}</td>
-                                        <td>{{$item['keterangankota']}}</td>
+                                        <td>{{$item['keteranganKota']}}</td>
 
                                         <td>
                                             <a href="{{ route('kota.show',$item['id'] )  }}" class="btn btn-info">detail</a>
                                             <a href="{{ route('kota.edit',$item['id'] )  }}" class="btn btn-warning">edit</a>
 
-                                            <form action="{{ route('kota.destroy',  ['kota' => $item['id']]  ) }}" method="POST" style="display:inline;">
+                                            <form action="{{ route('kota.destroy',$item['id'] ) }}" method="POST" style="display:inline;">
                                                 @csrf
                                                 @method('DELETE')
                                                 <button type="submit" class="btn btn-danger">Delete</button>

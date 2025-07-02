@@ -36,9 +36,22 @@
                          {{-- <form action="{{ route('negara.store') }}" method="POST"> --}}
                         <form method="POST" action="{{route('negara.store')}}">
                             @csrf
+
+
+                            <div class="form-group">
+                                <label for="exampleFormControlInput1">nama Negara</label>
+                                <select name="" id="" class="form-control text-uppercase">
+                                    @foreach ($barang as $item)
+                                        <option value="{{ $item->id }}">{{ $item->kategori->namaKategori }} | {{ $item->kodeBarang }} | {{ $item->namaBarang }} | {{ $item->merek }} | {{ $item->model }} | {{ $item->nomorSeri }} | {{ $item->vendor }} | {{ $item->ram->tipeRam->keterangan }} | {{ $item->ram->kapasitas }}</option>
+                                    @endforeach
+                                </select>
+
+                            </div>
+
                             <div class="form-group">
                                 <label for="exampleFormControlInput1">nama Negara</label>
                                 <input type="text" class="form-control text-uppercase" name="namaNegara" id="namaNegara" placeholder="nama negara">
+                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#staticBackdrop">cari</button>
                             </div>
                             <div class="form-group">
                                 <label for="keteranganNegara">keteranganNegara</label>
@@ -51,8 +64,32 @@
             </div>
 
         </div>
+
+
+
     <!-- /.container-fluid -->
 
+
+    <!-- Modal -->
+        <div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel">Modal title</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                ...
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Understood</button>
+            </div>
+            </div>
+        </div>
+        </div>
 
 
 

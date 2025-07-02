@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\AssetMutation;
+use App\Models\Barang;
 use Illuminate\Http\Request;
 
 class AssetMutationController extends Controller
@@ -13,8 +14,9 @@ class AssetMutationController extends Controller
     public function index()
     {
 
-        // $assetMutation = AssetMutation::All();
-        // return view('assetMutasi.index', compact('assetMutation'));
+        $assetMutation = AssetMutation::all();
+
+        return view('assetMutasi.index', compact('assetMutation'));
 
     }
 
@@ -23,7 +25,14 @@ class AssetMutationController extends Controller
      */
     public function create()
     {
-        //
+        $title="tmabah mutasi";
+
+        $barang= Barang::with('ram', 'ram.tipeRam_id')->get();
+
+        return $barang;
+
+
+        return view('assetMutasi.create', compact('title','barang'));
     }
 
     /**

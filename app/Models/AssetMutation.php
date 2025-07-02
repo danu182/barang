@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class AssetMutation extends Model
 {
-    use HasFactory, SoftDeletes;
+    use HasFactory;
 
     protected $fillable=[
         'barang_id',

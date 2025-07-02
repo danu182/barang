@@ -12,7 +12,8 @@ class BagianController extends Controller
      */
     public function index()
     {
-        //
+        $bagian= Bagian::all();
+        return view('bagian.index', compact('bagian'));
     }
 
     /**
@@ -20,7 +21,8 @@ class BagianController extends Controller
      */
     public function create()
     {
-        //
+        $title= "tambah bagian";
+        return view('bagian.create', compact('title'));
     }
 
     /**
@@ -28,7 +30,13 @@ class BagianController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->validate([
+            'nama_bagian' => 'required|string|max:255',
+            'keteranganBagian'=>'nullable',
+        ]);
+
+        $kota = Bagian::create($data);
+        return redirect()->route('bagian.index')->with('success', ' bagian  ' . $request->nama_bagian . ' add successfully ');
     }
 
     /**
@@ -44,7 +52,8 @@ class BagianController extends Controller
      */
     public function edit(Bagian $bagian)
     {
-        //
+        $title ="edit bagian";
+        return view('bagian.edit',compact('bagian', 'title'));
     }
 
     /**
@@ -52,7 +61,12 @@ class BagianController extends Controller
      */
     public function update(Request $request, Bagian $bagian)
     {
-        //
+        $data = $request->validate([
+            'nama_bagian' => 'required|string|max:255',
+            'keteranganBagian'=>'nullable',
+        ]);
+        $bagian->update($data);
+        return redirect()->route('bagian.index')->with('success', ' bagian  ' . $request->nama_bagian . ' updated successfully ');
     }
 
     /**
@@ -60,6 +74,14 @@ class BagianController extends Controller
      */
     public function destroy(Bagian $bagian)
     {
-        //
+       try{
+            $bagian->delete();
+
+        }
+        catch(\Exception $e){
+            return redirect()->route('bagian.index')->with('error', ' bagian ' . $bagian->nama_bagian . $e->getMessage());
+
+        }
+        return redirect()->route('bagian.index')->with('success', ' bagian ' . $bagian->nama_bagian . ' berhasil di delete.');
     }
 }

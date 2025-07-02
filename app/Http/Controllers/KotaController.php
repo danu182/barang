@@ -101,7 +101,7 @@ class KotaController extends Controller
 
         $kota = Kota::find($id);
         $kota->update($data);
-        return redirect()->route('kota.index')->with('success', ' Kota = ' . $request->namaKota . ' added successfully ');
+        return redirect()->route('kota.index')->with('success', ' Kota = ' . $request->namaKota . ' updated successfully ');
     }
 
     /**

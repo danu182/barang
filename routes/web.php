@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\BagianController;
 use App\Http\Controllers\BarangController;
 use App\Http\Controllers\HarddiskController;
 use App\Http\Controllers\JavaScriptController;
@@ -43,6 +44,10 @@ Route::get('/get-customer-pic/{id}', [PelangganController::class, 'getCustomerPi
 Route::resource('negara', NegaraController::class);
 Route::resource('profinsi', ProfinsiController::class);
 Route::resource('kota', KotaController::class);
+
+
+
+Route::resource('bagian', BagianController::class);
 
 
 

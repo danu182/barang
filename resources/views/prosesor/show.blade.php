@@ -67,7 +67,7 @@
 
 
     @push('js') {{-- Or just place inside <script> tags directly --}}
-        <script>
+        {{-- <script>
             document.addEventListener('DOMContentLoaded', function () {
                 const gambarInput = document.getElementById('gambar');
                 const gambarPreview = document.getElementById('gambar-preview');
@@ -90,7 +90,7 @@
                     }
                 });
             });
-        </script>
+        </script> --}}
     @endpush
 
 

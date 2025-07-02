@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Kota;
 use App\Models\Lokasi;
+use App\Models\Negara;
 use Illuminate\Http\Request;
 
 class LokasiController extends Controller
@@ -12,7 +14,10 @@ class LokasiController extends Controller
      */
     public function index()
     {
-        //
+        $lokasi=Lokasi::all();
+
+        return view('lokasi.lokasi.index', compact('lokasi'));
+
     }
 
     /**
@@ -20,7 +25,9 @@ class LokasiController extends Controller
      */
     public function create()
     {
-        //
+        $title="tamabh lokasi";
+        $kota=Kota::all();
+        return view('lokasi.lokasi.create', compact('title', 'kota'));
     }
 
     /**
@@ -28,7 +35,17 @@ class LokasiController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
+        $data = $request->validate([
+            'kota_id' => 'exists:KOTAS,id',
+            'namaLokasi' => 'required|string|max:255',
+            'lantai'=>'nullable',
+            'keterangan'=>'nullable',
+        ]);
+
+        Lokasi::create($data);
+        return redirect()->route('lokasi.index')->with('success', ' lokasi = ' . $request->namaLokasi . ' add successfully ');
+
     }
 
     /**
@@ -44,7 +61,9 @@ class LokasiController extends Controller
      */
     public function edit(Lokasi $lokasi)
     {
-        //
+        $kota=Kota::all();
+        $title ="edit lokasi";
+        return view('lokasi.lokasi.edit', compact('lokasi','title', 'kota'));
     }
 
     /**
@@ -52,7 +71,15 @@ class LokasiController extends Controller
      */
     public function update(Request $request, Lokasi $lokasi)
     {
-        //
+        $data = $request->validate([
+            'kota_id' => 'exists:KOTAS,id',
+            'namaLokasi' => 'required|string|max:255',
+            'lantai'=>'nullable',
+            'keterangan'=>'nullable',
+        ]);
+
+        $lokasi->update($data);
+        return redirect()->route('lokasi.index')->with('success', ' lokasi = ' . $request->namaLokasi . ' updated successfully ');
     }
 
     /**
@@ -60,6 +87,14 @@ class LokasiController extends Controller
      */
     public function destroy(Lokasi $lokasi)
     {
-        //
+        try{
+            $lokasi->delete();
+
+        }
+        catch(\Exception $e){
+            return redirect()->route('lokasi.index')->with('error', ' kategori ' . $lokasi->namaLokasi . $e->getMessage());
+
+        }
+        return redirect()->route('lokasi.index')->with('success', ' kategori ' . $lokasi->namaLokasi . ' berhasil di delete.');
     }
 }

@@ -5,7 +5,9 @@ use App\Http\Controllers\BarangController;
 use App\Http\Controllers\HarddiskController;
 use App\Http\Controllers\JavaScriptController;
 use App\Http\Controllers\KategoriController;
+use App\Http\Controllers\KondisiController;
 use App\Http\Controllers\KotaController;
+use App\Http\Controllers\LokasiController;
 use App\Http\Controllers\NegaraController;
 use App\Http\Controllers\PelangganController;
 use App\Http\Controllers\ProfinsiController;
@@ -15,6 +17,7 @@ use App\Http\Controllers\SosmedController;
 use App\Http\Controllers\SosmedDetailController;
 use App\Http\Controllers\SosmedDetailLoginController;
 use App\Http\Controllers\TagihanController;
+use App\Http\Controllers\TipeMutasiController;
 use App\Http\Controllers\VendorController;
 use Illuminate\Support\Facades\Route;
 
@@ -35,6 +38,7 @@ Route::resource('sosmed.detail', SosmedDetailController::class);
 Route::resource('sosmed', SosmedController::class);
 Route::resource('sosmed.detail.login', SosmedDetailLoginController::class);
 
+
 Route::resource('subcont', VendorController::class);
 Route::resource('pelanggan', PelangganController::class);
 Route::get('/get-customer-pic/{id}', [PelangganController::class, 'getCustomerPic'])->name('get.customer.pic');
@@ -43,6 +47,13 @@ Route::get('/get-customer-pic/{id}', [PelangganController::class, 'getCustomerPi
 Route::resource('negara', NegaraController::class);
 Route::resource('profinsi', ProfinsiController::class);
 Route::resource('kota', KotaController::class);
+
+
+
+
+Route::resource('lokasi', LokasiController::class);
+Route::resource('kondisi', KondisiController::class);
+Route::resource('tipemutasi', TipeMutasiController::class);
 
 
 

@@ -44,6 +44,7 @@
                         <a class="collapse-item" href="{{ route('lokasi.index') }}">lokasi</a>
 
                         <a class="collapse-item" href="{{ route('bagian.index') }}">bagian</a>
+                        <a class="collapse-item" href="{{ route('kondisi.index') }}">kondisi</a>
                         {{-- <a class="collapse-item" href="{{ route('city.index') }}">kota</a>
                         <a class="collapse-item" href="{{ route('gedung.index') }}">gedung</a> --}}
 

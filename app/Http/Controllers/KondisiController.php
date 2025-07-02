@@ -12,7 +12,11 @@ class KondisiController extends Controller
      */
     public function index()
     {
-        //
+        $kondisi =Kondisi::all();
+        $title="kondisi";
+
+        return view('kondisi.index', compact('kondisi','title'));
+
     }
 
     /**
@@ -20,7 +24,8 @@ class KondisiController extends Controller
      */
     public function create()
     {
-        //
+        $title ="tambah kondisi";
+        return view('kondisi.create', compact('title'));
     }
 
     /**
@@ -28,15 +33,22 @@ class KondisiController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->validate([
+            'namaKondisi' => 'required|string|max:255',
+            'keteranganKondisi' => 'string|max:255',
+        ]);
+
+        $kategori = Kondisi::create($data);
+        return redirect()->route('kondisi.index')->with('success', ' kondisi = ' . $request->namaKondisi . ' added successfully ');
     }
+
 
     /**
      * Display the specified resource.
      */
     public function show(Kondisi $kondisi)
     {
-        //
+
     }
 
     /**
@@ -44,7 +56,11 @@ class KondisiController extends Controller
      */
     public function edit(Kondisi $kondisi)
     {
-        //
+        $title='edit Negara`';
+
+        $negara= Kondisi::first();
+
+        return view('lokasi.negara.edit', compact('negara','title'));
     }
 
     /**
@@ -52,7 +68,14 @@ class KondisiController extends Controller
      */
     public function update(Request $request, Kondisi $kondisi)
     {
-        //
+        $data = $request->validate([
+            'namaKondisi' => 'required|string|max:255',
+            'keteranganKondisi' => 'string|max:255',
+        ]);
+
+        $kondisi->update($data);
+
+        return redirect()->route('kondisi.index')->with('success', ' kondisi = ' . $request->namaKondisi . ' added successfully ');
     }
 
     /**
@@ -60,6 +83,14 @@ class KondisiController extends Controller
      */
     public function destroy(Kondisi $kondisi)
     {
-        //
+        try{
+            $kondisi->delete();
+
+        }
+        catch(\Exception $e){
+            return redirect()->route('negara.index')->with('error', ' kondisi ' . $kondisi->namaKondisi . $e->getMessage());
+
+        }
+        return redirect()->route('negara.index')->with('success', ' kondisi ' . $kondisi->namaKondisi . ' berhasil di delete.');
     }
 }

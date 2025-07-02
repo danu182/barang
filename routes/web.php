@@ -35,11 +35,10 @@ Route::resource('sosmed.detail', SosmedDetailController::class);
 Route::resource('sosmed', SosmedController::class);
 Route::resource('sosmed.detail.login', SosmedDetailLoginController::class);
 
-
-
 Route::resource('subcont', VendorController::class);
 Route::resource('pelanggan', PelangganController::class);
 Route::get('/get-customer-pic/{id}', [PelangganController::class, 'getCustomerPic'])->name('get.customer.pic');
+
 
 Route::resource('negara', NegaraController::class);
 Route::resource('profinsi', ProfinsiController::class);
@@ -48,8 +47,6 @@ Route::resource('kota', KotaController::class);
 
 
 Route::resource('bagian', BagianController::class);
-
-
 
 Route::resource('tagihan', TagihanController::class);
 

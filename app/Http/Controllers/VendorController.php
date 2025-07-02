@@ -40,6 +40,7 @@ class VendorController extends Controller
             'namaVendor' => 'string|required',
             'alamatVendor' => 'string|max:255',
             'tlpVendor' => 'string|max:255',
+            'emailVendor' => 'nullable|email',
             'keterangan' => 'nullable|string',
         ]);
 
@@ -75,20 +76,22 @@ class VendorController extends Controller
      */
     public function update(Request $request, Vendor $vendor, $id)
     {
-
-        // return $vendor;
-        // Validasi input
         $data = $request->validate([
             'namaVendor' => 'string|required',
             'alamatVendor' => 'string|max:255',
             'tlpVendor' => 'string|max:255',
+            'emailVendor' => 'nullable|email',
             'keterangan' => 'nullable|string',
         ]);
+
+
+        // $vendor->update();
 
         $vendor= Vendor::findOrFail($id);
         $vendor->namaVendor = $data['namaVendor'];
         $vendor->alamatVendor = $data['alamatVendor'];
         $vendor->tlpVendor = $data['tlpVendor'];
+        $vendor->emailVendor = $data['emailVendor'];
         $vendor->keterangan = $data['keterangan'];
         $vendor->save();
 

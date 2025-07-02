@@ -42,12 +42,9 @@
                 <div class="card-body">
                     <div class="table-responsive">
 
-                        {{-- <form method="POST" action="{{ route('barang.vendor.show',['barang'=>$barang['id']]) }}" > --}}
                         <form method="POST" action="{{ route('subcont.update', $vendor['id']) }}">
                             @csrf
                             @method('PUT')
-
-                            <input type="hidden" name="_token" value="MmgmDjUq6M4Gxdb9EXOjwAWWEkC6uMZQeucyJXLG" autocomplete="off">
 
                             <div class="form-group">
                                 <label for="namaVendor">namaVendor</label>
@@ -57,6 +54,11 @@
                             <div class="form-group">
                                 <label for="alamatVendor">alamatVendor</label>
                                 <input type="text" class="form-control" id="alamatVendor" aria-describedby="emailHelp" name="alamatVendor" value="{{ $vendor['alamatVendor'] }}">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="tlpVendor">emailVendor</label>
+                                <input type="text" class="form-control" id="emailVendor" aria-describedby="emailHelp" name="emailVendor" value="{{ $vendor['emailVendor'] }}">
                             </div>
 
                             <div class="form-group">

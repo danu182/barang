@@ -47,6 +47,11 @@
                             </div>
 
                             <div class="form-group">
+                                <label for="tlpVendor">emailVendor</label>
+                                <input type="text" class="form-control" id="tlpVendor" aria-describedby="emailHelp" name="tlpVendor">
+                            </div>
+
+                            <div class="form-group">
                                 <label for="tlpVendor">tlpVendor</label>
                                 <input type="text" class="form-control" id="tlpVendor" aria-describedby="emailHelp" name="tlpVendor">
                             </div>

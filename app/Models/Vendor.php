@@ -15,7 +15,7 @@ class Vendor extends Model
         'namaVendor',
         'alamatVendor',
         'tlpVendor',
-        'email',
+        'emailVendor',
         'keterangan',
 
     ];

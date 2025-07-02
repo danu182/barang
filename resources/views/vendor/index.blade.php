@@ -59,6 +59,7 @@
                                     <th>namaVendor</th>
                                     <th>alamatVendor</th>
                                     <th>tlpVendor</th>
+                                    <th>emailVendor</th>
                                     <th>keterangan</th>
                                     <th>aksi</th>
 
@@ -70,6 +71,7 @@
                                     <th>namaVendor</th>
                                     <th>alamatVendor</th>
                                     <th>tlpVendor</th>
+                                    <th>emailVendor</th>
                                     <th>keterangan</th>
                                     <th>aksi</th>
                                 </tr>
@@ -81,6 +83,7 @@
                                         <td>{{$item['namaVendor']}}</td>
                                         <td>{{$item['alamatVendor']}}</td>
                                         <td>{{$item['tlpVendor']}}</td>
+                                        <td>{{$item['emailVendor']}}</td>
                                         <td>{{$item['keterangan']}}</td>
                                         <td>
                                             <a href="{{ route('subcont.show', $item['id'] )  }}" class="btn btn-info">detail</a>

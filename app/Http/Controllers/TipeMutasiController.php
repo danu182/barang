@@ -12,7 +12,9 @@ class TipeMutasiController extends Controller
      */
     public function index()
     {
-        //
+        $tipeMutasi = TipeMutasi::all();
+        return view('tipe-mutasi.index', compact('tipeMutasi'));
+
     }
 
     /**
@@ -20,7 +22,9 @@ class TipeMutasiController extends Controller
      */
     public function create()
     {
-        //
+        $title="tambah tipe mutasi";
+        return view('tipe-mutasi.create', compact('title') );
+
     }
 
     /**
@@ -28,7 +32,13 @@ class TipeMutasiController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->validate([
+            'namaMutasi' => 'required|string|max:255',
+            'keteranganMutasi'=>'nullable',
+        ]);
+
+        $tipeMutasi = TipeMutasi::create($data);
+        return redirect()->route('tipe-mutasi.index')->with('success', ' tipe-mutasi  ' . $request->namaMutasi . ' add successfully ');
     }
 
     /**
@@ -44,7 +54,8 @@ class TipeMutasiController extends Controller
      */
     public function edit(TipeMutasi $tipeMutasi)
     {
-        //
+        $title="tambah tipe mutasi";
+        return view('tipe-mutasi.edit', compact('title','tipeMutasi'));
     }
 
     /**
@@ -52,7 +63,14 @@ class TipeMutasiController extends Controller
      */
     public function update(Request $request, TipeMutasi $tipeMutasi)
     {
-        //
+        $data = $request->validate([
+            'namaMutasi' => 'required|string|max:255',
+            'keteranganMutasi'=>'nullable',
+        ]);
+
+        $tipeMutasi->update($data);
+
+        return redirect()->route('tipe-mutasi.index')->with('success', ' tipe-mutasi  ' . $request->namaMutasi . ' updated successfully ');
     }
 
     /**
@@ -60,6 +78,14 @@ class TipeMutasiController extends Controller
      */
     public function destroy(TipeMutasi $tipeMutasi)
     {
-        //
+        try{
+            $tipeMutasi->delete();
+
+        }
+        catch(\Exception $e){
+            return redirect()->route('tipe-mutasi.index')->with('error', ' bagian ' . $tipeMutasi->namaMutasi . $e->getMessage());
+
+        }
+        return redirect()->route('tipe-mutasi.index')->with('success', ' bagian ' . $tipeMutasi->namaMutasi . ' berhasil di delete.');
     }
 }

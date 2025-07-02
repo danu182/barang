@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AssetMutationController;
 use App\Http\Controllers\BagianController;
 use App\Http\Controllers\BarangController;
 use App\Http\Controllers\HarddiskController;
@@ -60,6 +61,11 @@ Route::resource('tipemutasi', TipeMutasiController::class);
 Route::resource('bagian', BagianController::class);
 
 Route::resource('tagihan', TagihanController::class);
+
+Route::resource('tipe-mutasi', TipeMutasiController::class);
+
+
+Route::resource('asset-mutasi', AssetMutationController::class);
 
 
 

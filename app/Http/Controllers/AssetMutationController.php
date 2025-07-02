@@ -12,7 +12,10 @@ class AssetMutationController extends Controller
      */
     public function index()
     {
-        //
+
+        // $assetMutation = AssetMutation::All();
+        // return view('assetMutasi.index', compact('assetMutation'));
+
     }
 
     /**

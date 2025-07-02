@@ -41,11 +41,6 @@ class AssetMutation extends Model
         return $this->hasOne(Kondisi::class, 'id', 'kondisi_id');
     }
 
-    // public function kota()
-    // {
-    //     return $this->hasOne(Kondisi::class, 'id', 'kota_id');
-    // }
-
     public function bagian()
     {
         return $this->hasOne(bagian::class, 'id', 'bagian_id');

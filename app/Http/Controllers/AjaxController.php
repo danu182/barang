@@ -23,7 +23,7 @@ class AjaxController extends Controller
         // Anda bisa memilih data apa saja yang ingin dikirim
         $formattedBarang = [
             'id' => $barang->id,
-            'kodeBarang'=>$barang->kodeBaranglama,
+            'kodeBaranglama'=>$barang->kodeBaranglama,
             'kodeBarang'=>$barang->kodeBarang,
             'namaKategori' => $barang->kategori->namaKategori,
             'namaBarang' => $barang->namaBarang,

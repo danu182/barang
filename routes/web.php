@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AjaxController;
 use App\Http\Controllers\AssetMutationController;
 use App\Http\Controllers\BagianController;
 use App\Http\Controllers\BarangController;
@@ -21,6 +22,7 @@ use App\Http\Controllers\TagihanController;
 use App\Http\Controllers\TipeMutasiController;
 use App\Http\Controllers\VendorController;
 use Illuminate\Support\Facades\Route;
+use Symfony\Component\HttpKernel\DataCollector\AjaxDataCollector;
 
 Route::get('/', function () {
     return view('welcome');
@@ -66,6 +68,9 @@ Route::resource('tipe-mutasi', TipeMutasiController::class);
 
 
 Route::resource('asset-mutasi', AssetMutationController::class);
+
+
+Route::get('/get-barang-details/{id}', [AjaxController::class, 'getBarangDetails'])->name('barang.details');
 
 
 

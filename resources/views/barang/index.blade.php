@@ -68,7 +68,7 @@
 
                                     <th>kategori</th>
                                     <th>kodeBaranglama</th>
-                                    <th>kodeBarang</th>
+                                    <th>kodeBarangBaru</th>
                                     <th>namaBarang</th>
                                     <th>merek</th>
                                     <th>model</th>
@@ -91,7 +91,7 @@
                                     <th>kapasitasHarddisk</th>
                                     <th>kategori</th>
                                     <th>kodeBaranglama</th>
-                                    <th>kodeBarang</th>
+                                    <th>kodeBarangBaru</th>
                                     <th>namaBarang</th>
                                     <th>merek</th>
                                     <th>model</th>

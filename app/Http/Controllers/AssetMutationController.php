@@ -25,12 +25,12 @@ class AssetMutationController extends Controller
      */
     public function create()
     {
+        $barang1 = Barang::with('ram', 'ram.tipeRam')->all();
+        return $barang1;
+
         $title="tmabah mutasi";
 
-        $barang= Barang::with('ram', 'ram.tipeRam_id')->get();
-
-        return $barang;
-
+        $barang =Barang::with('kategori')->get();
 
         return view('assetMutasi.create', compact('title','barang'));
     }

@@ -29,19 +29,21 @@ class AjaxController extends Controller
             'namaBarang' => $barang->namaBarang,
             'merek' => $barang->merek,
             'model' => $barang->model,
-            'nomorSeri' => $barang->nomorSeri,
-            'tanggalPerolehan' => $barang->tanggalPerolehan,
-            'catatan' => $barang->catatan,
             // Menggabungkan data dari relasi ke format string jika diperlukan untuk label
-            'tipeRam' => $barang->ram->map(function($ram) {
-                return $ram->tipeRam->tipeRam . ' : ' . $ram->kapasitas;
-            })->implode(', '),
             'prosesorDetails' => $barang->prosesor->map(function($proc) {
                 return $proc->tipeProsesor->namaTipeProsesor . ' (' . $proc->kapasitas . ')';
+            })->implode(', '),
+            'tipeRam' => $barang->ram->map(function($ram) {
+                return $ram->tipeRam->tipeRam . ' : ' . $ram->kapasitas;
             })->implode(', '),
             'harddiskDetails' => $barang->hd->map(function($hd) {
                 return $hd->tipeHardDisk->namaTipeHardDisk . ' : ' . $hd->kapasitas;
             })->implode(', '),
+            'nomorSeri' => $barang->nomorSeri,
+            'tanggalPerolehan' => $barang->tanggalPerolehan,
+            'catatan' => $barang->catatan,
+            // Menggabungkan data dari relasi ke format string jika diperlukan untuk label
+
             // Tambahkan kolom lain yang ingin Anda tampilkan di form utama
             'nomorSeri' => $barang->nomorSeri,
             'tanggalPerolehan' => $barang->tanggalPerolehan,

@@ -27,7 +27,7 @@ class Harddisk extends Model
 
     public function tipeHardDisk()
     {
-        return $this->hasOne(TipeHardDisk::class, 'id', 'tipeHardDisk_id');
+        return $this->belongsTo(TipeHardDisk::class, 'tipeHardDisk_id', 'id');
     }
 
 

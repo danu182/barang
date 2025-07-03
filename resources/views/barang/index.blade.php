@@ -58,7 +58,14 @@
                             <thead>
                                 <tr>
                                     <th>spec</th>
-                                    <th>Ram</th>
+
+                                    <th>procesor</th>
+                                    <th>namaTipeProsesor</th>
+
+                                    <th>Ramkpasitas</th>
+
+                                    <th>kapasitasHarddisk</th>
+
                                     <th>kategori</th>
                                     <th>kodeBaranglama</th>
                                     <th>kodeBarang</th>
@@ -77,7 +84,11 @@
                             <tfoot>
                                 <tr>
                                     <th>spec</th>
-                                    <th>Ram</th>
+                                    <th>procesor</th>
+                                    <th>namaTipeProsesor</th>
+                                    <th>Ramkpasitas</th>
+
+                                    <th>kapasitasHarddisk</th>
                                     <th>kategori</th>
                                     <th>kodeBaranglama</th>
                                     <th>kodeBarang</th>
@@ -105,13 +116,39 @@
                                                 <a href="{{ route('barang.prosesor.index',['barang'=>$item['id']]) }}" class="mt-2 btn btn-outline-dark">Prosesor</a>
                                             </td>
                                         @endif
+
                                         <td>
                                             <ul>
-                                                @foreach ($item->ram as $rams)
-                                                    <li>{{ $rams['tipeRam']['tipeRam']  }} - {{ $rams['kapasitas']  }}</li>
+                                                @foreach ($item->prosesor as $proces)
+                                                    <li>{{ $proces['tipeProsesor']['namaTipeProsesor']  }}</li>
                                                 @endforeach
                                             </ul>
                                         </td>
+
+                                        <td>
+                                            <ul>
+                                                @foreach ($item->prosesor as $proces)
+                                                    <li>{{ $proces['kapasitas']  }}</li>
+                                                @endforeach
+                                            </ul>
+                                        </td>
+
+                                        <td>
+                                            <ul>
+                                                @foreach ($item->ram as $rams)
+                                                    <li>{{ $rams['tipeRam']['tipeRam'] }} : {{ $rams['kapasitas'] }}</li>
+                                                @endforeach
+                                            </ul>
+                                        </td>
+
+                                        <td>
+                                            <ul>
+                                                @foreach ($item->hd as $hds)
+                                                    <li>{{ $hds['tipeHardDisk']['namaTipeHardDisk']  }} : {{ $hds['kapasitas']  }}</li>
+                                                @endforeach
+                                            </ul>
+                                        </td>
+
                                         {{-- <td>{{$item['id']}}</td> --}}
                                         <td>{{$item['kategori']['namaKategori']}}</td>
                                         <td>{{$item['kodeBaranglama']}}</td>

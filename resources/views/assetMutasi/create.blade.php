@@ -34,17 +34,18 @@
                     <div class="table-responsive">
 
                          {{-- <form action="{{ route('negara.store') }}" method="POST"> --}}
-                        <form method="POST" action="{{route('negara.store')}}">
+                        <form method="POST" action="{{route('asset-mutasi.store')}}">
                             @csrf
 
 
                             <div class="form-group">
-                                <label for="exampleFormControlInput1">nama Negara</label>
-                                <select name="" id="" class="form-control text-uppercase">
+                                <label for="exampleFormControlInput1">carai barang</label>
+                                {{-- <select name="" id="" class="form-control text-uppercase">
                                     @foreach ($barang as $item)
                                         <option value="{{ $item->id }}">{{ $item->kategori->namaKategori }} | {{ $item->kodeBarang }} | {{ $item->namaBarang }} | {{ $item->merek }} | {{ $item->model }} | {{ $item->nomorSeri }} | {{ $item->vendor }} | {{ $item->ram->tipeRam->keterangan }} | {{ $item->ram->kapasitas }}</option>
                                     @endforeach
-                                </select>
+                                </select> --}}
+
 
                             </div>
 

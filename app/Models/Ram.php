@@ -27,18 +27,9 @@ class Ram extends Model
 
     public function tipeRam()
     {
-        return $this->belongsTo(User::class, 'id', 'tipeRam_id');
+        return $this->belongsTo(tipeRam::class, 'tipeRam_id', 'id');
     }
 
 
-    /**
-     * Get the user that owns the Ram
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-     */
-    // public function user(): BelongsTo
-    // {
-    //     return $this->belongsTo(User::class, 'foreign_key', 'other_key');
-    // }
 
 }

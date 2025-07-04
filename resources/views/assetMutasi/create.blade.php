@@ -19,6 +19,15 @@
                 @csrf
                 {{-- Hidden input to store selected item ID if needed for form submission --}}
                 <input type="hidden" id="selectedBarangId" name="barang_id">
+                <input type="hidden" id="selectedBarangId" name="old_location_id">
+                <input type="hidden" id="selectedBarangId" name="new_location_id">
+                {{-- <input type="hidden" id="selectedBarangId" name="mutation_date"> --}}
+                <input type="hidden" id="selectedBarangId" name="mutation_type_id">
+                <input type="hidden" id="selectedBarangId" name="kondisi_id">
+                <input type="hidden" id="selectedBarangId" name="bagian_id">
+                <input type="hidden" id="selectedBarangId" name="notes">
+                <input type="hidden" id="selectedBarangId" name="notes">
+                <input type="hidden" id="selectedBarangId" name="user_id">
 
                 <div class="mb-3">
                     <label for="namaBarangInput" class="form-label">Nama Barang</label>
@@ -79,6 +88,62 @@
                     <label for="catatanInput" class="form-label">Catatan</label>
                     <p class="form-control-plaintext" id="catatanInput"></p>
                 </div>
+
+                <div class="form-group">
+                    <label for="catatanInput" class="form-label">Lokasi baru</label>
+                    <select name="new_location_id" id="" class="form-control">
+                        @foreach ($lokasi as $lok)
+                            <option value="{{ $lok->id }}"> {{ $lok->namaLokasi }} lantai {{ $lok->lantai }}</option>
+                        @endforeach
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="catatanInput" class="form-label">tanggal mutasi</label>
+                    <input type="date" name="mutation_date" class="form-control" value="{{ date('Y-m-d')  }}">
+                </div>
+
+                <div class="form-group">
+                    <label for="catatanInput" class="form-label">kondisi</label>
+                    <select name="kondisi_id" id="" class="form-control">
+                        @foreach ($kondisi as $kon)
+                            <option value="{{ $kon->id }}">{{ $kon->namaKondisi }} - {{ $kon->keteranganKondisi }} </option>
+                        @endforeach
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="catatanInput" class="form-label">bagian baru</label>
+                    <select name="bagian_id" id="" class="form-control">
+                        @foreach ($bagian as $bag)
+                            <option value="{{ $bag->id }}">{{ $bag->nama_bagian }} - {{ $bag->keteranganBagian }} </option>
+                        @endforeach
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="catatanInput" class="form-label">nama baru</label>
+                    <select name="user_id" id="" class="form-control">
+                        @foreach ($user as $usr)
+                            <option value="{{ $usr->id }}">{{ $usr->name }}</option>
+                        @endforeach
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="catatanInput" class="form-label">Tipe mutasi</label>
+                    <select name="mutation_type_id" id="" class="form-control">
+                        @foreach ($tipeMutasi as $tm)
+                            <option value="{{ $tm->id }}">{{ $tm->namaMutasi }} - {{ $tm->keteranganMutasi }}</option>
+                        @endforeach
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="catatanInput" class="form-label">notes</label>
+                    <textarea name="notes" id="" cols="30" rows="10" class="form-control"></textarea>
+                </div>
+
 
 
 
@@ -324,8 +389,8 @@
                                 return {
                                     "mutation_date": mutasi.mutation_date || 'N/A',
                                     "mutation_type_nama": mutasi.mutation_type ? mutasi.mutation_type.namaMutasi : 'N/A',
-                                    "old_location_display": mutasi.old_location ? mutasi.old_location.namaLokasi + ' (' + mutasi.old_location.lantai + ')' : 'N/A',
-                                    "new_location_display": mutasi.new_location ? mutasi.new_location.namaLokasi + ' (' + mutasi.new_location.lantai + ')' : 'N/A',
+                                    "old_location_display": mutasi.lokasi_old ? mutasi.lokasi_old.namaLokasi + ' lantai  (' + mutasi.lokasi_old.lantai + ')' + ' (' + mutasi.lokasi_old.keterangan + ')' : 'N/A',
+                                    "new_location_display": mutasi.lokasi_new ? mutasi.lokasi_new.namaLokasi + ' lantai (' + mutasi.lokasi_new.lantai + ')' + ' (' + mutasi.lokasi_old.keterangan + ')': 'N/A',
                                     "kondisi_nama": mutasi.kondisi ? mutasi.kondisi.namaKondisi : 'N/A',
                                     "bagian_nama": mutasi.bagian ? mutasi.bagian.nama_bagian : 'N/A',
                                     "user_name": mutasi.user ? mutasi.user.name : 'N/A',

@@ -56,6 +56,7 @@
                             <thead>
                                 <tr>
 
+                                    <th>id</th>
                                     <th>barang_id</th>
                                     <th>old_location_id</th>
                                     <th>new_location_id</th>
@@ -72,6 +73,7 @@
                             <tfoot>
                                 <tr>
                                     <tr>
+                                        <th>id</th>
                                         <th>barang_id</th>
                                         <th>old_location_id</th>
                                         <th>new_location_id</th>
@@ -90,13 +92,13 @@
                                 @foreach ($assetMutation as $item)
                                     <tr>
                                         <td>{{$item['id']}}</td>
-                                        <td class="text-uppercase">{{$item['barang_id']}}</td>
-                                        <td>{{$item['old_location_id']}}</td>
-                                        <td>{{$item['new_location_id']}}</td>
+                                        <td class="text-uppercase">{{$item['barang']['namaBarang']}}</td>
+                                        <td>{{$item['lokasiOld']['namaLokasi']}}</td>
+                                        <td>{{$item['lokasiNew']['namaLokasi']}}</td>
                                         <td>{{$item['mutation_date']}}</td>
-                                        <td>{{$item['mutation_type_id']}}</td>
-                                        <td>{{$item['kondisi_id']}}</td>
-                                        <td>{{$item['bagian_id']}}</td>
+                                        <td>{{$item['mutationType']['namaMutasi']}}</td>
+                                        <td>{{$item['kondisi']['namaKondisi']}}</td>
+                                        <td>{{$item['bagian']['nama_bagian']}}</td>
                                         <td>{{$item['notes']}}</td>
                                         <td>{{$item['user_id']}}</td>
 

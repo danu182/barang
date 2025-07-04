@@ -3,8 +3,15 @@
 namespace App\Http\Controllers;
 
 use App\Models\AssetMutation;
+use App\Models\Bagian;
 use App\Models\Barang;
+use App\Models\Kondisi;
+use App\Models\Lokasi;
+use App\Models\TipeMutasi;
+use App\Models\User;
 use Illuminate\Http\Request;
+
+use function PHPUnit\Framework\isNull;
 
 class AssetMutationController extends Controller
 {
@@ -31,8 +38,16 @@ class AssetMutationController extends Controller
         $title="tmabah mutasi";
 
         $barang =Barang::with('kategori')->get();
+        $lokasi= Lokasi::all();
+        $kondisi =Kondisi::all();
+        $tipeMutasi=TipeMutasi::all();
 
-        return view('assetMutasi.create', compact('title','barang'));
+        $bagian =Bagian::all();
+        $user =User::all();
+
+
+
+        return view('assetMutasi.create', compact('title','barang','lokasi','bagian','user','kondisi','tipeMutasi'));
     }
 
     /**
@@ -40,7 +55,29 @@ class AssetMutationController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data=[
+             "barang_id"=>$request->barang_id,
+            // "old_location_id"=>$request->old_location_id,
+            "new_location_id"=>$request->new_location_id,
+            "mutation_date"=>$request->mutation_date,
+            "mutation_type_id"=>$request->mutation_type_id,
+            "kondisi_id"=>$request->kondisi_id,
+            "bagian_id"=>$request->bagian_id,
+            "notes"=>$request->notes,
+            "user_id"=>$request->user_id,
+        ];
+
+        if($request->old_location_id == null)  {
+            $data["old_location_id"] = 3;
+        }
+        else{
+            $data["old_location_id"] = $request->old_location_id;
+        }
+
+            AssetMutation::create($data);
+        return redirect()->route('asset-mutasi.index');
+
+
     }
 
     /**

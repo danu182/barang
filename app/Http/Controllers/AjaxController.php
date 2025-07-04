@@ -14,13 +14,15 @@ class AjaxController extends Controller
      public function getBarangDetails($barangId)
     {
         $barang = Barang::with(['prosesor.tipeProsesor', 'ram.tipeRam', 'hd.tipeHardDisk', 'kategori'])->find($barangId);
+        // $barang = Barang::with(['prosesor.tipeProsesor', 'ram.tipeRam', 'hd.tipeHardDisk', 'kategori'])->find(1);
+
         // return $barang;
 
         if (!$barang) {
             return response()->json(['message' => 'Barang not found'], 404);
         }
 
-        $assetMutasi= AssetMutation::with('barang','barang.ram','barang.ram.tipeRam','barang.hd','barang.hd.tipeHardDisk','user','lokasiOld','lokasiNew','mutationType','kondisi','bagian')->find($barangId);
+        $assetMutasi= AssetMutation::with('barang','barang.ram','barang.ram.tipeRam','barang.hd','barang.hd.tipeHardDisk','user','lokasiOld','lokasiNew','mutationType','kondisi','bagian')->where('id',$barangId);
 
         return response()->json([
             'barang' => $barang, // The formatted barang data

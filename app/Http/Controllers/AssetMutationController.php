@@ -25,8 +25,8 @@ class AssetMutationController extends Controller
      */
     public function create()
     {
-        $barang1 = Barang::with('ram', 'ram.tipeRam')->all();
-        return $barang1;
+        // $barang1 = Barang::with('ram', 'ram.tipeRam')->all();
+        // return $barang1;
 
         $title="tmabah mutasi";
 

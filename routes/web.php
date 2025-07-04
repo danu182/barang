@@ -71,6 +71,7 @@ Route::resource('asset-mutasi', AssetMutationController::class);
 
 
 Route::get('/get-barang-details/{id}', [AjaxController::class, 'getBarangDetails'])->name('barang.details');
+Route::get('/get-barang-mutasi/{id}', [AjaxController::class, 'getBarangMutasi'])->name('mutasi.barang.detail');
 
 
 

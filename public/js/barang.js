@@ -11,7 +11,7 @@
 
                 // Populate the form fields on your main page
 
-                console.log(namaBarang);
+                console.log(prosesorDetails);
 
                 $('#namaBarangInput').val(namaBarang);
                 // $('#kodeBarangBaruInput').val(kodeBarangBaru);
@@ -23,7 +23,7 @@
                 // $('#modelInput').val(model);
                 document.getElementById("modelInput").innerHTML = model;
 
-                document.getElementById("tipeRamInput").innerHTML = tipeRam;
+                document.getElementById("tipeRamInput").innerHTML = prosesorDetails;
 
                 $('#hargaPerolehanInput').val(hargaPerolehan); // You might want to format this as currency
 
@@ -31,3 +31,5 @@
                 $('#exampleModal').modal('hide');
             });
         });
+
+

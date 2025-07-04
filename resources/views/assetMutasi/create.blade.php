@@ -1,4 +1,3 @@
-
 @extends('master.app.index')
 
 @section('content')
@@ -7,239 +6,347 @@
     <link href="{{asset('vendor/datatables/dataTables.bootstrap4.min.css')}}" rel="stylesheet">
 @endpush
 
+{{-- Main Page Form to be populated --}}
+<div class="container-fluid">
+    <h1 class="h3 mb-2 text-gray-800">{{$title}}</h1>
+
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Form Mutasi Asset</h6>
+        </div>
+        <div class="card-body">
+            <form method="POST" action="{{route('asset-mutasi.store')}}">
+                @csrf
+                {{-- Hidden input to store selected item ID if needed for form submission --}}
+                <input type="hidden" id="selectedBarangId" name="barang_id">
+
+                <div class="mb-3">
+                    <label for="namaBarangInput" class="form-label">Nama Barang</label>
+                    <input type="text" class="form-control" id="namaBarangInput" name="namaBarang" readonly>
+                </div>
+
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <label for="kodeBarangBaruInput" class="form-label">Kode Barang Baru</label>
+                        <p class="form-control-plaintext" id="kodeBarangBaruInput"></p>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="merekInput" class="form-label">Merek</label>
+                        <p class="form-control-plaintext" id="merekInput"></p>
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <label for="modelInput" class="form-label">Model</label>
+                        <p class="form-control-plaintext" id="modelInput"></p>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="nomorSeriInput" class="form-label">Nomor Seri</label>
+                        <p class="form-control-plaintext" id="nomorSeriInput"></p>
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label for="prosesorInput" class="form-label">Prosesor</label>
+                    <p class="form-control-plaintext" id="prosesorInput"></p>
+                </div>
+
+                <div class="mb-3">
+                    <label for="tipeRamInput" class="form-label">Tipe RAM</label>
+                    <p class="form-control-plaintext" id="tipeRamInput"></p>
+                </div>
+
+                <div class="mb-3">
+                    <label for="harddiskInput" class="form-label">Hard Disk</label>
+                    <p class="form-control-plaintext" id="harddiskInput"></p>
+                </div>
+
+                <div class="mb-3">
+                    <label for="hargaPerolehanInput" class="form-label">Harga Perolehan</label>
+                    <input type="text" class="form-control" id="hargaPerolehanInput" name="hargaPerolehan" readonly>
+                </div>
+
+                <div class="mb-3">
+                    <label for="tanggalPerolehanInput" class="form-label">Tanggal Perolehan</label>
+                    <p class="form-control-plaintext" id="tanggalPerolehanInput"></p>
+                </div>
+                <div class="mb-3">
+                    <label for="vendorInput" class="form-label">Vendor</label>
+                    <p class="form-control-plaintext" id="vendorInput"></p>
+                </div>
+                <div class="mb-3">
+                    <label for="catatanInput" class="form-label">Catatan</label>
+                    <p class="form-control-plaintext" id="catatanInput"></p>
+                </div>
+
+
+
+                {{-- Button to open the modal for searching barang --}}
+                <div class="input-group mb-3 mt-4">
+                    <input type="text" class="form-control" placeholder="Cari Barang..." aria-label="barang" aria-describedby="button-addon2" id="searchBarangModalTrigger" readonly>
+                    <div class="input-group-append">
+                        <button class="btn btn-outline-secondary" type="button" data-toggle="modal" data-target="#searchBarangModal">Cari Barang</button>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn btn-primary">Submit Mutasi</button>
+            </form>
+        </div>
+    </div>
+
+
+                {{-- New section for Asset Mutation History Table --}}
+                <h5 class="mt-4 mb-3">Riwayat Mutasi Asset</h5>
+                <div class="table-responsive">
+                    {{-- Changed ID here to match JS variable name --}}
+                    <table class="table table-bordered" id="assetMutasiHistoryTable" width="100%" cellspacing="0">
+                        <thead>
+                            <tr>
+                                <th>Tanggal Mutasi</th>
+                                <th>Tipe Mutasi</th>
+                                <th>Lokasi Lama</th>
+                                <th>Lokasi Baru</th>
+                                <th>Kondisi</th>
+                                <th>Bagian</th>
+                                <th>User</th>
+                                <th>Catatan</th>
+                            </tr>
+                        </thead>
+                        <tbody id="assetMutasiTableBody">
+                            {{-- Rows will be dynamically added here by JavaScript --}}
+                        </tbody>
+                    </table>
+                </div>
+
+
+</div>
+
+{{-- Modal for Barang Selection --}}
+<div class="modal fade" id="searchBarangModal" tabindex="-1" aria-labelledby="searchBarangModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="searchBarangModalLabel">Pilih Barang</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered" id="barangDataTable" width="100%" cellspacing="0">
+                        <thead>
+                            <tr>
+                                <th>Pilih</th>
+                                <th>Prosesor</th>
+                                <th>Kapasitas Prosesor</th>
+                                <th>RAM</th>
+                                <th>Hard Disk</th>
+                                <th>Kategori</th>
+                                <th>Kode Barang Lama</th>
+                                <th>Kode Barang</th>
+                                <th>Nama Barang</th>
+                                <th>Merek</th>
+                                <th>Model</th>
+                                <th>Nomor Seri</th>
+                                <th>Tanggal Perolehan</th>
+                                <th>Harga Perolehan</th>
+                                <th>Vendor</th>
+                                <th>Catatan</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($barang as $item)
+                                <tr>
+                                    <td>
+                                        <button class="btn btn-sm btn-info select-item-btn"
+                                        data-item-id="{{ $item['id'] }}">
+                                            Pilih
+                                        </button>
+                                    </td>
+                                    <td>
+                                        <ul>
+                                            @foreach ($item->prosesor as $proces)
+                                                <li>{{ optional($proces->tipeProsesor)->namaTipeProsesor }}</li>
+                                            @endforeach
+                                        </ul>
+                                    </td>
+                                    <td>
+                                        <ul>
+                                            @foreach ($item->prosesor as $proces)
+                                                <li>{{ $proces->kapasitas }}</li>
+                                            @endforeach
+                                        </ul>
+                                    </td>
+                                    <td>
+                                        <ul>
+                                            @foreach ($item->ram as $rams)
+                                                <li>{{ optional($rams->tipeRam)->tipeRam }} : {{ $rams->kapasitas }}GB</li>
+                                            @endforeach
+                                        </ul>
+                                    </td>
+                                    <td>
+                                        <ul>
+                                            @foreach ($item->hd as $hds)
+                                                <li>{{ optional($hds->tipeHardDisk)->namaTipeHardDisk }} : {{ $hds->kapasitas }}TB</li>
+                                            @endforeach
+                                        </ul>
+                                    </td>
+                                    <td>{{ optional($item->kategori)->namaKategori }}</td>
+                                    <td>{{ $item->kodeBaranglama }}</td>
+                                    <td>{{ $item->kodeBarang }}</td>
+                                    <td>{{ $item->namaBarang }}</td>
+                                    <td>{{ $item->merek }}</td>
+                                    <td>{{ $item->model }}</td>
+                                    <td>{{ $item->nomorSeri }}</td>
+                                    <td>{{ $item->tanggalPerolehan }}</td>
+                                    <td>{{ $item->hargaPerolehan }}</td>
+                                    <td>{{ $item->vendor }}</td>
+                                    <td>{{ $item->catatan }}</td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+            </div>
+        </div>
+    </div>
+</div>
+@endsection
+
 @push('js')
-    <!-- Page level plugins -->
     <script src="{{asset('vendor/datatables/jquery.dataTables.min.js')}}"></script>
     <script src="{{asset('vendor/datatables/dataTables.bootstrap4.min.js')}}"></script>
 
-    <!-- Page level custom scripts -->
     <script src="{{asset('js/demo/datatables-demo.js')}}"></script>
-    <script src="{{ asset('js/barang.js') }}"></script>
 
+    <script>
+        $(document).ready(function() {
+            // Initialize DataTables for the modal table
+            $('#barangDataTable').DataTable();
+
+            // Declare assetMutasiHistoryDataTable in a scope accessible by the success callback
+            // let assetMutasiHistoryDataTable;
+             // Declare assetMutasiHistoryDataTable in a scope accessible by the success callback
+            let assetMutasiHistoryDataTable = null; // Initialize as null
+
+            $('#barangDataTable').on('click', '.select-item-btn', function() {
+                var barangId = $(this).data('item-id');
+
+                $.ajax({
+                    url: '/get-barang-details/' + barangId,
+                    method: 'GET',
+                    success: function(response) {
+                        var item = response.barang;
+                        // var assetMutations = response.assetMutasi; // Correctly named (plural)
+                         var assetMutations = response.assetMutasi ? [response.assetMutasi] : [];
+
+                        console.log("Full AJAX response:", response); // For debugging
+                        console.log("Barang data received:", item);
+                        console.log(assetMutations);
+
+
+                        // --- Populate Main Barang Details ---
+                        $('#selectedBarangId').val(item.id);
+                        $('#namaBarangInput').val(item.namaBarang);
+                        $('#searchBarangModalTrigger').val(item.namaBarang);
+
+                        $('#kodeBarangBaruInput').text(item.kodeBarang);
+                        $('#merekInput').text(item.merek);
+                        $('#modelInput').text(item.model);
+                        $('#nomorSeriInput').text(item.nomorSeri);
+
+                        let prosesorDetails = item.prosesor.map(p => {
+                            let tipe = (p.tipe_prosesor && p.tipe_prosesor.namaTipeProsesor) ? p.tipe_prosesor.namaTipeProsesor : 'N/A Tipe';
+                            let kapasitas = p.kapasitas ? p.kapasitas : 'N/A Kapasitas';
+                            return `${tipe} (${kapasitas})`;
+                        }).join(', ');
+                        $('#prosesorInput').text(prosesorDetails || 'N/A');
+
+                        let tipeRamDetails = item.ram.map(r => {
+                            let tipe = (r.tipe_ram && r.tipe_ram.tipeRam) ? r.tipe_ram.tipeRam : 'N/A Tipe';
+                            let kapasitas = r.kapasitas ? r.kapasitas : 'N/A Kapasitas';
+                            return `${tipe} : ${kapasitas}GB`;
+                        }).join(', ');
+                        $('#tipeRamInput').text(tipeRamDetails || 'N/A');
+
+                        let harddiskDetails = item.hd.map(h => {
+                            let tipe = (h.tipe_hard_disk && h.tipe_hard_disk.namaTipeHardDisk) ? h.tipe_hard_disk.namaTipeHardDisk : 'N/A Tipe';
+                            let kapasitas = h.kapasitas ? h.kapasitas : 'N/A Kapasitas';
+                            return `${tipe} : ${kapasitas}TB`;
+                        }).join(', ');
+                        $('#harddiskInput').text(harddiskDetails || 'N/A');
+
+                        let harga = parseFloat(item.hargaPerolehan);
+                        if (!isNaN(harga)) {
+                            $('#hargaPerolehanInput').val(new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR' }).format(harga));
+                        } else {
+                            $('#hargaPerolehanInput').val(item.hargaPerolehan);
+                        }
+
+                        $('#tanggalPerolehanInput').text(item.tanggalPerolehan);
+                        $('#vendorInput').text(item.vendor);
+                        $('#catatanInput').text(item.catatan);
+
+
+                         // --- Populate Asset Mutation History Table ---
+                        // Check if DataTable instance exists, destroy if it does to re-initialize cleanly
+                        if (assetMutasiHistoryDataTable !== null) {
+                            assetMutasiHistoryDataTable.destroy(); // Destroy previous instance
+                        }
+                        // Always clear the tbody, whether destroying or not, before adding new rows
+                        $('#assetMutasiTableBody').empty();
+
+                        // Initialize DataTables for the history table
+                        // Pass 'data' directly in options for automatic row creation
+                        assetMutasiHistoryDataTable = $('#assetMutasiHistoryTable').DataTable({
+                            "paging": true,
+                            "searching": true,
+                            "ordering": true,
+                            "info": true,
+                            "destroy": true, // Enable re-initialization
+                            "columns": [ // Define columns to match your table headers AND your mapped data properties
+                                { "data": "mutation_date" },
+                                { "data": "mutation_type_nama" },
+                                { "data": "old_location_display" },
+                                { "data": "new_location_display" },
+                                { "data": "kondisi_nama" },
+                                { "data": "bagian_nama" },
+                                { "data": "user_name" },
+                                { "data": "notes" }
+                            ],
+                            // Provide the data directly here if it's an array of objects matching 'columns.data'
+                            "data": Array.isArray(assetMutations) ? assetMutations.map(function(mutasi) {
+                                // Create an object for each row, matching the 'data' properties in 'columns'
+                                return {
+                                    "mutation_date": mutasi.mutation_date || 'N/A',
+                                    "mutation_type_nama": mutasi.mutation_type ? mutasi.mutation_type.namaMutasi : 'N/A',
+                                    "old_location_display": mutasi.old_location ? mutasi.old_location.namaLokasi + ' (' + mutasi.old_location.lantai + ')' : 'N/A',
+                                    "new_location_display": mutasi.new_location ? mutasi.new_location.namaLokasi + ' (' + mutasi.new_location.lantai + ')' : 'N/A',
+                                    "kondisi_nama": mutasi.kondisi ? mutasi.kondisi.namaKondisi : 'N/A',
+                                    "bagian_nama": mutasi.bagian ? mutasi.bagian.nama_bagian : 'N/A',
+                                    "user_name": mutasi.user ? mutasi.user.name : 'N/A',
+                                    "notes": mutasi.notes || 'N/A'
+                                };
+                            }) : [] // Provide an empty array if assetMutations is not an array
+                        });
+
+                        // No need for rows.add() or manual tbody append anymore.
+                        // DataTables handles it all via the 'data' option.
+
+
+                        // Hide the modal after selecting an item
+                        $('#searchBarangModal').modal('hide');
+                    },
+                    error: function(xhr, status, error) {
+                        console.error("AJAX Error fetching details: ", status, error);
+                        alert('Gagal memuat detail. Silakan coba lagi.');
+                    }
+                });
+            });
+        });
+    </script>
 @endpush
-
-
-
-    <!-- Begin Page Content -->
-        <div class="container-fluid" >
-
-            <!-- Page Heading -->
-            <h1 class="h3 mb-2 text-gray-800">{{$title}} </h1>
-
-            <!-- DataTales Example -->
-            <div class="card shadow mb-4">
-                <div class="card-header py-3">
-                    {{-- <h6 class="m-0 font-weight-bold text-primary"> {{ $barang->namaBarang }} ==>> {{ $barang->kodeBarang }}</h6> --}}
-                </div>
-                <div class="card-body">
-                    <div class="table-responsive">
-
-                         {{-- <form action="{{ route('negara.store') }}" method="POST"> --}}
-                        <form method="POST" action="{{route('asset-mutasi.store')}}">
-                            @csrf
-
-
-                            <div class="row">
-                                <div class="col">
-                                <label for="" id="">Kode barang baru</label>
-                                </div>
-                                <div class="col">
-                                <label for="" id="kodeBarangBaruInput"></label>
-                                </div>
-                            </div>
-
-                            <div class="row">
-                                <div class="col">
-                                <label for="" id="">Merek</label>
-                                </div>
-                                <div class="col">
-                                <label for="" id="merekInput"></label>
-                                </div>
-                            </div>
-
-                            <div class="row">
-                                <div class="col">
-                                <label for="" id="">model</label>
-                                </div>
-                                <div class="col">
-                                <label for="" id="modelInput"></label>
-                                </div>
-                            </div>
-
-                            <div class="row">
-                                <div class="col">
-                                <label for="" id="">tipe Ram</label>
-                                </div>
-                                <div class="col">
-                                <label for="" id="tipeRamInput"></label>
-                                </div>
-                            </div>
-
-                                <label for="myInput" class="mr-2">cari barang:</label>
-                                <div class="input-group mb-3">
-                                    <input type="text" class="form-control" placeholder="barang" name="namaBarang" aria-label="barang" aria-describedby="button-addon2" id="namaBarangInput">
-                                    <div class="input-group-append">
-                                    <button class="btn btn-outline-secondary" type="button" id="button-addon2" data-toggle="modal" data-target="#exampleModal">cari</button>
-                                    </div>
-                                </div>
-
-
-                            {{-- <button type="submit" class="btn btn-primary">Submit</button> --}}
-                         </form>
-                    </div>
-                </div>
-            </div>
-
-        </div>
-
-
-
-
-<!-- Modal syats-->
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-xl">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Cari Barang</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-            {{-- table start --}}
-
-            <div class="table-responsive">
-                        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                            <thead>
-                                <tr>
-                                    <th>pilih</th>
-                                    <th>procesor</th>
-                                    <th>namaTipeProsesor</th>
-                                    <th>Ramkpasitas</th>
-                                    <th>kapasitasHarddisk</th>
-                                    <th>kategori</th>
-                                    <th>kodeBaranglama</th>
-                                    <th>kodeBarangBaru</th>
-                                    <th>namaBarang</th>
-                                    <th>merek</th>
-                                    <th>model</th>
-                                    <th>nomorSeri</th>
-                                    <th>tanggalPerolehan</th>
-                                    <th>hargaPerolehan</th>
-                                    <th>vendor</th>
-                                    <th>catatan</th>
-
-                                </tr>
-                            </thead>
-                            <tfoot>
-                                <tr>
-                                    <th>pilih</th>
-                                    <th>procesor</th>
-                                    <th>namaTipeProsesor</th>
-                                    <th>Ramkpasitas</th>
-                                    <th>kapasitasHarddisk</th>
-                                    <th>kategori</th>
-                                    <th>kodeBaranglama</th>
-                                    <th>kodeBarangBaru</th>
-                                    <th>namaBarang</th>
-                                    <th>merek</th>
-                                    <th>model</th>
-                                    <th>nomorSeri</th>
-                                    <th>tanggalPerolehan</th>
-                                    <th>hargaPerolehan</th>
-                                    <th>vendor</th>
-                                    <th>catatan</th>
-
-
-                                </tr>
-                            </tfoot>
-                            <tbody>
-                                @foreach ($barang as $item)
-                                    <tr>
-                                       <td>
-                                        <button class="btn btn-danger select-item-btn"
-                                                data-nama-barang="{{ $item['namaBarang'] }}"
-                                                data-kode-barang-baru="{{ $item['kodeBarang'] }}"
-                                                data-merek="{{ $item['merek'] }}"
-                                                data-model="{{ $item['model'] }}"
-                                                data-harga-perolehan="{{ $item['hargaPerolehan'] }}"
-                                                data-tipe-ram="{{ $item['tipeRam'] }}"
-                                                >
-                                            Pilih
-                                        </button>
-                                        <td>
-                                            <ul>
-                                                @foreach ($item->prosesor as $proces)
-                                                    <li>{{ $proces['tipeProsesor']['namaTipeProsesor']  }}</li>
-                                                @endforeach
-                                            </ul>
-                                        </td>
-
-                                        <td>
-                                            <ul>
-                                                @foreach ($item->prosesor as $proces)
-                                                    <li>{{ $proces['kapasitas']  }}</li>
-                                                @endforeach
-                                            </ul>
-                                        </td>
-
-                                        <td>
-                                            <ul>
-                                                @foreach ($item->ram as $rams)
-                                                    <li>{{ $rams['tipeRam']['tipeRam'] }} : {{ $rams['kapasitas'] }}</li>
-                                                @endforeach
-                                            </ul>
-                                        </td>
-
-                                        <td>
-                                            <ul>
-                                                @foreach ($item->hd as $hds)
-                                                    <li>{{ $hds['tipeHardDisk']['namaTipeHardDisk']  }} : {{ $hds['kapasitas']  }}</li>
-                                                @endforeach
-                                            </ul>
-                                        </td>
-
-                                        {{-- <td>{{$item['id']}}</td> --}}
-                                        <td>{{$item['kategori']['namaKategori']}}</td>
-                                        <td>{{$item['kodeBaranglama']}}</td>
-                                        <td>{{$item['kodeBarang']}}</td>
-                                        <td>{{$item['namaBarang']}}</td>
-                                        <td>{{$item['merek']}}</td>
-                                        <td>{{$item['model']}}</td>
-                                        <td>{{$item['nomorSeri']}}</td>
-                                        <td>{{$item['tanggalPerolehan']}}</td>
-                                        <td>{{$item['hargaPerolehan']}}</td>
-                                        <td>{{$item['vendor']}}</td>
-                                        <td>{{$item['catatan']}}</td>
-                                        {{-- <td>
-                                            <a href="{{ route('barang.edit', $item['id']) }}" class="btn btn-warning">Edit</a>
-                                            <form action="{{ route('barang.destroy', $item['id']) }}" method="POST" style="display:inline;">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button type="submit" class="btn btn-danger">Delete</button>
-                                            </form>
-                                        </td> --}}
-                                    </tr>
-
-                                @endforeach
-
-
-                            </tbody>
-                        </table>
-                    </div>
-
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
-      </div>
-    </div>
-  </div>
-</div>
-<!-- Modal end-->
-
-
-
-
-
-@endsection

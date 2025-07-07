@@ -73,12 +73,14 @@ class AssetMutationController extends Controller
                      ->latest()
                      ->first();
 
-        if($latestItems->old_location_id == null)  {
-            $data["old_location_id"] = 1;
-        }
-        elseif($latestItems->old_location_id != null)  {
-
-            $data["old_location_id"] = $latestItems->new_location_id;
+        if ($latestItems) { // Check if latestItems is not null
+            if ($latestItems->old_location_id) {
+                $data["old_location_id"] = $latestItems->new_location_id; // Use old_location_id
+            } else {
+                $data["old_location_id"] = 1; // Default value if old_location_id is null
+            }
+        } else {
+            $data["old_location_id"] = 1; // Default value if no latestItems found
         }
 
         // return $data;

@@ -168,14 +168,14 @@
                     <table class="table table-bordered" id="assetMutasiHistoryTable" width="100%" cellspacing="0">
                         <thead>
                             <tr>
-                                <th>Tanggal Mutasi</th>
-                                <th>Tipe Mutasi</th>
-                                <th>Lokasi Lama</th>
-                                <th>Lokasi Baru</th>
-                                <th>Kondisi</th>
-                                <th>Bagian</th>
-                                <th>User</th>
-                                <th>Catatan</th>
+                                <th>mutation_date</th>
+                                <th>mutation_type_nama</th>
+                                <th>old_location_display</th>
+                                <th>new_location_display</th>
+                                <th>kondisi_nama</th>
+                                <th>bagian_nama</th>
+                                <th>user_name</th>
+                                <th>notes</th>
                             </tr>
                         </thead>
                         <tbody id="assetMutasiTableBody">
@@ -307,7 +307,8 @@
                     success: function(response) {
                         var item = response.barang;
                         // var assetMutations = response.assetMutasi; // Correctly named (plural)
-                         var assetMutations = response.assetMutasi ? [response.assetMutasi] : [];
+                        //  var assetMutations = response.assetMutasi ? [response.assetMutasi] : [];
+                         var assetMutations = response.assetMutasi ;
 
                         console.log("Full AJAX response:", response); // For debugging
                         console.log("Barang data received:", item);
@@ -359,50 +360,27 @@
 
                          // --- Populate Asset Mutation History Table ---
                         // Check if DataTable instance exists, destroy if it does to re-initialize cleanly
-                        if (assetMutasiHistoryDataTable !== null) {
-                            assetMutasiHistoryDataTable.destroy(); // Destroy previous instance
+                        if (assetMutations.length > 0) {
+                            // Clear previous data
+                            $('#assetMutasiTableBody').empty();
+                            // Populate the table with new data
+                            assetMutations.forEach(mutasi => {
+                                $('#assetMutasiTableBody').append(`
+                                    <tr>
+                                        <td>${mutasi.mutation_date}</td>
+                                        <td>${mutasi.mutation_type ? mutasi.mutation_type.namaMutasi : 'N/A'}</td>
+                                        <td>${mutasi.lokasi_old ? mutasi.lokasi_old.namaLokasi + ' lantai ' + mutasi.lokasi_old.lantai : 'N/A'}</td>
+                                        <td>${mutasi.lokasi_new ? mutasi.lokasi_new.namaLokasi + ' lantai ' + mutasi.lokasi_new.lantai : 'N/A'}</td>
+                                        <td>${mutasi.kondisi ? mutasi.kondisi.namaKondisi : 'N/A'}</td>
+                                        <td>${mutasi.bagian ? mutasi.bagian.nama_bagian : 'N/A'}</td>
+                                        <td>${mutasi.user ? mutasi.user.name : 'N/A'}</td>
+                                        <td>${mutasi.notes || 'N/A'}</td>
+                                    </tr>
+                                `);
+                            });
+                        } else {
+                            $('#assetMutasiTableBody').append('<tr><td colspan="8">No mutation history available.</td></tr>');
                         }
-                        // Always clear the tbody, whether destroying or not, before adding new rows
-                        $('#assetMutasiTableBody').empty();
-
-                        // Initialize DataTables for the history table
-                        // Pass 'data' directly in options for automatic row creation
-                        assetMutasiHistoryDataTable = $('#assetMutasiHistoryTable').DataTable({
-                            "paging": true,
-                            "searching": true,
-                            "ordering": true,
-                            "info": true,
-                            "destroy": true, // Enable re-initialization
-                            "columns": [ // Define columns to match your table headers AND your mapped data properties
-                                { "data": "mutation_date" },
-                                { "data": "mutation_type_nama" },
-                                { "data": "old_location_display" },
-                                { "data": "new_location_display" },
-                                { "data": "kondisi_nama" },
-                                { "data": "bagian_nama" },
-                                { "data": "user_name" },
-                                { "data": "notes" }
-                            ],
-                            // Provide the data directly here if it's an array of objects matching 'columns.data'
-                            "data": Array.isArray(assetMutations) ? assetMutations.map(function(mutasi) {
-                                // Create an object for each row, matching the 'data' properties in 'columns'
-                                return {
-                                    "mutation_date": mutasi.mutation_date || 'N/A',
-                                    "mutation_type_nama": mutasi.mutation_type ? mutasi.mutation_type.namaMutasi : 'N/A',
-                                    "old_location_display": mutasi.lokasi_old ? mutasi.lokasi_old.namaLokasi + ' lantai  (' + mutasi.lokasi_old.lantai + ')' + ' (' + mutasi.lokasi_old.keterangan + ')' : 'N/A',
-                                    "new_location_display": mutasi.lokasi_new ? mutasi.lokasi_new.namaLokasi + ' lantai (' + mutasi.lokasi_new.lantai + ')' + ' (' + mutasi.lokasi_old.keterangan + ')': 'N/A',
-                                    "kondisi_nama": mutasi.kondisi ? mutasi.kondisi.namaKondisi : 'N/A',
-                                    "bagian_nama": mutasi.bagian ? mutasi.bagian.nama_bagian : 'N/A',
-                                    "user_name": mutasi.user ? mutasi.user.name : 'N/A',
-                                    "notes": mutasi.notes || 'N/A'
-                                };
-                            }) : [] // Provide an empty array if assetMutations is not an array
-                        });
-
-                        // No need for rows.add() or manual tbody append anymore.
-                        // DataTables handles it all via the 'data' option.
-
-
                         // Hide the modal after selecting an item
                         $('#searchBarangModal').modal('hide');
                     },

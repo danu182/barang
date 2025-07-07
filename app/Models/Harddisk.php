@@ -15,6 +15,7 @@ class Harddisk extends Model
         'barang_id',
         'tipeHardDisk_id',
         'kapasitas',
+        'satuanSize_id',
         'keterangan',
     ];
 
@@ -28,6 +29,11 @@ class Harddisk extends Model
     public function tipeHardDisk()
     {
         return $this->belongsTo(TipeHardDisk::class, 'tipeHardDisk_id', 'id');
+    }
+
+    public function satuanSize()
+    {
+        return $this->hasOne(SatuanSize::class, 'id', 'satuanSize_id');
     }
 
 

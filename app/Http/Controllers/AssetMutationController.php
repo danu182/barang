@@ -21,7 +21,9 @@ class AssetMutationController extends Controller
     public function index()
     {
 
-        $assetMutation = AssetMutation::all();
+        $assetMutation = AssetMutation::orderBy('mutation_date', 'desc')->get();
+
+        // return $assetMutation;
 
         return view('assetMutasi.index', compact('assetMutation'));
 
@@ -67,14 +69,21 @@ class AssetMutationController extends Controller
             "user_id"=>$request->user_id,
         ];
 
-        if($request->old_location_id == null)  {
-            $data["old_location_id"] = 3;
+        $latestItems =  AssetMutation::where('barang_id', $data['barang_id'])
+                     ->latest()
+                     ->first();
+
+        if($latestItems->old_location_id == null)  {
+            $data["old_location_id"] = 1;
         }
-        else{
-            $data["old_location_id"] = $request->old_location_id;
+        elseif($latestItems->old_location_id != null)  {
+
+            $data["old_location_id"] = $latestItems->new_location_id;
         }
 
-            AssetMutation::create($data);
+        // return $data;
+
+        AssetMutation::create($data);
         return redirect()->route('asset-mutasi.index');
 
 

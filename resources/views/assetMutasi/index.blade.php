@@ -57,15 +57,18 @@
                                 <tr>
 
                                     <th>id</th>
-                                    <th>barang_id</th>
-                                    <th>old_location_id</th>
-                                    <th>new_location_id</th>
+                                    <th>kode barang</th>
+                                    <th>kategori barang</th>
+                                    <th>nama Barang</th>
+                                    <th>old_location</th>
+                                    <th>new_location</th>
                                     <th>mutation_date</th>
-                                    <th>mutation_type_id</th>
-                                    <th>kondisi_id</th>
-                                    <th>bagian_id</th>
+                                    <th>mutation_type</th>
+                                    <th>kondisi</th>
+                                    <th>bagian</th>
                                     <th>notes</th>
                                     <th>user_id</th>
+                                    <th>nama user</th>
                                     <th>aksi</th>
 
                                 </tr>
@@ -74,15 +77,18 @@
                                 <tr>
                                     <tr>
                                         <th>id</th>
-                                        <th>barang_id</th>
-                                        <th>old_location_id</th>
-                                        <th>new_location_id</th>
+                                        <th>kode barang</th>
+                                        <th>kategori barang</th>
+                                        <th>nama Barang</th>
+                                        <th>old_location</th>
+                                        <th>new_location</th>
                                         <th>mutation_date</th>
-                                        <th>mutation_type_id</th>
-                                        <th>kondisi_id</th>
-                                        <th>bagian_id</th>
+                                        <th>mutation_type</th>
+                                        <th>kondisi</th>
+                                        <th>bagian</th>
                                         <th>notes</th>
                                         <th>user_id</th>
+                                        <th>nama user</th>
                                         <th>aksi</th>
                                 </tr>
 
@@ -92,15 +98,28 @@
                                 @foreach ($assetMutation as $item)
                                     <tr>
                                         <td>{{$item['id']}}</td>
+                                        <td>
+                                            <ul>
+                                                <li>
+                                                    kode lama = {{$item['barang']['kodeBaranglama']}}
+                                                </li>
+                                                <li>
+                                                    kode bary = {{$item['barang']['kodeBarang']}}
+                                                </li>
+                                            </ul>
+                                        </td>
+                                        <td>{{$item['barang']['kategori']['namaKategori']}}</td>
                                         <td class="text-uppercase">{{$item['barang']['namaBarang']}}</td>
-                                        <td>{{$item['lokasiOld']['namaLokasi']}}</td>
-                                        <td>{{$item['lokasiNew']['namaLokasi']}}</td>
+                                        {{-- <td>{{$item['lokasiOld']['namaLokasi']}}</td> --}}
+                                        <td>{{$item['lokasiOld']['namaLokasi']}}  |  lantai : {{$item['lokasiOld']['lantai']}}</td>
+                                        <td>{{$item['lokasiNew']['namaLokasi']}}  |  lantai : {{$item['lokasiNew']['lantai']}}</td>
                                         <td>{{$item['mutation_date']}}</td>
                                         <td>{{$item['mutationType']['namaMutasi']}}</td>
                                         <td>{{$item['kondisi']['namaKondisi']}}</td>
                                         <td>{{$item['bagian']['nama_bagian']}}</td>
                                         <td>{{$item['notes']}}</td>
                                         <td>{{$item['user_id']}}</td>
+                                        <td>{{$item['user']['name']}}</td>
 
                                         <td>
                                             <a href="{{ route('asset-mutasi.show',$item['id'] )  }}" class="btn btn-info">detail</a>

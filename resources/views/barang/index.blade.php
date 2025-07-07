@@ -136,7 +136,7 @@
                                         <td>
                                             <ul>
                                                 @foreach ($item->ram as $rams)
-                                                    <li>{{ $rams['tipeRam']['tipeRam'] }} : {{ $rams['kapasitas'] }}</li>
+                                                    <li>{{ $rams['tipeRam']['tipeRam'] }} : {{ $rams['kapasitas'] }} {{ $rams['satuanSize']['namaSatuanSize'] }}</li>
                                                 @endforeach
                                             </ul>
                                         </td>
@@ -144,7 +144,7 @@
                                         <td>
                                             <ul>
                                                 @foreach ($item->hd as $hds)
-                                                    <li>{{ $hds['tipeHardDisk']['namaTipeHardDisk']  }} : {{ $hds['kapasitas']  }}</li>
+                                                    <li>{{ $hds['tipeHardDisk']['namaTipeHardDisk']  }} : {{ $hds['kapasitas']  }} {{ $hds['satuanSize']['namaSatuanSize'] }}</li>
                                                 @endforeach
                                             </ul>
                                         </td>

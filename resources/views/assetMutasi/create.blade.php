@@ -106,6 +106,7 @@
                 <div class="form-group">
                     <label for="catatanInput" class="form-label">kondisi</label>
                     <select name="kondisi_id" id="" class="form-control">
+                        <option disabled>pilih salah satu</option>
                         @foreach ($kondisi as $kon)
                             <option value="{{ $kon->id }}">{{ $kon->namaKondisi }} - {{ $kon->keteranganKondisi }} </option>
                         @endforeach
@@ -115,6 +116,7 @@
                 <div class="form-group">
                     <label for="catatanInput" class="form-label">bagian baru</label>
                     <select name="bagian_id" id="" class="form-control">
+                        <option disabled>pilih salah satu</option>
                         @foreach ($bagian as $bag)
                             <option value="{{ $bag->id }}">{{ $bag->nama_bagian }} - {{ $bag->keteranganBagian }} </option>
                         @endforeach
@@ -124,6 +126,7 @@
                 <div class="form-group">
                     <label for="catatanInput" class="form-label">nama baru</label>
                     <select name="user_id" id="" class="form-control">
+                        <option disabled>pilih salah satu</option>
                         @foreach ($user as $usr)
                             <option value="{{ $usr->id }}">{{ $usr->name }}</option>
                         @endforeach
@@ -133,6 +136,7 @@
                 <div class="form-group">
                     <label for="catatanInput" class="form-label">Tipe mutasi</label>
                     <select name="mutation_type_id" id="" class="form-control">
+                        <option disabled>pilih salah satu</option>
                         @foreach ($tipeMutasi as $tm)
                             <option value="{{ $tm->id }}">{{ $tm->namaMutasi }} - {{ $tm->keteranganMutasi }}</option>
                         @endforeach

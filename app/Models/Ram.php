@@ -16,6 +16,7 @@ class Ram extends Model
             'tipeRam_id',
             'kapasitas',
             'keterangan',
+            'satuanSize_id',
     ];
 
 
@@ -24,11 +25,18 @@ class Ram extends Model
         return $this->hasOne(Barang::class, 'id', 'barang_id');
     }
 
+    public function satuanSize()
+    {
+        return $this->hasOne(SatuanSize::class, 'id', 'satuanSize_id');
+    }
+
 
     public function tipeRam()
     {
         return $this->belongsTo(tipeRam::class, 'tipeRam_id', 'id');
     }
+
+
 
 
 

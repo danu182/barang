@@ -54,6 +54,16 @@
                                             <input type="text" class="form-control" name="kapasitas[]">
                                         </div>
 
+                                        <div class="form-group mr-2 ml-4">
+                                            <label for="tipeHardDisk_id" class="mr-2">satuanSize</label>
+                                            <select name="satuanSize_id[]" class="form-control">
+                                                <option disabled>pilih salah satu</option>
+                                                @foreach ($satuanSize as $item)
+                                                    <option value="{{ $item['id'] }}">{{ $item['namaSatuanSize'] }}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+
                                         <div class="form-group mr-2 ml-2">
                                             <label for="keterangan" class="mr-2">keterangan HD</label>
                                             <textarea name="keterangan[]" cols="30" rows="10" class="form-control"></textarea>
@@ -97,6 +107,15 @@
                     '<div class="form-group mr-2 ml-2">' +
                     '<label for="kapasitas" class="mr-2">kapasitas HD</label>' +
                     '<input type="text" class="form-control" name="kapasitas[]">' +
+                    '</div>' +
+                    '<div class="form-group mr-2 ml-4">' +
+                    '<label for="tipeHardDisk_id" class="mr-2">satuanSize</label>' +
+                    '<select name="tipeHardDisk_id[]" class="form-control">' +
+                    '<option disabled>pilih salah satu</option>' +
+                    '@foreach ($satuanSize as $item)' +
+                    '<option value="{{ $item['id'] }}">{{ $item['namaSatuanSize'] }}</option>' +
+                    '@endforeach' +
+                    '</select>' +
                     '</div>' +
                     '<div class="form-group mr-2 ml-2">' +
                     '<label for="keterangan" class="mr-2">keterangan HD</label>' +

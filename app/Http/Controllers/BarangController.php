@@ -24,8 +24,8 @@ class BarangController extends Controller
 
         // $barang =Barang::with('kategori')->get();
 
-        $barang =Barang::with('ram','ram.tipeRam','hd', 'hd.tipeHardDisk')->where('id', 1)->get();
-        return $barang;
+        $barang =Barang::with('ram','ram.tipeRam','hd', 'hd.tipeHardDisk')->get();
+        // return $barang;
 
         // return $barang;
 

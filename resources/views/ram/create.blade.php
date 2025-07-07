@@ -53,9 +53,20 @@
                                             <input type="text" class="form-control" name="kapasitas[]">
                                         </div>
 
+                                        <div class="form-group mr-2 ml-4">
+                                            <label for="tipeRam_id" class="mr-2">namaSatuanSize Ram</label>
+                                            <select name="satuanSize_id[]" class="form-control">
+                                                <option disabled>pilih salah satu</option>
+                                                @foreach ($satuanSize as $item)
+                                                    <option value="{{ $item['id'] }}">{{ $item['namaSatuanSize'] }}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+
+
                                         <div class="form-group mr-2 ml-2">
                                             <label for="keterangan" class="mr-2">keterangan RAM</label>
-                                            <textarea name="keterangan[]" cols="30" rows="10" class="form-control"></textarea>
+                                            <textarea name="keterangan[]" cols="30" rows="5" class="form-control"></textarea>
                                         </div>
 
                                         <div class="form-group mr-2 ml-2">
@@ -98,9 +109,18 @@
                     '<label for="kapasitas" class="mr-2">kapasitas RAM</label>' +
                     '<input type="text" class="form-control" name="kapasitas[]">' +
                     '</div>' +
+                    '<div class="form-group mr-2 ml-4">'+
+                    '<label for="tipeRam_id" class="mr-2">namaSatuanSize Ram</label>'+
+                    '<select name="satuanSize_id[]" class="form-control">'+
+                    '<option disabled>pilih salah satu</option>'+
+                    '@foreach ($satuanSize as $item)'+
+                    '<option value="{{ $item['id'] }}">{{ $item['namaSatuanSize'] }}</option>'+
+                    '@endforeach'+
+                    '</select>'+
+                    '</div>'+
                     '<div class="form-group mr-2 ml-2">' +
                     '<label for="keterangan" class="mr-2">keterangan RAM</label>' +
-                    '<textarea name="keterangan[]" cols="30" rows="10" class="form-control"></textarea>' +
+                    '<textarea name="keterangan[]" cols="30" rows="5" class="form-control"></textarea>' +
                     '</div>' +
                     '<div class="form-group row mr-2 ml-2">'+
                     '<a href="javascript:void(0);" class="remove_button btn btn-danger">HAPUS</a></div>' +

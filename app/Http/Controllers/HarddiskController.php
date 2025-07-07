@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Barang;
 use App\Models\Harddisk;
+use App\Models\SatuanSize;
 use App\Models\TipeHardDisk;
 use Illuminate\Http\Request;
 
@@ -28,8 +29,10 @@ class HarddiskController extends Controller
         $title="tambah Hard Disk ";
 
         $tipeHardDisk= TipeHardDisk::all();
+        $satuanSize = SatuanSize::all();
 
-        return view('HDD.create', compact('barang','title','harddisk','tipeHardDisk'));
+
+        return view('HDD.create', compact('barang','title','harddisk','tipeHardDisk','satuanSize'));
 
     }
 
@@ -43,6 +46,7 @@ class HarddiskController extends Controller
             'tipeHardDisk_id.*' => 'exists:tipe_hard_disks,id', // Validasi untuk tipe RAM
             'kapasitas.*' => 'string|max:255', // Validasi untuk kapasitas
             'keterangan.*' => 'nullable|string', // Validasi untuk keterangan
+            'satuanSize_id.*' => 'nullable|string', // Validasi untuk keterangan
         ]);
 
         // Loop melalui setiap tipe Hard Disk yang dikirimkan
@@ -52,6 +56,7 @@ class HarddiskController extends Controller
                 'barang_id' => $barang->id, // ID barang yang terkait
                 'tipeHardDisk_id' => $tipeHardDiskid,
                 'kapasitas' => $request->kapasitas[$index], // Ambil kapasitas dari input
+                'satuanSize_id' => $request->satuanSize_id[$index], // Ambil keterangan dari input
                 'keterangan' => $request->keterangan[$index] ?? null, // Ambil keterangan dari input
             ]);
         }

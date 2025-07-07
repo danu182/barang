@@ -52,7 +52,7 @@
 
                             <div class="form-group">
                                 <label for="name">kapasitas</label>
-                                <input type="text" class="form-control" name="kapasitas" value="{{ $harddisk['kapasitas'] }}" disabled>
+                                <input type="text" class="form-control" name="kapasitas" value="{{$harddisk['kapasitas']  }} {{ $harddisk['satuanSize']['namaSatuanSize'] }}" disabled>
                             </div>
 
                             <div class="form-group">

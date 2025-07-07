@@ -59,6 +59,7 @@
                                     <th>barang_id</th>
                                     <th>tipeRam_id</th>
                                     <th>kapasitas</th>
+                                    <th>size</th>
                                     <th>keterangan</th>
                                     <th>aksi</th>
 
@@ -70,6 +71,7 @@
                                     <th>barang_id</th>
                                     <th>tipeRam_id</th>
                                     <th>kapasitas</th>
+                                    <th>size</th>
                                     <th>keterangan</th>
                                     <th>aksi</th>
 
@@ -82,6 +84,7 @@
                                         <td>{{$item['barang']['namaBarang']}} --> {{ $item['barang']['kodeBarang']}}</td>
                                         <td>{{$item['tipeRam']['tipeRam']}}</td>
                                         <td>{{$item['kapasitas']}}</td>
+                                        <td>{{$item['satuanSize']['namaSatuanSize']}}</td>
                                         <td>{{$item['keterangan']}}</td>
                                         <td>
                                             <a href="{{ route('barang.ram.show',['barang'=>$item['barang_id'], 'ram'=>$item['id']] )  }}" class="btn btn-info">detail</a>

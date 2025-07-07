@@ -59,6 +59,7 @@
                                     <th>barang_id</th>
                                     <th>tipeHardDisk</th>
                                     <th>kapasitas</th>
+                                    <th>satuan</th>
                                     <th>keterangan</th>
                                     <th>aksi</th>
 
@@ -70,6 +71,7 @@
                                     <th>barang_id</th>
                                     <th>tipeHardDisk</th>
                                     <th>kapasitas</th>
+                                    <th>satuan</th>
                                     <th>keterangan</th>
                                     <th>aksi</th>
                                 </tr>
@@ -81,6 +83,7 @@
                                         <td>{{$item['barang']['namaBarang']}} --> {{ $item['barang']['kodeBarang']}}</td>
                                         <td>{{$item['tipeHardDisk']['namaTipeHardDisk']}}</td>
                                         <td>{{$item['kapasitas']}}</td>
+                                        <td>{{$item['satuanSize']['namaSatuanSize']}}</td>
                                         <td>{{$item['keterangan']}}</td>
                                         <td>
                                             <a href="{{ route('barang.harddisk.show',['barang'=>$item['barang_id'], 'harddisk'=>$item['id']] )  }}" class="btn btn-info">detail</a>

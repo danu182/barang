@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Barang;
 use App\Models\Ram;
+use App\Models\SatuanSize;
 use App\Models\TipeRam;
 use Illuminate\Http\Request;
 
@@ -15,7 +16,7 @@ class RamController extends Controller
     public function index(Barang $barang)
     {
         $title="Memory RAM ";
-        $ram= Ram::with('barang','tipeRam')->where('barang_id', $barang->id)->get();
+        $ram= Ram::with('barang','tipeRam','satuanSize')->where('barang_id', $barang->id)->get();
 
         return view('ram.index', compact('barang', 'title', 'ram'));
     }
@@ -28,8 +29,9 @@ class RamController extends Controller
         $title="tambah RAM ";
 
         $tipeRam= TipeRam::all();
+        $satuanSize= SatuanSize::all();
 
-        return view('ram.create', compact('barang','title','ram','tipeRam'));
+        return view('ram.create', compact('barang','title','ram','tipeRam','satuanSize'));
 
     }
 
@@ -47,7 +49,10 @@ class RamController extends Controller
             'tipeRam_id.*' => 'required|exists:tipe_rams,id', // Validasi untuk tipe RAM
             'kapasitas.*' => 'required|string|max:255', // Validasi untuk kapasitas
             'keterangan.*' => 'nullable|string', // Validasi untuk keterangan
+            'satuanSize_id.*' => 'nullable|string', // Validasi untuk keterangan
         ]);
+
+        return $request->satuanSize_id;
 
         // Loop melalui setiap tipe RAM yang dikirimkan
         foreach ($request->tipeRam_id as $index => $tipeRamId) {
@@ -56,6 +61,7 @@ class RamController extends Controller
                 'barang_id' => $barang->id, // ID barang yang terkait
                 'tipeRam_id' => $tipeRamId,
                 'kapasitas' => $request->kapasitas[$index], // Ambil kapasitas dari input
+                'satuanSize_id' => $request->satuanSize_id[$index], // Ambil kapasitas dari input
                 'keterangan' => $request->keterangan[$index] ?? null, // Ambil keterangan dari input
             ]);
         }

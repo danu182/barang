@@ -56,6 +56,11 @@
                             </div>
 
                             <div class="form-group">
+                                <label for="name">kapasitas</label>
+                                <input type="text" class="form-control" name="kapasitas" value="{{$ram['satuanSize']['namaSatuanSize']}}" disabled>
+                            </div>
+
+                            <div class="form-group">
                                 <label for="name">keterangan</label>
                                 <textarea name="keterangan" class="form-control" disabled id="" cols="30" rows="10">{{ $ram['keterangan'] }}</textarea>
                             </div>

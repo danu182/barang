@@ -52,7 +52,7 @@ class RamController extends Controller
             'satuanSize_id.*' => 'nullable|string', // Validasi untuk keterangan
         ]);
 
-        return $request->satuanSize_id;
+        // return $request->satuanSize_id;
 
         // Loop melalui setiap tipe RAM yang dikirimkan
         foreach ($request->tipeRam_id as $index => $tipeRamId) {
@@ -97,7 +97,7 @@ class RamController extends Controller
      */
     public function update(Request $request, Ram $ram)
     {
-        //
+
     }
 
     /**

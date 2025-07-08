@@ -48,6 +48,33 @@ class AjaxController extends Controller
 
     }
 
+    public function detailMutasiAsset()
+    {
+        // $latestMutations = AssetMutation::with('barang','user','lokasiOld','lokasiNew','mutationType','kondisi','bagian')
+        // ->whereIn(
+        //     'id', function ($query) {
+        //         $query->selectRaw('MAX(id)') // Assuming 'id' is a good proxy for "latest"
+        //             ->from('asset_mutations') // Replace 'mutasis' with your actual table name if different
+        //             ->groupBy('barang_id');
+        //     }
+        // )
+        // ->get();
+
+        // return response()->json($latestMutations);
+
+        $barang= Barang::with([
+                'assetMutasi','assetMutasi.user','assetMutasi.lokasiOld','assetMutasi.lokasiNew','assetMutasi.mutationType',
+                'assetMutasi.kondisi',
+                'assetMutasi.bagian',
+            ]
+            )
+        ->get();
+        return response()->json($barang);
+
+
+    }
+
+
 
 
 }

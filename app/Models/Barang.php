@@ -47,4 +47,10 @@ class Barang extends Model
     }
 
 
+    public function assetMutasi()
+    {
+        return $this->hasMany(AssetMutation::class, 'barang_id', 'id');
+    }
+
+
 }

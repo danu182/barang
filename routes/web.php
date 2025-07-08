@@ -4,6 +4,7 @@ use App\Http\Controllers\AjaxController;
 use App\Http\Controllers\AssetMutationController;
 use App\Http\Controllers\BagianController;
 use App\Http\Controllers\BarangController;
+use App\Http\Controllers\DetailMutasiController;
 use App\Http\Controllers\HarddiskController;
 use App\Http\Controllers\JavaScriptController;
 use App\Http\Controllers\KategoriController;
@@ -68,7 +69,12 @@ Route::resource('tipe-mutasi', TipeMutasiController::class);
 
 
 Route::resource('asset-mutasi', AssetMutationController::class);
+Route::resource('detail-mutasi', DetailMutasiController::class);
 
+
+
+
+Route::get('/detail-mutasi-asset', [AjaxController::class, 'detailMutasiAsset'])->name('detail.mutasi.asset');
 
 Route::get('/get-barang-details/{id}', [AjaxController::class, 'getBarangDetails'])->name('barang.details');
 

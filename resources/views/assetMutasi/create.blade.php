@@ -312,7 +312,7 @@
                         var item = response.barang;
                         // var assetMutations = response.assetMutasi; // Correctly named (plural)
                         //  var assetMutations = response.assetMutasi ? [response.assetMutasi] : [];
-                         var assetMutations = response.assetMutasi ;
+                        var assetMutations = response.assetMutasi ;
 
                         console.log("Full AJAX response:", response); // For debugging
                         console.log("Barang data received:", item);

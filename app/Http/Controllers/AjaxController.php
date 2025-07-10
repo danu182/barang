@@ -63,14 +63,29 @@ class AjaxController extends Controller
         // return response()->json($latestMutations);
 
         $barang= Barang::with([
-                'assetMutasi','assetMutasi.user','assetMutasi.lokasiOld','assetMutasi.lokasiNew','assetMutasi.mutationType',
+                'assetMutasi',
+                'assetMutasi.user',
+                'assetMutasi.lokasiOld',
+                'assetMutasi.lokasiNew',
+                'assetMutasi.mutationType',
                 'assetMutasi.kondisi',
                 'assetMutasi.bagian',
             ]
             )
         ->get();
-        return response()->json($barang);
+        return response()->json([
+            'barang' => $barang,
+        ]);
 
+        // $barang =Barang::with([
+        //     'assetMutasi',
+        //     'assetMutasi.user',
+        //     'assetMutasi.lokasiOld',
+        //     'assetMutasi.lokasiNew',
+        // ])->get();
+
+        // return $barang;
+        return response()->json(['data' => $data['barang']]);
 
     }
 

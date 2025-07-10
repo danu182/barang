@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\AssetMutation;
+use App\Models\Barang;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -38,9 +39,25 @@ class DetailMutasiController extends Controller
         // ->get();
 
 
+        $barang = Barang::with(['assetMutasi' => function ($query) {
+            $query->latest()->limit(1); // Get the latest one
+        },
+            'kategori',
+            'assetMutasi.user',
+            'assetMutasi.lokasiOld',
+            'assetMutasi.lokasiNew',
+            'assetMutasi.mutationType',
+            'assetMutasi.kondisi',
+            'assetMutasi.bagian',
+        ])->get();
+
+        // return $barang;
+
+
+
         // return $latestMutations;
 
-        return view('assetMutasiDetail.index',compact('title'));
+        return view('assetMutasiDetail.index',compact('title','barang'));
 
     }
 
@@ -65,7 +82,8 @@ class DetailMutasiController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $barang =Barang::find($id);
+        return $barang;
     }
 
     /**

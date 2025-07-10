@@ -69,17 +69,16 @@ Route::resource('tipe-mutasi', TipeMutasiController::class);
 
 
 Route::resource('asset-mutasi', AssetMutationController::class);
-Route::resource('detail-mutasi', DetailMutasiController::class);
+Route::resource('barang-mutasi', DetailMutasiController::class);
 
 
 
 
-Route::get('/detail-mutasi-asset', [AjaxController::class, 'detailMutasiAsset'])->name('detail.mutasi.asset');
+Route::get('/barang-mutasi-asset', [AjaxController::class, 'detailMutasiAsset'])->name('detail.mutasi.asset');
 
 Route::get('/get-barang-details/{id}', [AjaxController::class, 'getBarangDetails'])->name('barang.details');
 
 Route::get('/get-barang-mutasi/{id}', [AjaxController::class, 'getBarangMutasi'])->name('mutasi.barang.detail');
-
 
 
 // Route::get('/get-customer-pic/{id}', [JavaScriptController::class, 'fetchPelanggan'])->name('get.customer.pic');

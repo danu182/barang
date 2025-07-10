@@ -83,7 +83,21 @@ class DetailMutasiController extends Controller
     public function show(string $id)
     {
         $barang =Barang::find($id);
-        return $barang;
+
+        $barang = Barang::with(
+            [
+                'kategori',
+            'assetMutasi.user',
+            'assetMutasi.lokasiOld',
+            'assetMutasi.lokasiNew',
+            'assetMutasi.mutationType',
+            'assetMutasi.kondisi',
+            'assetMutasi.bagian',
+            ]
+        )->find($id);;
+        // return $barang;
+        return view('assetMutasiDetail.show',compact('barang'));
+
     }
 
     /**

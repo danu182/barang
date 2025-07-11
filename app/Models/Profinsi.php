@@ -16,10 +16,22 @@ class Profinsi extends Model
         'keteranganProfinsi',
     ];
 
-
-    public function negara()
+    protected static function boot()
     {
-        return $this->hasOne(Negara::class, 'id', 'negara_id');
+        parent::boot();
+
+        static::deleting(function ($profinsi) {
+            if ($profinsi->kota()->count() > 0) {
+                throw new \Exception(" Tidak dapat dihapus karena sudah terhububg dengan data tabel Kota. Hapus dulu data kota yang berkaitan dengan profinsi yang akan di hapus ");
+            }
+        });
     }
+
+
+
+     public function kota()
+     {
+         return $this->hasOne(Kota::class, 'profinsi_id', 'id');
+     }
 
 }

@@ -24,7 +24,7 @@ class BarangController extends Controller
 
         // $barang =Barang::with('kategori')->get();
 
-        $barang =Barang::with('ram','ram.tipeRam','hd', 'hd.tipeHardDisk')->get();
+        $barang =Barang::with('ram','ram.tipeRam','hd', 'hd.tipeHardDisk')->orderBy('created_at', 'desc')->get();
         // return $barang;
 
         // return $barang;

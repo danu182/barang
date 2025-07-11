@@ -35,7 +35,7 @@ class NegaraController extends Controller
     {
         $data = $request->validate([
             'namaNegara' => 'required|string|max:255',
-            'keteranganNegara' => 'string|max:255',
+            'keteranganNegara' => 'nullable',
         ]);
 
         $kategori = Negara::create($data);
@@ -67,10 +67,13 @@ class NegaraController extends Controller
      */
     public function update(Request $request, Negara $negara)
     {
+
         $data = $request->validate([
             'namaNegara' => 'required|string|max:255',
-            'keteranganNegara' => 'string|max:255',
+            'keteranganNegara' => 'nullable',
         ]);
+
+
 
         $negara->update($data);
         return redirect()->route('negara.index')->with('success', ' negara = ' . $request->namaNegara . ' updated successfully ');
@@ -84,12 +87,12 @@ class NegaraController extends Controller
     {
         try{
             $negara->delete();
-
+            return redirect()->route('negara.index')->with('success', ' negara ' . $negara->namaNegara . ' berhasil di delete.');
         }
         catch(\Exception $e){
-            return redirect()->route('negara.index')->with('error', ' kategori ' . $negara->namaProfinsi . $e->getMessage());
+            return redirect()->route('negara.index')->with('error', ' negara  ' . $negara->namaNegara . $e->getMessage());
 
         }
-        return redirect()->route('negara.index')->with('success', ' kategori ' . $negara->namaProfinsi . ' berhasil di delete.');
+
     }
 }

@@ -15,9 +15,9 @@ return new class extends Migration
             $table->id();
 
             $table->foreignId('barang_id')->constrained('barangs')->onDelete('restrict'); // Foreign key referenc
-
             $table->foreignId('tipeHardDisk_id')->constrained('tipe_hard_disks')->onDelete('restrict'); // Foreign key referenc
             $table->string('kapasitas');
+
 
             $table->timestamps();
             $table->softDeletes();

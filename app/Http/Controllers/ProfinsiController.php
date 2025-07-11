@@ -98,11 +98,11 @@ class ProfinsiController extends Controller
         try{
             $profinsi->delete();
 
+            return redirect()->route('profinsi.index')->with('success', ' profinsi ' . $profinsi->namaProfinsi . ' berhasil di delete.');
         }
         catch(\Exception $e){
             return redirect()->route('profinsi.index')->with('error', ' profinsi ' . $profinsi->namaProfinsi . $e->getMessage());
 
         }
-        return redirect()->route('profinsi.index')->with('success', ' profinsi ' . $profinsi->namaProfinsi . ' berhasil di delete.');
     }
 }

@@ -14,8 +14,8 @@ return new class extends Migration
         Schema::create('bagians', function (Blueprint $table) {
             $table->id();
 
-            $table->string('nama_bagian')->nullable();
-            $table->text('keteranganBagian');
+            $table->string('nama_bagian');
+            $table->text('keteranganBagian')->nullable();
 
             $table->timestamps();
             $table->softDeletes();

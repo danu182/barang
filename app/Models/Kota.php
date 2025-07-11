@@ -18,6 +18,9 @@ class Kota extends Model
 
 
 
+
+
+
     public function profinsi()
     {
         return $this->hasOne(Profinsi::class, 'id', 'profinsi_id');

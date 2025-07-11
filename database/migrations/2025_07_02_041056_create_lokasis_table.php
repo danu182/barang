@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('lokasis', function (Blueprint $table) {
             $table->id();
 
-            $table->foreignId('kota_id')->constrained('kotas')->onDelete('cascade');
+            $table->foreignId('kota_id')->constrained('kotas')->onDelete('restrict');
             $table->string('namaLokasi');
             $table->string('lantai')->nullable();
             $table->text('keterangan')->nullable();

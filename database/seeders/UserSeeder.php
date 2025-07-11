@@ -31,7 +31,7 @@ class UserSeeder extends Seeder
 
                 'name'=>$faker->name,
                 'email'=>$faker->email,
-                'password'=>$faker->name,
+                'password'=>$faker->numberBetween(0, 100),
 
     		]);
 

@@ -30,6 +30,7 @@ class DatabaseSeeder extends Seeder
             $this->call(TipeHardiskSeeder::class);
             $this->call(TipeProsesorSeeder::class);
             $this->call(UserSeeder::class);
+            $this->call(SatuanSizeSeeder::class);
 
     }
 }

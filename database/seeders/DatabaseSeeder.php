@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Lokasi;
+use App\Models\Ram;
 use App\Models\TipeHardDisk;
 use App\Models\TipeMutasi;
 use App\Models\TipeRam;
@@ -31,6 +32,10 @@ class DatabaseSeeder extends Seeder
             $this->call(TipeProsesorSeeder::class);
             $this->call(UserSeeder::class);
             $this->call(SatuanSizeSeeder::class);
+            $this->call(BarangSeeder::class);
+            $this->call(RamSeeder::class);
+            $this->call(HDSeeder::class);
+            $this->call(ProsesorSeeder::class);
 
     }
 }

@@ -9,31 +9,13 @@ use Illuminate\Database\Seeder;
 class KategoriSeeder extends Seeder
 {
     protected $kategori=[
-        [
-            'kodeKategori' =>'LP',
-            'namaKategori' =>'Laptop / Notebook',
-            'duaPilihan_id' => 1,
-        ],
-        [
-            'kodeKategori' =>'PRN',
-            'namaKategori' =>'Printer',
-            'duaPilihan_id' => 1,
-        ],
-        [
-            'kodeKategori' =>'MB',
-            'namaKategori' =>'MacBook',
-            'duaPilihan_id' => 1,
-        ],
-        [
-            'kodeKategori' =>'MAC',
-            'namaKategori' =>'IMac',
-            'duaPilihan_id' => 1,
-        ],
-        [
-            'kodeKategori' =>'PC',
-            'namaKategori' =>'Personal Computer',
-            'duaPilihan_id' => 1,
-        ],
+        [	 'kodeKategori' 	=>	'SRV',	 'namaKategori' 	=>	'SERVER', 'duaPilihan_id'=>1],
+        [	 'kodeKategori' 	=>	'MAC',	 'namaKategori' 	=>	'IMAC', 'duaPilihan_id'=>1],
+        [	 'kodeKategori' 	=>	'LP',	 'namaKategori' 	=>	'LAPTOP', 'duaPilihan_id'=>1],
+        [	 'kodeKategori' 	=>	'MCK',	 'namaKategori' 	=>	'MACKBOOK', 'duaPilihan_id'=>1],
+        [	 'kodeKategori' 	=>	'PNR',	 'namaKategori' 	=>	'PRINTER', 'duaPilihan_id'=>1],
+        [	 'kodeKategori' 	=>	'SCR',	 'namaKategori' 	=>	'SCANER', 'duaPilihan_id'=>1],
+
     ];
 
     public function run(): void

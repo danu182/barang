@@ -41,7 +41,7 @@
             <!-- DataTales Example -->
             <div class="card shadow mb-4">
                 <div class="card-header py-3">
-                    {{-- <h6 class="m-0 font-weight-bold text-primary">{{ $barang->namaBarang }} ==>> {{ $barang->kodeBarang }}  </h6> --}}
+                    <h6 class="m-0 font-weight-bold text-primary">lokasi terakahir barang  </h6>
                 </div>
 
                 @if (session('success'))
@@ -56,7 +56,7 @@
                             <thead>
                                 <tr>
                                         <th>id</th>
-                                        <th>kode barang lama</th>
+                                        <th>nama perusahaan</th>
                                         <th>kode barang</th>
                                         <th>kategori barang</th>
                                         <th>nama Barang</th>
@@ -78,7 +78,7 @@
                                 <tr>
                                     <tr>
                                         <th>id</th>
-                                        <th>kode barang lama</th>
+                                        <th>nama perusahaan</th>
                                         <th>kode barang</th>
                                         <th>kategori barang</th>
                                         <th>nama Barang</th>
@@ -100,17 +100,17 @@
                                 @foreach ($barang as $item)
                                 <tr>
                                     <td>{{ $item->id }}</td>
-                                    <td>{{ $item->kodeBaranglama }}</td>
-                                    <td>{{ $item->kodeBarang }}</td>
+                                    <td>{{ $item->pelanggan->namaPelanggan }}</td>
+                                    <td>{{ $item->kodeBarangUse }}</td>
                                     <td>{{ $item->kategori->namaKategori }}</td>
                                     <td>{{ $item->namaBarang }}</td>
                                     <td>{{ $item->merek }}</td>
                                     <td>{{ $item->nomorSeri }}</td>
-                                    <td>{{ $item->hargaPerolehan }}</td>
+                                    <td>{{ number_format($item->hargaPerolehan) }}</td>
                                      @if($item->assetMutasi->isNotEmpty())
                                         <td>{{ $item->assetMutasi->first()->mutation_date ?? 'N/A' }}</td>
-                                        <td>{{ $item->assetMutasi->first()->lokasiOld->namaLokasi   ?? 'N/A' }}</td>
-                                        <td>{{ $item->assetMutasi->first()->lokasiNew->namaLokasi  ?? 'N/A' }}</td>
+                                        <td>{{ $item->assetMutasi->first()->lokasiOld->namaLokasi }}  lantai : {{$item->assetMutasi->first()->lokasiOld->lantai ?? 'N/A' }}</td>
+                                        <td>{{ $item->assetMutasi->first()->lokasiNew->namaLokasi }} lantai : {{$item->assetMutasi->first()->lokasiNew->lantai ?? 'N/A' }}</td>
                                         <td>{{ $item->assetMutasi->first()->mutationType->namaMutasi ?? 'N/A' }}</td>
                                         <td>{{ $item->assetMutasi->first()->kondisi->namaKondisi ?? 'N/A' }}</td>
                                         <td>{{ $item->assetMutasi->first()->bagian->nama_bagian ?? 'N/A' }}</td>

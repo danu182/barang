@@ -52,11 +52,6 @@ class DetailMutasiController extends Controller
         ])->get();
 
         // return $barang;
-
-
-
-        // return $latestMutations;
-
         return view('assetMutasiDetail.index',compact('title','barang'));
 
     }

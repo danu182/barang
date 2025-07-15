@@ -153,8 +153,8 @@
                                         {{-- <td>{{$item['id']}}</td> --}}
                                         <td>{{$item['pelanggan']['namaPelanggan']}}</td>
                                         <td>{{$item['kategori']['namaKategori']}}</td>
-                                        <td>{{$item['kodeBarangUse']}}</td>
                                         <td>{{$item['kodeBarang']}}</td>
+                                        <td>{{$item['kodeBarangUse']}}</td>
                                         <td>{{$item['namaBarang']}}</td>
                                         <td>{{$item['merek']}}</td>
                                         <td>{{$item['model']}}</td>

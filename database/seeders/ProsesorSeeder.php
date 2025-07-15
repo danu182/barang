@@ -12,7 +12,7 @@ class ProsesorSeeder extends Seeder
         [
             'barang_id'=> 1,
             'tipeProsesor_id'=>1,
-            'kapasitas'=>'3.7 ghz',
+            'kapasitas'=>'CORE I5 GEN 8',
             'keterangan'=> 'bawaan pabrik',
         ],
     ];

@@ -41,7 +41,7 @@
             <!-- DataTales Example -->
             <div class="card shadow mb-4">
                 <div class="card-header py-3">
-                    {{-- <h6 class="m-0 font-weight-bold text-primary">{{ $barang->namaBarang }} ==>> {{ $barang->kodeBarang }}  </h6> --}}
+                    <h6 class="m-0 font-weight-bold text-primary">List Asset Mutasi Barang  </h6>
                 </div>
 
                 @if (session('success'))
@@ -68,7 +68,7 @@
                                     <th>kondisi</th>
                                     <th>bagian</th>
                                     <th>notes</th>
-                                    <th>user_id</th>
+                                    {{-- <th>user_id</th> --}}
                                     <th>nama user</th>
                                     <th>aksi</th>
 
@@ -89,7 +89,7 @@
                                         <th>kondisi</th>
                                         <th>bagian</th>
                                         <th>notes</th>
-                                        <th>user_id</th>
+                                        {{-- <th>user_id</th> --}}
                                         <th>nama user</th>
                                         <th>aksi</th>
                                 </tr>
@@ -107,7 +107,7 @@
                                                     kode lama = {{$item['barang']['kodeBaranglama']}}
                                                 </li> --}}
                                                 <li>
-                                                    kode bary = {{$item['barang']['kodeBarangUse']}}
+                                                     {{$item['barang']['kodeBarangUse']}}
                                                 </li>
                                             </ul>
                                         </td>
@@ -122,7 +122,7 @@
                                         <td>{{$item['kondisi']['namaKondisi']}}</td>
                                         <td>{{$item['bagian']['nama_bagian']}}</td>
                                         <td>{{$item['notes']}}</td>
-                                        <td>{{$item['user_id']}}</td>
+                                        {{-- <td>{{$item['user_id']}}</td> --}}
                                         <td>{{$item['user']['name']}}</td>
 
                                         <td>

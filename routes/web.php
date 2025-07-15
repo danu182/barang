@@ -35,6 +35,8 @@ Route::resource('barang', BarangController::class);
 Route::resource('barang.harddisk', HarddiskController::class);
 Route::resource('barang.ram', RamController::class);
 Route::resource('barang.prosesor', ProsesorController::class);
+Route::resource('barang-mutasi', DetailMutasiController::class);
+
 
 
 Route::resource('sosmed', SosmedController::class);
@@ -69,7 +71,7 @@ Route::resource('tipe-mutasi', TipeMutasiController::class);
 
 
 Route::resource('asset-mutasi', AssetMutationController::class);
-Route::resource('barang-mutasi', DetailMutasiController::class);
+
 
 
 

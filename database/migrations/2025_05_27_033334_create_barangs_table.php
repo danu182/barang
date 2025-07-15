@@ -15,8 +15,10 @@ return new class extends Migration
             $table->id();
 
             $table->foreignId('kategori_id')->constrained('kategoris')->onDelete('restrict'); // Foreign key reference
+            $table->foreignId('pelanggan_id')->constrained('pelanggans')->onDelete('restrict'); // Foreign key reference
 
             $table->string('kodeBarang');
+            $table->string('kodeBarangUse');
             $table->string('namaBarang');
             $table->string('merek')->nullable();
             $table->string('model')->nullable();

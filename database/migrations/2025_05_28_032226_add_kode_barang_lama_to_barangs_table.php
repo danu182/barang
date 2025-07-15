@@ -12,7 +12,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('barangs', function (Blueprint $table) {
-            $table->string('kodeBaranglama')->nullable()->after('kategori_id');
+            $table->string('kodeBaranglama')->nullable()->after('pelanggan_id');
+            $table->string('kodeBarangAkuntansi')->nullable()->after('pelanggan_id');
         });
     }
 

@@ -37,10 +37,23 @@
                             @csrf
                             @method('PUT')
 
+
+                            {{-- kategori start --}}
+                            <div class="form-group">
+                                <label for="kodeBarang">Perusahaan</label>
+                                <select class="form-control" name="pelanggan_id" id="" disabled>
+                                    <option disabled value="{{ $barang['pelanggan_id'] }}">{{ $barang['pelanggan']['namaPelanggan'] }}</option>
+                                    @foreach ($pelanggan as $item)
+                                        <option value="{{ $item['id'] }}">{{ $item['namaPelanggan'] }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            {{-- kategori end --}}
+
                             {{-- kategori start --}}
                             <div class="form-group">
                                 <label for="kodeBarang">kategori</label>
-                                <select class="form-control" name="kategori_id" id="">
+                                <select class="form-control" name="kategori_id" id="" disabled>
                                     <option disabled value="{{ $barang['kategori_id'] }}">{{ $barang['kategori']['namaKategori'] }}</option>
                                     @foreach ($kategori as $item)
                                         <option value="{{ $item['id'] }}">{{ $item['namaKategori'] }}</option>
@@ -48,6 +61,13 @@
                                 </select>
                             </div>
                             {{-- kategori end --}}
+
+                            {{-- kode barang akuntansi start --}}
+                            <div class="form-group">
+                                    <label for="kodeBarang">kodeBarangAkuntansi</label>
+                                    <input type="text" class="form-control" id="kodeBarangAkuntansi" placeholder="Masukkan kodeBarangAkuntansi" name="kodeBarangAkuntansi" value="{{ $barang->kodeBarangAkuntansi }}">
+                            </div>
+                            {{-- kode barang akuntansiend end --}}
 
                             {{-- kode barang start --}}
                             <div class="form-group">

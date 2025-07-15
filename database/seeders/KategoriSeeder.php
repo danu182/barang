@@ -10,23 +10,28 @@ class KategoriSeeder extends Seeder
 {
     protected $kategori=[
         [
-            'kodeKategori' =>'AIO',
-            'namaKategori' =>'All In One',
-            'duaPilihan_id' => 1,
-        ],
-        [
-            'kodeKategori' =>'PCR',
-            'namaKategori' =>'PC rakitan',
-            'duaPilihan_id' => 1,
-        ],
-        [
-            'kodeKategori' =>'NB',
-            'namaKategori' =>'Notebook',
+            'kodeKategori' =>'LP',
+            'namaKategori' =>'Laptop / Notebook',
             'duaPilihan_id' => 1,
         ],
         [
             'kodeKategori' =>'PRN',
             'namaKategori' =>'Printer',
+            'duaPilihan_id' => 1,
+        ],
+        [
+            'kodeKategori' =>'MB',
+            'namaKategori' =>'MacBook',
+            'duaPilihan_id' => 1,
+        ],
+        [
+            'kodeKategori' =>'MAC',
+            'namaKategori' =>'IMac',
+            'duaPilihan_id' => 1,
+        ],
+        [
+            'kodeKategori' =>'PC',
+            'namaKategori' =>'Personal Computer',
             'duaPilihan_id' => 1,
         ],
     ];

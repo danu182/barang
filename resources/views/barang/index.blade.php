@@ -65,10 +65,10 @@
                                     <th>Ramkpasitas</th>
 
                                     <th>kapasitasHarddisk</th>
-
+                                    <th>perusahaan</th>
                                     <th>kategori</th>
                                     <th>kodeBaranglama</th>
-                                    <th>kodeBarangBaru</th>
+                                    <th>kodeBarangUse</th>
                                     <th>namaBarang</th>
                                     <th>merek</th>
                                     <th>model</th>
@@ -89,8 +89,9 @@
                                     <th>Ramkpasitas</th>
 
                                     <th>kapasitasHarddisk</th>
+                                    <th>perusahaan</th>
                                     <th>kategori</th>
-                                    <th>kodeBaranglama</th>
+                                    <th>kodeBarangUse</th>
                                     <th>kodeBarangBaru</th>
                                     <th>namaBarang</th>
                                     <th>merek</th>
@@ -150,8 +151,9 @@
                                         </td>
 
                                         {{-- <td>{{$item['id']}}</td> --}}
+                                        <td>{{$item['pelanggan']['namaPelanggan']}}</td>
                                         <td>{{$item['kategori']['namaKategori']}}</td>
-                                        <td>{{$item['kodeBaranglama']}}</td>
+                                        <td>{{$item['kodeBarangUse']}}</td>
                                         <td>{{$item['kodeBarang']}}</td>
                                         <td>{{$item['namaBarang']}}</td>
                                         <td>{{$item['merek']}}</td>

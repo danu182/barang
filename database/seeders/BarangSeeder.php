@@ -12,8 +12,11 @@ class BarangSeeder extends Seeder
     protected $barang=[
         [
             'kategori_id'=>1,
-            'kodeBaranglama'=>'-',
-            'kodeBarang'=>'AIO-20250711-00001',
+            'pelanggan_id'=>1,
+            'kodeBaranglama'=>'-null-',
+            'kodeBarangAkuntansi'=>'AKUN123456',
+            'kodeBarang'=>'PI/0725/0001',
+            'kodeBarangUse'=>'PI/0725/0001/LP',
             'namaBarang'=> 'PC ALL IN ONE LENOVO V520',
             'merek' => 'Lenovo',
             'model' =>'V520',
@@ -22,6 +25,17 @@ class BarangSeeder extends Seeder
             'hargaPerolehan'=> '7000000',
             'vendor'=>'TOKOPEDIA',
             'catatan'=>'BARANG TES',
+            'merek' => 'Lenovo',
+            'model' =>'V520',
+            'nomorSeri'=> '1223-654-98782',
+            'tanggalPerolehan'=>'2025-07-11',
+            'hargaPerolehan'=> '7000000',
+            'vendor'=>'TOKOPEDIA',
+            'catatan'=>'BARANG TES',
+            'created_at' => "2025-07-11 11:02:38",
+            // 'created_at' =>  date("Y-m-d H:i:s"),
+            // 'created_at' =>  date("Y-m-d H:i:s") ,
+
         ],
     ];
 

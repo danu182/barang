@@ -11,6 +11,7 @@ class Pelanggan extends Model
     use HasFactory, SoftDeletes;
 
     protected $fillable=[
+        'kodePelanggan',
         'namaPelanggan',
         'picPelanggan',
         'tLpPelanggan',
@@ -18,4 +19,10 @@ class Pelanggan extends Model
         'emailPelanggan',
         'keteranganPelanggan',
     ];
+
+
+    public function barang()
+    {
+        return $this->hasMany(Barang::class, 'pelanggan_id', 'id');
+    }
 }

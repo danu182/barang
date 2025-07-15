@@ -12,8 +12,11 @@ class Barang extends Model
 
     protected $fillable=[
             'kategori_id',
+            'pelanggan_id',
             'kodeBaranglama',
+            'kodeBarangAkuntansi',
             'kodeBarang',
+            'kodeBarangUse',
             'namaBarang',
             'merek',
             'model',
@@ -24,6 +27,11 @@ class Barang extends Model
             'catatan',
     ];
 
+
+    public function pelanggan()
+    {
+        return $this->hasOne(Pelanggan::class, 'id', 'pelanggan_id');
+    }
 
     public function kategori()
     {

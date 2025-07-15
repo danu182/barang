@@ -21,9 +21,9 @@ class AssetMutationController extends Controller
     public function index()
     {
 
-        $assetMutation = AssetMutation::orderBy('mutation_date', 'desc')->get();
+        $assetMutation = AssetMutation::orderBy('created_at', 'desc')->get();
 
-        // return $assetMutation;
+        // return $assetMutation->kategori;
 
         return view('assetMutasi.index', compact('assetMutation'));
 

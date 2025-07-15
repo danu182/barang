@@ -18,24 +18,25 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-            $this->call(NegaraSeeder::class);
-            $this->call(ProfinsiSeeder::class);
-            $this->call(KotaSeeder::class);
-            $this->call(LokasiSeeder::class);
-            $this->call(DuaPilihanSeeder::class);
-            $this->call(KategoriSeeder::class);
-            $this->call(BagianSeeder::class);
-            $this->call(KondisiSeeder::class);
-            $this->call(TipeMutasiSeeder::class);
-            $this->call(TipeRamSeeder::class);
-            $this->call(TipeHardiskSeeder::class);
-            $this->call(TipeProsesorSeeder::class);
-            $this->call(UserSeeder::class);
-            $this->call(SatuanSizeSeeder::class);
-            $this->call(BarangSeeder::class);
-            $this->call(RamSeeder::class);
-            $this->call(HDSeeder::class);
-            $this->call(ProsesorSeeder::class);
+        $this->call(NegaraSeeder::class);
+        $this->call(ProfinsiSeeder::class);
+        $this->call(KotaSeeder::class);
+        $this->call(LokasiSeeder::class);
+        $this->call(DuaPilihanSeeder::class);
+        $this->call(KategoriSeeder::class);
+        $this->call(PelanganSeeder::class);
+        $this->call(BagianSeeder::class);
+        $this->call(KondisiSeeder::class);
+        $this->call(TipeMutasiSeeder::class);
+        $this->call(TipeRamSeeder::class);
+        $this->call(TipeHardiskSeeder::class);
+        $this->call(TipeProsesorSeeder::class);
+        $this->call(UserSeeder::class);
+        $this->call(SatuanSizeSeeder::class);
+        $this->call(BarangSeeder::class);
+        $this->call(RamSeeder::class);
+        $this->call(HDSeeder::class);
+        $this->call(ProsesorSeeder::class);
 
     }
 }

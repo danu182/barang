@@ -7,6 +7,7 @@ use App\Models\Kategori;
 use Illuminate\Http\Request;
 use App\Helpers\Helpers;
 use App\Models\DuaPilihan;
+use App\Models\Pelanggan;
 
 class BarangController extends Controller
 {
@@ -25,11 +26,6 @@ class BarangController extends Controller
         // $barang =Barang::with('kategori')->get();
 
         $barang =Barang::with('ram','ram.tipeRam','hd', 'hd.tipeHardDisk')->orderBy('created_at', 'desc')->get();
-        // return $barang;
-
-        // return $barang;
-
-
 
         $title="Barang";
 
@@ -43,8 +39,9 @@ class BarangController extends Controller
     {
         $title= "barang";
         $kategori= Kategori::all();
+        $pelanggan= Pelanggan::all();
 
-        return view('barang.create', compact('title','kategori'));
+        return view('barang.create', compact('title','kategori','pelanggan'));
     }
 
     /**
@@ -56,40 +53,67 @@ class BarangController extends Controller
         $kategoriId= $request->kategori_id;
         $kategori=Kategori::findOrFail($kategoriId);
         $kategoriCode = strtoupper($kategori->kodeKategori);
-        // return $kategoriCode;
+
+        // ambil kode perusahaan berdasarkan $pelanggan_id
+        $pelangganId= $request->pelanggan_id;
+        $pelanggan=Pelanggan::findOrFail($pelangganId);
+        $pelangganCode = strtoupper($pelanggan->kodePelanggan);
 
         $tgl = date('Y-m-d');
         $datePrefix  = Helpers::formatDate($tgl);
 
-        $tahun = date('Y');
+        $tahun = date('y');
         $bulan = date('m');
         $tanggal = date('d');
         // Build date string part
-        $dateString = $tahun . $bulan . $tanggal;
+        // $dateString = $tahun . $bulan . $tanggal;
+        $dateString =  $tahun. $bulan  ;
 
-        $prefix= $kategoriCode .'-'. $dateString . '-';
+        $prefix= $pelangganCode .'/'. $bulan. $tahun  . '/';
         // Find max nomor urut today for this kategori
-        $lastKodeBarang = Barang::where('created_at', 'like', $datePrefix . '%')
-            ->orderBy('created_at', 'desc')
-            ->value('kodeBarang');
+        // $lastKodeBarang = Barang::where('created_at', 'like', $datePrefix . '%')
+        //     // ->where('pelanggan_id', $pelanggan->id)
+        //     ->orderBy('created_at', 'desc')
+        //     ->value('kodeBarang');
+
+        $lastBarang = Barang::where('pelanggan_id', $pelanggan->id)
+                    ->latest('id')
+                    ->first(); // Get the entire model or null
+
+            // return $lastKodeBarang;
         $nomorUrut = 1; // default start sequence
 
+        $lastKodeBarang = null; // Initialize to null
+
+// Check if a record was found before trying to access its property
+        if ($lastBarang) {
+            $lastKodeBarang = $lastBarang->kodeBarang; // Access the kodeBarang property
+        }
+
+        $nomorUrut = 1; // Default start sequence
+
         if ($lastKodeBarang) {
-            // Extract the last 5 digits as sequence number
-            $lastNumberStr = substr($lastKodeBarang, -5);
+            // Extract the last 4 digits as sequence number (based on your substr -4)
+            $lastNumberStr = substr($lastKodeBarang, -4);
             if (is_numeric($lastNumberStr)) {
                 $nomorUrut = intval($lastNumberStr) + 1;
             }
         }
 
-         // format nomor urut with 5 digit zero padding
-        $nomorUrutStr = str_pad($nomorUrut, 5, '0', STR_PAD_LEFT);
+        // Format nomor urut with 4 digit zero padding (to match -4 extraction)
+        $nomorUrutStr = str_pad($nomorUrut, 4, '0', STR_PAD_LEFT);
         $kodeBarang = $prefix . $nomorUrutStr;
+        $kodeBarangUse = $kodeBarang . '/' . $kategoriCode;
+
+        // return $kodeBarangUse;
 
         $data=[
             'kategori_id'=> $request->kategori_id,
+            'pelanggan_id'=> $request->pelanggan_id,
             'kodeBaranglama'=> $request->kodeBaranglama,
+            'kodeBarangAkuntansi'=> $request->kodeBarangAkuntansi,
             'kodeBarang'=> $kodeBarang,
+            'kodeBarangUse'=> $kodeBarangUse,
             'namaBarang'=>$request->namaBarang,
             'merek'=> $request->merek,
             'model'=> $request->model,
@@ -117,10 +141,11 @@ class BarangController extends Controller
      */
     public function edit(Barang $barang)
     {
-        $title = "sdasda";
+        $title = $barang->kodeBarangUse.' - nama barang = '.$barang->namaBarang .' - tanggal perolahan = '.$barang->tanggalPerolehan;
 
         $kategori=Kategori::all();
-        return view('barang.edit', compact('barang', 'title','kategori'));
+        $pelanggan=Pelanggan::all();
+        return view('barang.edit', compact('barang', 'title','kategori','pelanggan'));
     }
 
     /**
@@ -129,9 +154,10 @@ class BarangController extends Controller
     public function update(Request $request, Barang $barang)
     {
         $data=[
-            'kategori_id'=> $request->kategori_id,
+            // 'kategori_id'=> $request->kategori_id,
+            // 'pelanggan_id'=> $request->pelanggan_id,
             'kodeBaranglama'=> $request->kodeBaranglama,
-            // 'kodeBarang'=> $kodeBarang,
+            'kodeBarangAkuntansi'=> $request->kodeBarangAkuntansi,
             'namaBarang'=>$request->namaBarang,
             'merek'=> $request->merek,
             'model'=> $request->model,

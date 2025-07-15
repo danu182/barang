@@ -57,6 +57,7 @@
                                 <tr>
 
                                     <th>id</th>
+                                    <th>perusahaan</th>
                                     <th>kode barang</th>
                                     <th>kategori barang</th>
                                     <th>nama Barang</th>
@@ -77,6 +78,7 @@
                                 <tr>
                                     <tr>
                                         <th>id</th>
+                                        <th>perusahaan</th>
                                         <th>kode barang</th>
                                         <th>kategori barang</th>
                                         <th>nama Barang</th>
@@ -98,17 +100,19 @@
                                 @foreach ($assetMutation as $item)
                                     <tr>
                                         <td>{{$item['id']}}</td>
+                                        <td>{{$item['barang']['pelanggan']['namaPelanggan']}}</td>
                                         <td>
                                             <ul>
-                                                <li>
+                                                {{-- <li>
                                                     kode lama = {{$item['barang']['kodeBaranglama']}}
-                                                </li>
+                                                </li> --}}
                                                 <li>
-                                                    kode bary = {{$item['barang']['kodeBarang']}}
+                                                    kode bary = {{$item['barang']['kodeBarangUse']}}
                                                 </li>
                                             </ul>
                                         </td>
                                         <td>{{$item['barang']['kategori']['namaKategori']}}</td>
+
                                         <td class="text-uppercase">{{$item['barang']['namaBarang']}}</td>
                                         {{-- <td>{{$item['lokasiOld']['namaLokasi']}}</td> --}}
                                         <td>{{$item['lokasiOld']['namaLokasi']}}  |  lantai : {{$item['lokasiOld']['lantai']}}</td>

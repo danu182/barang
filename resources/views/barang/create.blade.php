@@ -38,15 +38,33 @@
 
                             {{-- kategori start --}}
                             <div class="form-group">
+                                <label for="kodeBarang">Perusahaan</label>
+                                <select class="form-control" name="pelanggan_id" id="">
+                                    <option disabled>------ pilih salah satu perusahaan ------</option>
+                                    @foreach ($pelanggan as $item)
+                                        <option value="{{ $item['id'] }}">{{ $item['namaPelanggan'] }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            {{-- kategori end --}}
+                            {{-- kategori start --}}
+                            <div class="form-group">
                                 <label for="kodeBarang">kategori</label>
                                 <select class="form-control" name="kategori_id" id="">
-                                    <option disabled>------ pilih salah satu ------</option>
+                                    <option disabled>------ pilih salah satu kategori ------</option>
                                     @foreach ($kategori as $item)
                                         <option value="{{ $item['id'] }}">{{ $item['namaKategori'] }}</option>
                                     @endforeach
                                 </select>
                             </div>
                             {{-- kategori end --}}
+
+                            {{-- kode barang akuntansi start --}}
+                            <div class="form-group">
+                                    <label for="kodeBarang">kodeBarangAkuntansi</label>
+                                    <input type="text" class="form-control" id="kodeBarangAkuntansi" placeholder="Masukkan kodeBarangAkuntansi" name="kodeBarangAkuntansi">
+                            </div>
+                            {{-- kode barang akuntansiend end --}}
 
                             {{-- kode barang start --}}
                             <div class="form-group">

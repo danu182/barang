@@ -20,7 +20,7 @@ class UserSeeder extends Seeder
     ];
 
 
-s
+
     public function run(): void
     {
         $faker = Faker::create('id_ID');

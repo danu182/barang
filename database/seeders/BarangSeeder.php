@@ -11,7 +11,7 @@ class BarangSeeder extends Seeder
 
     protected $barang=[
         [
-            'kategori_id'=>1,
+            'kategori_id'=>3,
             'pelanggan_id'=>1,
             'kodeBaranglama'=>'-null-',
             'kodeBarangAkuntansi'=>'AKUN123456',

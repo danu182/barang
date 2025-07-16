@@ -4,6 +4,7 @@ use App\Http\Controllers\AjaxController;
 use App\Http\Controllers\AssetMutationController;
 use App\Http\Controllers\BagianController;
 use App\Http\Controllers\BarangController;
+use App\Http\Controllers\BarangExportController;
 use App\Http\Controllers\DetailMutasiController;
 use App\Http\Controllers\HarddiskController;
 use App\Http\Controllers\JavaScriptController;
@@ -89,6 +90,8 @@ Route::get('/get-customer-pic/{id}', [JavaScriptController::class, 'fetchPelangg
 // get vendor
 Route::get('/get-vendor-pic/{id}', [JavaScriptController::class, 'fetchVendor']);
 
-
+// export to excel
+Route::get('barang-export', [BarangExportController::class, 'export'])
+->name('barang.export');
 
 

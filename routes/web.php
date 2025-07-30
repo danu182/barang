@@ -1,5 +1,6 @@
 <?php
 
+use App\Exports\BarangQueryExport;
 use App\Http\Controllers\AjaxController;
 use App\Http\Controllers\AssetMutationController;
 use App\Http\Controllers\BagianController;
@@ -94,4 +95,6 @@ Route::get('/get-vendor-pic/{id}', [JavaScriptController::class, 'fetchVendor'])
 Route::get('barang-export', [BarangExportController::class, 'export'])
 ->name('barang.export');
 
+Route::get('barang-export-query', [BarangExportController::class, 'query'])
+->name('barang.export.query');
 

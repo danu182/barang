@@ -159,6 +159,7 @@
                                 </select>
                                 </div>
                             </div>
+                                <input type="hidden" name="PelangganId" class="form-control" id="inputPelangganId" disabled>
 
                             <div class="form-group row">
                                 <label for="staticEmail" class="col-sm-2 col-form-label">picUser</label>
@@ -219,7 +220,7 @@
                                         </div>
                                         <div class="col-6 col-sm-3 form-group">
                                             <label>subtotal</label>
-                                            <input type="number" name="subtotal[]" class="form-control" placeholder="subtotal" disabled>
+                                            <input type="number" name="subtotal[]" class="form-control" placeholder="subtotal" readonly>
 
                                         </div>
                                         <div class="col-6 col-sm-1 form-group">
@@ -443,7 +444,7 @@
                             '<input type="text" name="hargaSatuan[]" class="form-control" placeholder="hargaSatuan">'+
                             '</div>'+
                             '<div class="col-6 col-sm-3 form-group">'+
-                            '<input type="text" name="subtotal[]" class="form-control" placeholder="subtotal">'+
+                            '<input type="text" name="subtotal[]" class="form-control" placeholder="subtotal" readonly>'+
                             '</div>'+
                             '<div class="col-6 col-sm-1 form-group">'+
                             '<div class="form-group row mr-2 ml-2">'+

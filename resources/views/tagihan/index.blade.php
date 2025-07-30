@@ -56,10 +56,11 @@
                             <thead>
                                 <tr>
                                     <th>id</th>
-                                    <th>vendor_id</th>
-                                    <th>noTagihan</th>
-                                    <th>upTagihan</th>
                                     <th>tanggalTagihan</th>
+                                    {{-- <th>vendor_id</th> --}}
+                                    <th>noTagihan</th>
+                                    <th>nama vendor</th>
+                                    <th>tagihan untuk</th>
                                     <th>dueDateTagihan</th>
                                     <th>totaltagihan</th>
                                     <th>lampiran</th>
@@ -71,10 +72,11 @@
                             <tfoot>
                                 <tr>
                                     <th>id</th>
-                                    <th>vendor_id</th>
-                                    <th>noTagihan</th>
-                                    <th>upTagihan</th>
                                     <th>tanggalTagihan</th>
+                                    {{-- <th>vendor_id</th> --}}
+                                    <th>noTagihan</th>
+                                    <th>nama vendor</th>
+                                    <th>tagihan untuk</th>
                                     <th>dueDateTagihan</th>
                                     <th>totaltagihan</th>
                                     <th>lampiran</th>
@@ -86,10 +88,11 @@
                                 @foreach ($tagihan as $item)
                                     <tr>
                                         <td>{{$item['id']}}</td>
-                                        <td>{{$item['vendor_id']}}</td>
-                                        <td>{{$item['noTagihan']}}</td>
-                                        <td>{{$item['upTagihan']}}</td>
                                         <td>{{$item['tanggalTagihan']}}</td>
+                                        {{-- <td>{{$item['vendor_id']}}</td> --}}
+                                        <td>{{$item['noTagihan']}}</td>
+                                        <td>{{$item['vendor']['namaVendor']}}</td>
+                                        <td>{{$item['pelanggan']['namaPelanggan']}}</td>
                                         <td>{{$item['dueDateTagihan']}}</td>
                                         <td>{{$item['totaltagihan']}}</td>
                                         <td>{{$item['lampiran']}}</td>

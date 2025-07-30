@@ -18,16 +18,15 @@ return new class extends Migration
             $table->foreignId('pelanggan_id')->constrained('pelanggans')->onDelete('cascade'); // Foreign key referenc
 
             $table->string('noTagihan');
-            $table->string('upTagihan');
             $table->date('tanggalTagihan');
             $table->date('dueDateTagihan');
             $table->string('periodeTagihan')->nullable();
             $table->string('totaltagihan');
-            $table->bigInteger('statusTagihan_id');
+            $table->bigInteger('statusTagihan_id')->nullable();
 
             // $table->foreignId('statusTagihan_id')->constrained('status_tagihans')->onDelete('cascade')->default(1);
-            $table->string('lampiran');
             $table->text('keterangan')->nullable();
+            $table->string('lampiran')->nullable();
 
             $table->timestamps();
             $table->softDeletes();

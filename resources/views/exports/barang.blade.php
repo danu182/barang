@@ -25,6 +25,7 @@
                 <td width="auto">{{ $brg->id }}</td>
                 <td width="auto">{{ $brg->kategori_id }}</td>
                 <td width="auto">{{ $brg->pelanggan_id }}</td>
+                <td width="auto">{{ $brg->pelanggan->namaPelanggan }}</td>
                 <td width="auto">{{ $brg->kodeBaranglama }}</td>
                 <td width="auto">{{ $brg->kodeBarangAkuntansi }}</td>
                 <td width="auto">{{ $brg->kodeBarang }}</td>

@@ -37,6 +37,7 @@ class DatabaseSeeder extends Seeder
         $this->call(RamSeeder::class);
         $this->call(HDSeeder::class);
         $this->call(ProsesorSeeder::class);
+        $this->call(VendorSeeder::class);
 
     }
 }

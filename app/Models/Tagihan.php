@@ -24,19 +24,18 @@ class Tagihan extends Model
 
 
     protected $fillable=[
-        'vendor_id',
-        'pelanggan_id',
-        'noTagihan',
-        'upTagihan',
-        'tanggalTagihan',
-        'dueDateTagihan',
-        'periodeTagihan',
-        'totaltagihan',
-        'statusTagihan_id',
+            'vendor_id',
+            'pelanggan_id',
 
+            'noTagihan',
+            'tanggalTagihan',
+            'dueDateTagihan',
+            'periodeTagihan',
+            'totaltagihan',
+            'statusTagihan_id',
 
-        'lampiran',
-        'keterangan',
+            'keterangan',
+            'lampiran',
     ];
 
 
@@ -45,6 +44,10 @@ class Tagihan extends Model
         return $this->hasOne(Vendor::class, 'id', 'vendor_id');
     }
 
+    public function pelanggan()
+    {
+        return $this->hasOne(Pelanggan::class, 'id', 'pelanggan_id');
+    }
 
     public function tagihanDetail()
     {

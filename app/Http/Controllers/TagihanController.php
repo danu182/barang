@@ -21,6 +21,7 @@ class TagihanController extends Controller
         $statusTagihan= StatusTagihan::all();
         $tagihan = Tagihan::all();
         $vendor= Vendor::all();
+        // $tagihan = Pelanggan::all();
 
 
         return view('tagihan.index', compact('tagihan', 'title','statusTagihan','vendor'));
@@ -52,63 +53,63 @@ class TagihanController extends Controller
     public function store(Request $request)
     {
 
-
-        return $request->all();
-
-
-       $data = $request->validate([
+        $data = $request->validate([
             'vendor_id' => 'required|exists:vendors,id',
+            'pelanggan_id'=>'required|exists:pelanggans,id',
             'noTagihan' => 'required|string|max:255',
-            'upTagihan' => 'required|nullable|string',
             'tanggalTagihan' => 'date',
             'dueDateTagihan' => 'date',
             'periodeTagihan' => 'nullable|string',
-            // 'totaltagihan' => 'nullable|string',
-            'lampiran' => 'nullable|string',
-            'keterangan' => 'nullable|string',
+            'totaltagihan' => 'nullable|string',
+
+            // 'upTagihan' => 'required|nullable|string',
+
+            // 'lampiran' => 'nullable|string',
+            // 'keterangan' => 'nullable|string',
+
             'namaItem.*' => 'required|nullable|string',
             'jumlah.*' => 'required|nullable|string',
             'hargaSatuan.*' => 'required|nullable|string',
             'subtotal.*' => 'required|nullable|string',
 
-            'picUser' => 'nullable|string',
-            'picAlamat' => 'nullable|string',
-            'picTlp' => 'nullable|string',
-            'picEmail' => 'nullable|email',
+            // 'picUser' => 'nullable|string',
+            // 'picAlamat' => 'nullable|string',
+            // 'picTlp' => 'nullable|string',
+            // 'picEmail' => 'nullable|email',
 
         ]);
+
 
         $data['tanggalTagihan']= Helpers::formatDate($data['tanggalTagihan']);
         $data['dueDateTagihan']= Helpers::formatDate($data['dueDateTagihan']);
 
-        $total = 0;
-        foreach ($request->subtotal as $index => $subtotal) {
-            // Convert subtotal to a float and add to total
-            $total += (float) $subtotal;
-        }
+        // $total = 0;
+        // foreach ($request->subtotal as $index => $subtotal) {
+        //     // Convert subtotal to a float and add to total
+        //     $total += (float) $subtotal;
+        // }
 
         // return $total;
 
         $Tagihanid = Tagihan::insertGetId([
-                'vendor_id' => $data['vendor_id'],
-                'noTagihan' => $data['noTagihan'],
-                'upTagihan' => $data['upTagihan'],
-                'tanggalTagihan' => $data['tanggalTagihan'],
-                'dueDateTagihan' => $data['dueDateTagihan'],
-                'periodeTagihan' => $data['periodeTagihan'],
-                'totaltagihan' => $total,
-                'lampiran' => $data['lampiran'],
-                'keterangan' => $data['keterangan'] ?? null,
 
-                'picUser' => $data['picUser'],
-                'picAlamat' => $data['picAlamat'],
-                'picTlp' => $data['picTlp'],
-                'picEmail' => $data['picEmail'],
+                'vendor_id'=>$data['vendor_id'],
+                'pelanggan_id'=>$data['pelanggan_id'],
+
+                'noTagihan'=>$data['noTagihan'],
+                'tanggalTagihan'=>$data['tanggalTagihan'],
+                'dueDateTagihan'=>$data['dueDateTagihan'],
+                'periodeTagihan'=>$data['periodeTagihan'],
+                'totaltagihan'=>$data['totaltagihan'],
+                // 'statusTagihan_id'=>$data['statusTagihan_id'],
 
                 'statusTagihan_id' => '1',
 
                 'created_at' => now(),
             ]);
+
+
+
 
             // Loop melalui setiap tipe RAM yang dikirimkan
         foreach ($request->namaItem as $index => $namaItem) {
@@ -119,7 +120,7 @@ class TagihanController extends Controller
                 'jumlah' => $request['jumlah'][$index], // Ambil kapasitas dari input
                 'hargaSatuan' => $data['hargaSatuan'][$index] ?? null, // Ambil keterangan dari input
                 'subtotal' => $data['subtotal'][$index] ?? null, // Ambil keterangan dari input
-                // 'created_at' => now(),
+                'created_at' => now(),
             ]);
         }
 

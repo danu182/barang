@@ -109,6 +109,7 @@ function tampilkan_nilai_form() {
                         // console.log(data.namaPelanggan);
                         // document.getElementById('inputPelanggan').value = 'abdul maman';
                         document.getElementById('inputPelanggan').textContent = data.namaPelanggan  || '';
+                        document.getElementById('inputPelangganId').textContent = data.PelangganId  || '';
                         document.getElementById('inputpicUser').value = data.picUser  || '';
                         document.getElementById('inputpicAlamat').value = data.picAlamat || '';
                         document.getElementById('inputpicTlp').value = data.picTlp || '';
@@ -117,6 +118,7 @@ function tampilkan_nilai_form() {
                     .catch(error => console.error('Error fetching data:', error));
             } else {
                 // Clear fields if no pelanggan is selected
+                document.getElementById('inputPelangganId').value = '';
                 document.getElementById('inputPelanggan').value = '';
                 document.getElementById('inputpicUser').value = '';
                 document.getElementById('inputpicAlamat').value = '';

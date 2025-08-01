@@ -8,6 +8,7 @@ use App\Http\Controllers\BarangController;
 use App\Http\Controllers\BarangExportController;
 use App\Http\Controllers\DetailMutasiController;
 use App\Http\Controllers\HarddiskController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\JavaScriptController;
 use App\Http\Controllers\KategoriController;
 use App\Http\Controllers\KondisiController;
@@ -97,4 +98,13 @@ Route::get('barang-export', [BarangExportController::class, 'export'])
 
 Route::get('barang-export-query', [BarangExportController::class, 'query'])
 ->name('barang.export.query');
+
+
+
+
+Route::get('tagihan/{tagihan}/details', [TagihanController::class, 'getTagihanDetails'])->name('tagihan.details');
+
+Route::resource('home', HomeController::class);
+
+// Route::get('tagihan/{tagihan}/details', [HomeController::class, 'show'])->name('tagihan.details');
 

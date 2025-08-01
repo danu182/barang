@@ -9,6 +9,8 @@ use App\Helpers\Helpers;
 use App\Models\Pelanggan;
 use App\Models\StatusTagihan;
 use App\Models\TagihanDetail;
+use Yajra\DataTables\DataTables as DataTablesDataTables;
+use Yajra\DataTables\Facades\DataTables;
 
 class TagihanController extends Controller
 {
@@ -18,13 +20,34 @@ class TagihanController extends Controller
     public function index()
     {
         $title = "tagihan ";
-        $statusTagihan= StatusTagihan::all();
-        $tagihan = Tagihan::all();
-        $vendor= Vendor::all();
+        // $statusTagihan= StatusTagihan::all();
+        // $tagihan = Tagihan::all();
+        // $vendor= Vendor::all();
         // $tagihan = Pelanggan::all();
 
+        if (request()->ajax()) {
+            $tagihans = Tagihan::query()->with(['pelanggan','vendor']);
+            return DataTables::of($tagihans)
+                ->addIndexColumn()
+                    ->addColumn('action', function($row){
+                           $btn = '<a href="javascript:void(0)" class="edit btn btn-primary btn-sm">View</a>';
+                            return $btn;
 
-        return view('tagihan.index', compact('tagihan', 'title','statusTagihan','vendor'));
+                    })
+
+                    ->rawColumns(['action'])
+                ->make();
+        }
+
+        // if (request()->ajax()){
+        //     $tagihans=Tagihan::all();
+        //     return DataTables::of($tagihans)
+        //     ->make();
+        // }
+
+
+        // return view('tagihan.index', compact('tagihan', 'title','statusTagihan','vendor'));
+        return view('tagihan.index', compact('title'));
     }
 
     /**
@@ -39,6 +62,7 @@ class TagihanController extends Controller
 
         // return view('tagihan.lagi', compact('vendor','title','pelanggan'));
         // return view('tagihan.lagi');
+
         $pelanggan =Pelanggan::all();
         $vendor= Vendor::all();
 
@@ -136,10 +160,22 @@ class TagihanController extends Controller
     public function show(Tagihan $tagihan)
     {
 
-        // $tagihan= Tagihan::with('statusTagihan')->where('id', $tagihan->id)->first();
+
+    }
 
 
-        return view('tagihan.show', compact('tagihan'));
+    public function getTagihanDetails($id)
+    {
+        // Ambil data tagihan beserta relasi detail-nya
+        // Contoh: Jika ada model TagihanDetail yang terkait dengan Tagihan
+        $tagihan = Tagihan::with(['pelanggan', 'vendor', 'detailTagihan'])->find($id); // Sesuaikan dengan relasi Anda
+
+        if (!$tagihan) {
+            return response('Tagihan not found.', 404);
+        }
+
+        // Mengembalikan Blade view yang dirender sebagai string HTML
+        return view('tagihan.detail_tagihan', compact('tagihan'))->render();
     }
 
     /**

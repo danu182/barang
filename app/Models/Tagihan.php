@@ -49,7 +49,7 @@ class Tagihan extends Model
         return $this->hasOne(Pelanggan::class, 'id', 'pelanggan_id');
     }
 
-    public function tagihanDetail()
+    public function detailTagihan()
     {
         return $this->hasMany(TagihanDetail::class, 'tagihan_id', 'id');
     }

@@ -5,6 +5,15 @@
 
 @push('css')
     <link href="{{asset('vendor/datatables/dataTables.bootstrap4.min.css')}}" rel="stylesheet">
+     <style>
+        td.details-control {
+            background: url('https://datatables.net/examples/resources/details_open.png') no-repeat center center;
+            cursor: pointer;
+        }
+        tr.shown td.details-control {
+            background: url('https://datatables.net/examples/resources/details_close.png') no-repeat center center;
+        }
+    </style>
 @endpush
 
 @push('js')
@@ -52,65 +61,38 @@
 
                 <div class="card-body">
                     <div class="table-responsive">
-                        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                        <table class="table table-bordered" id="tbl_tagihan" width="100%" cellspacing="0">
                             <thead>
                                 <tr>
-                                    <th>id</th>
+                                    <th width="30px"></th> <th>No</th>
                                     <th>tanggalTagihan</th>
-                                    {{-- <th>vendor_id</th> --}}
                                     <th>noTagihan</th>
-                                    <th>nama vendor</th>
-                                    <th>tagihan untuk</th>
+                                    <th>namaPelanggan</th>
+                                    <th>nama Vendor</th>
                                     <th>dueDateTagihan</th>
                                     <th>totaltagihan</th>
                                     <th>lampiran</th>
                                     <th>keterangan</th>
-                                    <th>aksi</th>
-
+                                    <th width="100px">Action</th>
                                 </tr>
                             </thead>
                             <tfoot>
                                 <tr>
-                                    <th>id</th>
+                                    <th width="30px"></th> <th>No</th>
                                     <th>tanggalTagihan</th>
-                                    {{-- <th>vendor_id</th> --}}
                                     <th>noTagihan</th>
-                                    <th>nama vendor</th>
-                                    <th>tagihan untuk</th>
+                                    <th>namaPelanggan</th>
+                                    <th>nama Vendor</th>
                                     <th>dueDateTagihan</th>
                                     <th>totaltagihan</th>
                                     <th>lampiran</th>
                                     <th>keterangan</th>
-                                    <th>aksi</th>
+                                    <th width="100px">Action</th>
+
+
                                 </tr>
                             </tfoot>
                             <tbody>
-                                @foreach ($tagihan as $item)
-                                    <tr>
-                                        <td>{{$item['id']}}</td>
-                                        <td>{{$item['tanggalTagihan']}}</td>
-                                        {{-- <td>{{$item['vendor_id']}}</td> --}}
-                                        <td>{{$item['noTagihan']}}</td>
-                                        <td>{{$item['vendor']['namaVendor']}}</td>
-                                        <td>{{$item['pelanggan']['namaPelanggan']}}</td>
-                                        <td>{{$item['dueDateTagihan']}}</td>
-                                        <td>{{$item['totaltagihan']}}</td>
-                                        <td>{{$item['lampiran']}}</td>
-                                        <td>{{$item['keterangan']}}</td>
-                                        <td>
-                                            <a href="{{ route('tagihan.show', $item['id'] )  }}" class="btn btn-info">detail</a>
-                                            <a href="{{ route('tagihan.edit', $item['id'] )  }}" class="btn btn-warning">edit</a>
-
-                                            <form action="{{ route('tagihan.destroy',  $item['id']  ) }}" method="POST" style="display:inline;">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button type="submit" class="btn btn-danger">Delete</button>
-                                            </form>
-                                        </td>
-                                    </tr>
-
-                                @endforeach
-
 
                             </tbody>
                         </table>
@@ -121,6 +103,72 @@
 
         </div>
     <!-- /.container-fluid -->
+
+    @push('js')
+        <script type="text/javascript">
+           $(document).ready(function () {
+            var table = $('#tbl_tagihan').DataTable({
+                processing: true,
+                serverSide: true,
+                ajax: '{{ url()->current() }}',
+                columns: [
+                    {
+                        // Kolom untuk kontrol detail
+                        className: 'details-control',
+                        orderable: false,
+                        data: null, // Data tidak langsung dari server, tapi diisi JS
+                        defaultContent: ''
+                    },
+                    {data: 'DT_RowIndex', name: 'DT_RowIndex', orderable: false, searchable: false}, // Untuk nomor urut
+                    {data: 'tanggalTagihan' , name:'tanggalTagihan'},
+                    {data:'noTagihan' , name:'noTagihan'},
+                    {data:'pelanggan.namaPelanggan' , name:'pelanggan.namaPelanggan'}, // Pastikan relasi 'pelanggan' dimuat
+                    {data:'vendor.namaVendor' , name:'vendor.namaVendor'}, // Pastikan relasi 'vendor' dimuat
+                    {data:'dueDateTagihan' , name:'dueDateTagihan'},
+                    {data:'totaltagihan' , name:'totaltagihan'},
+                    {data:'lampiran' , name:'lampiran'},
+                    {data:'keterangan' , name:'keterangan'},
+                    {data: 'action', name: 'action', orderable: false, searchable: false},
+                ],
+                order: [[1, 'asc']] // Urutkan berdasarkan kolom 'No'
+            });
+
+            // Event listener untuk membuka dan menutup detail child row
+            $('#tbl_tagihan tbody').on('click', 'td.details-control', function () {
+                var tr = $(this).closest('tr');
+                var row = table.row(tr);
+
+                if (row.child.isShown()) {
+                    // Jika child row sudah terbuka, tutup
+                    row.child.hide();
+                    tr.removeClass('shown');
+                } else {
+                    // Jika child row belum terbuka, tampilkan loading sementara
+                    row.child('<div class="data-details">Memuat detail...</div>').show();
+                    tr.addClass('shown');
+
+                    var rowData = row.data();
+                    var tagihanId = rowData.id; // Asumsi ID tagihan ada di `rowData.id`
+
+                    $.ajax({
+                        url: `/tagihan/${tagihanId}/details`, // Sesuaikan dengan route detail Anda
+                        method: 'GET',
+                        success: function(htmlContent) {
+                            // Setelah data diterima, masukkan ke child row
+                            row.child(htmlContent).show();
+                            tr.addClass('shown');
+                        },
+                        error: function(xhr, status, error) {
+                            console.error("Error fetching child row details:", error);
+                            row.child('<div class="data-details text-danger">Gagal memuat detail. Silakan coba lagi.</div>').show();
+                            tr.addClass('shown');
+                        }
+                    });
+                }
+            });
+        });
+        </script>
+    @endpush
 
 
 

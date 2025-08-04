@@ -21,8 +21,12 @@ return new class extends Migration
             $table->date('tanggalTagihan');
             $table->date('dueDateTagihan');
             $table->string('periodeTagihan')->nullable();
-            $table->string('totaltagihan');
+            $table->string('nilaiTagihan')->nullable();
+            $table->string('totaltagihan')->nullable();
             $table->bigInteger('statusTagihan_id')->nullable();
+            $table->string('vat')->nullable();
+            $table->string('denda')->nullable();
+            $table->string('diskon')->nullable();
 
             // $table->foreignId('statusTagihan_id')->constrained('status_tagihans')->onDelete('cascade')->default(1);
             $table->text('keterangan')->nullable();

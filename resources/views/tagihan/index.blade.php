@@ -61,7 +61,7 @@
 
                 <div class="card-body">
                     <div class="table-responsive">
-                        <table class="table table-bordered" id="tbl_tagihan" width="100%" cellspacing="0">
+                        <table class="table table-bordered table-hover" id="tbl_tagihan" width="100%" cellspacing="0">
                             <thead>
                                 <tr>
                                     <th width="30px"></th> <th>No</th>
@@ -125,7 +125,11 @@
                     {data:'pelanggan.namaPelanggan' , name:'pelanggan.namaPelanggan'}, // Pastikan relasi 'pelanggan' dimuat
                     {data:'vendor.namaVendor' , name:'vendor.namaVendor'}, // Pastikan relasi 'vendor' dimuat
                     {data:'dueDateTagihan' , name:'dueDateTagihan'},
-                    {data:'totaltagihan' , name:'totaltagihan'},
+                    {
+                        data:'totaltagihan' ,
+                        name:'totaltagihan',
+                        render: $.fn.dataTable.render.number('.', ',', 2, '')
+                    },
                     {data:'lampiran' , name:'lampiran'},
                     {data:'keterangan' , name:'keterangan'},
                     {data: 'action', name: 'action', orderable: false, searchable: false},

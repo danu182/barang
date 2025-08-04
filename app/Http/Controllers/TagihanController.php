@@ -30,7 +30,8 @@ class TagihanController extends Controller
             return DataTables::of($tagihans)
                 ->addIndexColumn()
                     ->addColumn('action', function($row){
-                           $btn = '<a href="javascript:void(0)" class="edit btn btn-primary btn-sm">View</a>';
+                        //    $btn = '<a href="javascript:void(0)" class="edit btn btn-primary btn-sm">View</a>';
+                           $btn = '<a href="tagihan/'.$row['id'].'" class="edit btn btn-success btn-rounded" style="color:white; font-size:small;">Lihat</a>';
                             return $btn;
 
                     })
@@ -77,6 +78,8 @@ class TagihanController extends Controller
     public function store(Request $request)
     {
 
+        // return $request->all();
+
         $data = $request->validate([
             'vendor_id' => 'required|exists:vendors,id',
             'pelanggan_id'=>'required|exists:pelanggans,id',
@@ -84,9 +87,13 @@ class TagihanController extends Controller
             'tanggalTagihan' => 'date',
             'dueDateTagihan' => 'date',
             'periodeTagihan' => 'nullable|string',
+
             'totaltagihan' => 'nullable|string',
 
-            // 'upTagihan' => 'required|nullable|string',
+            'nilaiTagihan' => 'nullable|string',
+            'vat' => 'nullable|string',
+            'denda' => 'nullable|string',
+            'diskon' => 'nullable|string',
 
             // 'lampiran' => 'nullable|string',
             // 'keterangan' => 'nullable|string',
@@ -96,24 +103,11 @@ class TagihanController extends Controller
             'hargaSatuan.*' => 'required|nullable|string',
             'subtotal.*' => 'required|nullable|string',
 
-            // 'picUser' => 'nullable|string',
-            // 'picAlamat' => 'nullable|string',
-            // 'picTlp' => 'nullable|string',
-            // 'picEmail' => 'nullable|email',
-
         ]);
 
 
         $data['tanggalTagihan']= Helpers::formatDate($data['tanggalTagihan']);
         $data['dueDateTagihan']= Helpers::formatDate($data['dueDateTagihan']);
-
-        // $total = 0;
-        // foreach ($request->subtotal as $index => $subtotal) {
-        //     // Convert subtotal to a float and add to total
-        //     $total += (float) $subtotal;
-        // }
-
-        // return $total;
 
         $Tagihanid = Tagihan::insertGetId([
 
@@ -124,15 +118,20 @@ class TagihanController extends Controller
                 'tanggalTagihan'=>$data['tanggalTagihan'],
                 'dueDateTagihan'=>$data['dueDateTagihan'],
                 'periodeTagihan'=>$data['periodeTagihan'],
-                'totaltagihan'=>$data['totaltagihan'],
+                'nilaiTagihan'=>$data['nilaiTagihan'],
+
+                // 'totalTagihan'=>$data['totalTagihan'],
+                'totalTagihan'=>'100',
+
+                'denda'=>$data['denda'],
+                'diskon'=>$data['diskon'],
+                'vat'=>$data['vat'],
+
                 // 'statusTagihan_id'=>$data['statusTagihan_id'],
 
                 'statusTagihan_id' => '1',
-
                 'created_at' => now(),
             ]);
-
-
 
 
             // Loop melalui setiap tipe RAM yang dikirimkan
@@ -148,11 +147,10 @@ class TagihanController extends Controller
             ]);
         }
 
-        // return redirect()->route('tagihan.index',['tagihan'=>$barang->id])->with('success', ' Ram detail ' . $barang->namaBarang . ' added successfully ');
-
         return redirect()->route('tagihan.index')->with('success', ' tagihan detail  added successfully ');
 
     }
+
 
     /**
      * Display the specified resource.
@@ -160,6 +158,28 @@ class TagihanController extends Controller
     public function show(Tagihan $tagihan)
     {
 
+
+        // return $tagihan;
+        $tagihans = Tagihan::with(['pelanggan', 'vendor', 'detailTagihan'])->find($tagihan->id); // Sesuaikan dengan relasi Anda
+        // return $tagihans    ;
+
+
+        // Convert the detail_tagihan array to a Laravel collection
+        $detailTagihanCollection = collect($tagihans->detailTagihan);
+
+        // Sum the 'subtotal' values
+        $totalSubtotal = $detailTagihanCollection->sum('subtotal');
+
+    //    return $totalSubtotal;
+
+        if (!$tagihan) {
+            // Handle case where tagihan is not found, e.g., redirect or show 404
+            abort(404);
+        }
+
+        // return $tagihans->detailTagihan;
+
+        return view('inv.contoh', compact('tagihans','totalSubtotal'));
 
     }
 

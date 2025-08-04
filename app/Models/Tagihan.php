@@ -31,6 +31,10 @@ class Tagihan extends Model
             'tanggalTagihan',
             'dueDateTagihan',
             'periodeTagihan',
+            'nilaiTagihab',
+            'vat',
+            'diskon',
+            'denda',
             'totaltagihan',
             'statusTagihan_id',
 

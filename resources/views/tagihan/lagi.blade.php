@@ -104,7 +104,7 @@
                             <div class="form-group row">
                                 <label for="staticEmail" class="col-sm-2 col-form-label">subttotal</label>
                                 <div class="col-sm-10">
-                                <input type="number" name="subttotal" class="form-control" id="inputsubttotal">
+                                <input type="number" name="nilaiTagihan" class="form-control" id="inputnilaiTagihan">
                                 </div>
                             </div>
 
@@ -132,7 +132,7 @@
                             <div class="form-group row">
                                 <label for="staticEmail" class="col-sm-2 col-form-label">totaltagihan</label>
                                 <div class="col-sm-10">
-                                <input type="number" name="totaltagihan" class="form-control" id="inputtotaltagihan">
+                                <input type="number" name="totalTagihan" class="form-control" id="inputtotalTagihan">
                                 </div>
                             </div>
 

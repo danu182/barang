@@ -6,8 +6,8 @@ function tampilkan_nilai_form() {
     const inputtanggalTagihan = document.getElementById("inputtanggalTagihan").value;
     const inputdueDateTagihan = document.getElementById("inputdueDateTagihan").value;
     const inputperiodeTagihan = document.getElementById("inputperiodeTagihan").value;
-    const inputtotaltagihan = document.getElementById("inputtotaltagihan").value;
-    const inputsubttotal = document.getElementById("inputsubttotal").value;
+    // const inputtotaltagihan = document.getElementById("inputtotaltagihan").value;
+    // inputsubttotalDisplay = document.getElementById("inputsubttotal").value; // This is the displayed subtotal
     const inputdenda = document.getElementById("inputdenda").value;
     const inputvat = document.getElementById("inputvat").value;
     const inputdiskon = document.getElementById("inputdiskon").value;
@@ -26,7 +26,7 @@ function tampilkan_nilai_form() {
 
     // console.log(inputtotaltagihan);
     document.getElementById('dueDateTagihan').textContent = inputdueDateTagihan;
-    document.getElementById('totaltagihan').textContent = new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR' }).format(inputtotaltagihan);
+    // document.getElementById('totaltagihan').textContent = new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR' }).format(inputtotaltagihan);
     document.getElementById('subttotal').textContent = new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR' }).format(inputsubttotal);
     document.getElementById('denda').textContent = new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR' }).format(inputdenda);
     document.getElementById('diskon').textContent = new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR' }).format(inputdiskon);

@@ -9,6 +9,7 @@ use App\Helpers\Helpers;
 use App\Models\Pelanggan;
 use App\Models\StatusTagihan;
 use App\Models\TagihanDetail;
+use App\Models\VatPajak;
 use Yajra\DataTables\DataTables as DataTablesDataTables;
 use Yajra\DataTables\Facades\DataTables;
 
@@ -57,7 +58,7 @@ class TagihanController extends Controller
     public function create(Tagihan $tagihan)
     {
 
-        // $title="tambah tagihan";
+        $title="tambah tagihan";
         // $vendor= Vendor::all();
         // $pelanggan=Pelanggan::all();
 
@@ -66,8 +67,14 @@ class TagihanController extends Controller
 
         $pelanggan =Pelanggan::all();
         $vendor= Vendor::all();
+        $vats = VatPajak::latest()->first();;
 
-        return view('tagihan.lagi', compact('tagihan','pelanggan','vendor'));
+        // return $vats;
+
+        // return view('tagihan.tagihan2', compact('tagihan','pelanggan','vendor','vats'));
+
+
+        return view('tagihan.tagihan2', compact('title','vendor','pelanggan','vats'));
 
 
     }
@@ -91,9 +98,11 @@ class TagihanController extends Controller
             'totaltagihan' => 'nullable|string',
 
             'nilaiTagihan' => 'nullable|string',
-            'vat' => 'nullable|string',
-            'denda' => 'nullable|string',
-            'diskon' => 'nullable|string',
+
+            'vat' => 'nullable|number',
+            'denda' => 'nullable|number',
+
+            'diskon' => 'nullable|number',
 
             // 'lampiran' => 'nullable|string',
             // 'keterangan' => 'nullable|string',
@@ -102,8 +111,11 @@ class TagihanController extends Controller
             'jumlah.*' => 'required|nullable|string',
             'hargaSatuan.*' => 'required|nullable|string',
             'subtotal.*' => 'required|nullable|string',
-
         ]);
+
+
+
+
 
 
         $data['tanggalTagihan']= Helpers::formatDate($data['tanggalTagihan']);
@@ -121,7 +133,7 @@ class TagihanController extends Controller
                 'nilaiTagihan'=>$data['nilaiTagihan'],
 
                 // 'totalTagihan'=>$data['totalTagihan'],
-                'totalTagihan'=>'100',
+                'totaltagihan'=>$request->totaltagihan,
 
                 'denda'=>$data['denda'],
                 'diskon'=>$data['diskon'],

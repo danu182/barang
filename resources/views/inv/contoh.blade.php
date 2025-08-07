@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Invoice Pembayaran</title>
+    <title>Tagihan</title>
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -116,7 +116,7 @@
 <body>
     <div class="invoice-container">
         <div class="header">
-            <h1>INVOICE PEMBAYARAN</h1>
+            <h1>TAGIHAN PEMBAYARAN</h1>
             <p>{{ $tagihans->vendor->namaVendor }}</p>
             <p>{{ $tagihans->vendor->alamatVendor }}</p>
             <p>Telepon: {{ $tagihans->vendor->tlpVendor }} | Email: {{ $tagihans->vendor->emailVendor }}</p>

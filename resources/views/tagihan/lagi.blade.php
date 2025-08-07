@@ -83,25 +83,28 @@
                             <div class="form-group row">
                                 <label for="staticEmail" class="col-sm-2 col-form-label">tanggalTagihan</label>
                                 <div class="col-sm-10">
-                                <input type="date" name="tanggalTagihan" class="form-control" id="inputtanggalTagihan">
+                                <input type="date" name="tanggalTagihan" class="form-control" id="inputtanggalTagihan" value="{{ date('Y-m-d')  }}">
                                 </div>
                             </div>
 
                             <div class="form-group row">
                                 <label for="staticEmail" class="col-sm-2 col-form-label">dueDateTagihan</label>
                                 <div class="col-sm-10">
-                                <input type="date" name="dueDateTagihan" class="form-control" id="inputdueDateTagihan">
+                                <input type="date" name="dueDateTagihan" class="form-control" id="inputdueDateTagihan" value="{{ date('Y-m-d')  }}">
                                 </div>
                             </div>
 
                             <div class="form-group row">
                                 <label for="staticEmail" class="col-sm-2 col-form-label">periodeTagihan</label>
                                 <div class="col-sm-10">
-                                <input type="text" name="periodeTagihan" class="form-control" id="inputperiodeTagihan">
+                                <input type="text" name="periodeTagihan" class="form-control" id="inputperiodeTagihan" >
                                 </div>
                             </div>
 
-                            <div class="form-group row">
+
+                            {{-- ditempatkan di form paling belakang dan bisa malkukan hitung otomatis start --}}
+
+                            {{-- <div class="form-group row">
                                 <label for="staticEmail" class="col-sm-2 col-form-label">subttotal</label>
                                 <div class="col-sm-10">
                                 <input type="number" name="nilaiTagihan" class="form-control" id="inputnilaiTagihan">
@@ -130,11 +133,14 @@
                             </div>
 
                             <div class="form-group row">
-                                <label for="staticEmail" class="col-sm-2 col-form-label">totaltagihan</label>
+                                <label for="inputtotaltagihan" class="col-sm-2 col-form-label">totaltagihan</label>
                                 <div class="col-sm-10">
-                                <input type="number" name="totalTagihan" class="form-control" id="inputtotalTagihan">
+                                <input type="number" name="totaltagihan" class="form-control" id="inputtotaltagihan">
                                 </div>
                             </div>
+                             --}}
+
+                            {{-- ditempatkan di form paling belakang dan bisa malkukan hitung otomatis end --}}
 
 
 
@@ -204,6 +210,66 @@
 
                             <div class="field_wrapper">
                                 <div class="form-group">
+
+
+                            {{-- <div class="form-group row">
+                                <label for="staticEmail" class="col-sm-2 col-form-label">subttotal</label>
+                                <div class="col-sm-10">
+                                <input type="number" name="nilaiTagihan" class="form-control" id="inputnilaiTagihan">
+                                </div>
+                            </div> --}}
+
+                            {{-- <div class="form-group row">
+                                <label for="staticEmail" class="col-sm-2 col-form-label">vat / pajak</label>
+                                <div class="col-sm-10">
+                                <input type="number" name="vat" class="form-control" id="inputvat">
+                                </div>
+                            </div> --}}
+
+                            <div class="form-group row">
+                                <label for="staticEmail" class="col-sm-2 col-form-label">Denda</label>
+                                <div class="col-sm-10">
+                                <input type="number" name="denda" class="form-control" id="inputdenda">
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="staticEmail" class="col-sm-2 col-form-label">inputvat</label>
+                                <div class="col-sm-10">
+                                <input type="number" name="vat" class="form-control" id="inputvat">
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="staticEmail" class="col-sm-2 col-form-label">diskon</label>
+                                <div class="col-sm-10">
+                                <input type="number" name="diskon" class="form-control" id="inputdiskon">
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="staticEmail" class="col-sm-2 col-form-label">total tagihan</label>
+                                <div class="col-sm-10">
+                                <input type="number" name="inputsubttotal" class="form-control" id="inputsubttotal">
+                                </div>
+                            </div>
+
+
+                            {{-- <div class="form-group row">
+                                <label class="col-sm-2 col-form-label" for="exampleCheck1">Pajak</label>
+                                <input type="checkbox" class="form-control" id="exampleCheck1">
+                            </div> --}}
+
+                            {{-- <div class="form-group row">
+                                <label for="inputtotaltagihan" class="col-sm-2 col-form-label">totaltagihan</label>
+                                <div class="col-sm-10">
+                                <input type="number" name="totaltagihan" class="form-control" id="inputtotaltagihan">
+                                </div>
+                            </div> --}}
+
+
+
+
 
                                     <div class="form-row">
                                         <div class="col-6 col-sm-4 form-group">

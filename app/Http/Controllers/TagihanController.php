@@ -85,7 +85,7 @@ class TagihanController extends Controller
     public function store(Request $request)
     {
 
-        // return $request->all();
+        return $request->all();
 
         $data = $request->validate([
             'vendor_id' => 'required|exists:vendors,id',

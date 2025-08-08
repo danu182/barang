@@ -13,7 +13,9 @@
 
 
 <div class="container-fluid">
-    <form id="msform">
+
+    <form id="msform" method="post" action="{{ route('tagihan.store') }}">
+        @csrf
         <ul id="progressbar">
             <li class="active" id="account"><strong>Vendor</strong></li>
             <li id="personal"><strong>Personal</strong></li>
@@ -24,6 +26,7 @@
             <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuemin="0" aria-valuemax="100"></div>
         </div>
         <br>
+        {{-- step 1 start --}}
         <fieldset>
             <div class="form-card">
                 <div class="row">
@@ -40,8 +43,15 @@
                 <div class="form-group">
                     <label for="vendor_select">pilih nama vendor</label>
                     <select class="form-control" name="vendor_id" id="vendor_select">
-                        @foreach ($vendor as $item)
-                            <option value="{{ $item->id }}">{{ $item->namaVendor }}</option>
+                        @foreach ($vendor as $vendorItem)
+                            <option
+                                value="{{ $vendorItem->id }}"
+                                data-nama="{{ $vendorItem->namaVendor }}"
+                                data-telepon="{{ $vendorItem->tlpVendor }}"
+                                data-alamat="{{ $vendorItem->alamatVendor }}"
+                                data-email="{{ $vendorItem->emailVendor }}"
+                                >
+                                {{ $vendorItem->namaVendor }}</option>
                         @endforeach
                     </select>
                 </div>
@@ -50,8 +60,17 @@
                 <div class="form-group">
                     <label for="pelanggan_select">pilih nama pelanggan_id</label>
                     <select class="form-control" name="pelanggan_id" id="pelanggan_select">
-                        @foreach ($pelanggan as $item)
-                            <option value="{{ $item->id }}">{{ $item->namaPelanggan }}</option>
+                        @foreach ($pelanggan as $pelangganItem)
+                            <option
+                                value="{{ $vendorItem->id }}"
+                                data-nama="{{ $pelangganItem->namaPelanggan }}"
+                                data-pic="{{ $pelangganItem->picPelanggan }}"
+                                data-telepon="{{ $pelangganItem->tLpPelanggan }}"
+                                data-alamat="{{ $pelangganItem->alamatPelanggan }}"
+                                data-email="{{ $pelangganItem->emailPelanggan }}"
+                                >
+                                {{ $pelangganItem->namaPelanggan }}
+                            </option>
                         @endforeach
                     </select>
                 </div>
@@ -83,6 +102,9 @@
             </div>
             <input type="button" name="next" class="next action-button" value="Next"/>
         </fieldset>
+        {{-- step 1 end --}}
+
+        {{-- step 2  start --}}
         <fieldset>
             <div class="form-card">
                 <div class="row">
@@ -107,6 +129,9 @@
             <input type="button" name="next" class="next action-button" value="Next"/>
             <input type="button" name="previous" class="previous action-button-previous" value="Previous"/>
         </fieldset>
+        {{-- step 2  end--}}
+
+        {{-- step 3 start --}}
         <fieldset>
             <div class="form-card">
                 <div class="row">
@@ -171,7 +196,7 @@
                             <input type="checkbox" class="form-check-input" id="enable_pajak" {{ isset($vats) && $vats->vat > 0 ? 'checked' : '' }}>
                             {{-- Label pajak yang menampilkan nilai pajak dari backend, jika ada --}}
                             <label class="form-check-label" for="enable_pajak">
-                                Terapkan PPN {{ isset($vats) ? ($vats->vat  ) : 100 }}%
+                                Terapkan PPN {{ isset($vats) ? ($vats->vat) : 100 }}%
                             </label>
                             {{-- Input tersembunyi untuk menyimpan nilai pajak yang akan dikirim ke backend --}}
                             <input type="hidden" name="pajak" id="pajak_value_hidden" value="{{ isset($vats) ? $vats->vat : 0 }}">
@@ -195,9 +220,12 @@
                 </div>
 
             </div>
-            <input type="button" name="next" class="next action-button" value="Submit"/>
+            <input type="button" name="next" class="next action-button" value="Next"/>
             <input type="button" name="previous" class="previous action-button-previous" value="Previous"/>
         </fieldset>
+        {{-- step 3 end --}}
+
+        {{-- step 4 start --}}
         <fieldset>
             <div class="form-card">
                 <div class="row">
@@ -208,28 +236,25 @@
                         <h2 class="steps">Step 4 - 4</h2>
                     </div>
                 </div>
+
                 <br><br>
-                <h2 class="purple-text text-center"><strong>SUCCESS !</strong></h2>
-                <br>
-                <div class="row justify-content-center">
-                    <div class="col-3">
-                        <img src="https://i.imgur.com/GwStPmg.png" class="fit-image">
-                    </div>
-                </div>
-                <br><br>
-                <div class="row justify-content-center">
-                    <div class="col-7 text-center">
-                        <h5 class="purple-text text-center">You Have Successfully Signed Up</h5>
-                    </div>
-                </div>
-            </div>
+                @include('tagihan.inv')
+            </div> {{-- Close form-card here --}}
+
+            {{-- These buttons should be outside form-card to follow the pattern of other fieldsets --}}
+            <input type="button" name="submit_form" id="submit_form_button" class="action-button" value="Submit"/>
+            <input type="button" name="previous" class="previous action-button-previous" value="Previous"/>
+
         </fieldset>
+        {{-- step 4 end --}}
+
     </form>
 </div>
 
 @endsection
 
 @push('js')
+
     <script>
         $(document).ready(function() {
             // Wizard JS (existing code)
@@ -243,6 +268,13 @@
             $(".next").click(function(){
                 current_fs = $(this).parent();
                 next_fs = $(this).parent().next();
+
+                // PENTING: Saat pindah ke step berikutnya, terutama jika itu adalah step invoice,
+                // panggil fungsi untuk update preview. Step 4 adalah index 3 (0-indexed)
+                if ($("fieldset").index(next_fs) === 3) {
+                    updateInvoicePreview();
+                }
+
                 $("#progressbar li").eq($("fieldset").index(next_fs)).addClass("active");
                 next_fs.show();
                 current_fs.animate({opacity: 0}, {
@@ -281,14 +313,13 @@
             function setProgressBar(curStep){
                 var percent = parseFloat(100 / steps) * curStep;
                 percent = percent.toFixed();
-                $(".progress-bar")
-                    .css("width",percent+"%")
+                $(".progress-bar").css("width",percent+"%")
             }
 
             // --- Logika Dinamis Item dan Perhitungan ---
 
-            // Ambil nilai PPN dari Blade (pastikan $vats->vat tersedia)
-            const DEFAULT_VAT_RATE = {{ isset($vats) ? ($vats->vat * 100) : 0 }}; // Misal 11 untuk 11%
+            // Ambil nilai PPN dari Blade (asumsi 11% fixed jika tidak dari backend)
+            const DEFAULT_VAT_RATE = 11;
 
             // Fungsi untuk menghitung subtotal satu baris item
             function calculateSubtotal(row) {
@@ -319,12 +350,14 @@
                 // Update nilai hidden input pajak
                 $('#pajak_value_hidden').val(pajakPercent);
 
-
                 let totalAfterDiskon = totalItems * (1 - (diskonPercent / 100));
-                let totalAfterPajak = totalAfterDiskon * (1 + (pajakPercent / 100)); // Menggunakan pajakPercent
+                let totalAfterPajak = totalAfterDiskon * (1 + (pajakPercent / 100));
                 let grandTotal = totalAfterPajak + dendaAmount;
 
                 $('#grand_total').val(grandTotal.toFixed(2)); // Update Grand Total
+
+                // Panggil updateInvoicePreview setelah perhitungan total selesai
+                updateInvoicePreview();
             }
 
             // Tambah Baris Item Baru
@@ -354,31 +387,31 @@
                 `;
                 $('#item_fields_container').append(newItemRow);
                 updateRemoveButtonsVisibility();
+                calculateGrandTotal(); // Panggil ini untuk update preview setelah menambah item
             });
 
             // Hapus Baris Item
             $(document).on('click', '.remove-item-btn', function() {
                 $(this).closest('.item-row').remove();
-                calculateGrandTotal(); // Recalculate after removing an item
+                calculateGrandTotal(); // Recalculate and update preview after removing an item
                 updateRemoveButtonsVisibility();
             });
 
             // Event listener untuk perubahan pada Jumlah atau Harga Satuan
             $(document).on('input', '.jumlah-item, .harga-satuan-item', function() {
                 const row = $(this).closest('.item-row');
-                calculateSubtotal(row);
+                calculateSubtotal(row); // Ini akan memanggil calculateGrandTotal, yang memanggil updateInvoicePreview
             });
 
             // Event listener untuk perubahan pada Diskon atau Denda
             $(document).on('input', '#diskon, #denda', function() {
-                calculateGrandTotal();
+                calculateGrandTotal(); // Ini akan memanggil updateInvoicePreview
             });
 
-            // --- NEW: Event listener untuk checkbox pajak ---
+            // Event listener untuk checkbox pajak
             $(document).on('change', '#enable_pajak', function() {
-                calculateGrandTotal(); // Panggil ulang perhitungan total ketika checkbox berubah
+                calculateGrandTotal(); // Ini akan memanggil updateInvoicePreview
             });
-
 
             // Fungsi untuk mengontrol visibilitas tombol "X"
             function updateRemoveButtonsVisibility() {
@@ -389,13 +422,154 @@
                 }
             }
 
-            // Inisialisasi awal saat halaman dimuat (pastikan subtotal dan total dihitung)
+            // --- FUNGSI UTAMA: Update Preview Invoice ---
+            function updateInvoicePreview() {
+                // Ambil data dari dropdown pelanggan
+                const selectedPelangganOption = $('#pelanggan_select option:selected');
+                const namaPelanggan = selectedPelangganOption.data('nama');
+                const picPelanggan = selectedPelangganOption.data('pic');
+                const tlpPelanggan = selectedPelangganOption.data('telepon');
+                const alamatPelanggan = selectedPelangganOption.data('alamat');
+                const emailPelanggan = selectedPelangganOption.data('email');
+
+                // Update elemen pelanggan di preview invoice
+                $('#preview_pelanggan_nama').text(`Bpk/Ibu. ${namaPelanggan || ''} (${picPelanggan || ''})`);
+                // $('#preview_pelanggan_perusahaan').text(''); // Ini tidak ada ID di inv.blade.php
+                $('#preview_pelanggan_alamat').text(alamatPelanggan || '');
+                $('#preview_pelanggan_email').text(emailPelanggan || '');
+                $('#preview_pelanggan_telepon').text(`Telp: ${tlpPelanggan || ''}`);
+
+                // Ambil data dari dropdown vendor
+                const selectedVendorOption = $('#vendor_select option:selected');
+                const namaVendor = selectedVendorOption.data('nama');
+                const alamatVendor = selectedVendorOption.data('alamat');
+                const tlpVendor = selectedVendorOption.data('telepon');
+                const emailVendor = selectedVendorOption.data('email');
+
+
+                // Update elemen vendor di preview invoice
+                $('#preview_vendor_nama').text(namaVendor || 'Nama Vendor');
+                // $('#preview_Vendor_perusahaan').text(''); // Ini tidak ada ID di inv.blade.php
+                $('#preview_vendor_alamat').text(alamatVendor || 'Alamat Vendor');
+                $('#preview_vendor_telepon').text(`Telepon: ${tlpVendor || ''}`);
+                $('#preview_vendor_email').text(`Email: ${emailVendor || ''}`);
+
+                // Ambil data dari form step 1 dan 2 lainnya
+                $('#preview_no_tagihan').text($('#no_tagihan').val());
+                $('#preview_tanggal_tagihan').text($('#tanggal_tagihan').val());
+                $('#preview_due_date_tagihan').text($('#due_date_tagihan').val());
+                // Anda mungkin juga ingin menampilkan keterangan di preview
+                // $('#preview_keterangan').text($('#keterangan').val());
+
+                // --- MODIFIKASI: Update Detail Item di Preview Invoice ---
+                let itemTableHtml = ``;
+                let hasItems = false; // Flag untuk mengecek apakah ada item
+
+                $('.item-row').each(function() {
+                    const namaItem = $(this).find('.nama-item').val();
+                    const jumlah = parseFloat($(this).find('.jumlah-item').val()) || 0;
+                    const hargaSatuan = parseFloat($(this).find('.harga-satuan-item').val()) || 0;
+                    const subtotal = parseFloat($(this).find('.subtotal-item').val()) || 0;
+
+                    if (namaItem.trim() !== '' && (jumlah > 0 || hargaSatuan > 0)) { // Cek jika nama item tidak kosong dan ada nilai
+                        hasItems = true;
+                        itemTableHtml += `
+                            <tr>
+                                <td>${namaItem}</td>
+                                <td>${jumlah}</td>
+                                <td>Rp ${hargaSatuan.toLocaleString('id-ID', {minimumFractionDigits: 2, maximumFractionDigits: 2})}</td>
+                                <td>Rp ${subtotal.toLocaleString('id-ID', {minimumFractionDigits: 2, maximumFractionDigits: 2})}</td>
+                            </tr>
+                        `;
+                    }
+                });
+
+                // Jika tidak ada item, tampilkan pesan "Tidak ada item"
+                if (!hasItems) {
+                    itemTableHtml = `
+                        <tr>
+                            <td colspan="4" style="text-align: center; color: #6c757d; padding: 15px;">
+                                Tidak ada item yang ditambahkan.
+                            </td>
+                        </tr>
+                    `;
+                }
+                $('#invoice_item_table_body').html(itemTableHtml);
+                // --- AKHIR MODIFIKASI ---
+
+                // Update total, diskon, denda, pajak, dan grand total di preview invoice
+                const total = parseFloat($('#total').val()) || 0;
+                const diskonPercent = parseFloat($('#diskon').val()) || 0;
+                const dendaAmount = parseFloat($('#denda').val()) || 0;
+                const pajakPercent = parseFloat($('#pajak_value_hidden').val()) || 0;
+                const grandTotal = parseFloat($('#grand_total').val()) || 0;
+
+                let subtotalItemsOnly = 0;
+                $('.subtotal-item').each(function() {
+                    subtotalItemsOnly += parseFloat($(this).val()) || 0;
+                });
+
+                const nilaiDiskon = subtotalItemsOnly * (diskonPercent / 100);
+                const nilaiPajak = (subtotalItemsOnly - nilaiDiskon) * (pajakPercent / 100);
+
+                // Pastikan elemen preview total, diskon, denda, pajak, grand total ada di invoice-container (inv.blade.php)
+                // Jika Anda tidak memiliki ID untuk elemen ini di inv.blade.php, tambahkan.
+                $('#preview_subtotal').text(`Rp ${subtotalItemsOnly.toLocaleString('id-ID', {minimumFractionDigits: 2, maximumFractionDigits: 2})}`);
+                $('#preview_diskon').text(`Diskon (${diskonPercent}%): Rp ${nilaiDiskon.toLocaleString('id-ID', {minimumFractionDigits: 2, maximumFractionDigits: 2})}`);
+                $('#preview_denda').text(`Denda: Rp ${dendaAmount.toLocaleString('id-ID', {minimumFractionDigits: 2, maximumFractionDigits: 2})}`);
+                // Hanya tampilkan pajak jika checkbox diaktifkan atau pajak > 0
+                if ($('#enable_pajak').is(':checked') && pajakPercent > 0) {
+                    $('#preview_pajak').text(`Pajak (PPN ${pajakPercent}%): Rp ${nilaiPajak.toLocaleString('id-ID', {minimumFractionDigits: 2, maximumFractionDigits: 2})}`).show();
+                } else {
+                    $('#preview_pajak').text('Pajak: Rp 0.00').hide(); // Sembunyikan jika tidak ada pajak
+                }
+                $('#preview_grand_total').text(`GRAND TOTAL: Rp ${grandTotal.toLocaleString('id-ID', {minimumFractionDigits: 2, maximumFractionDigits: 2})}`);
+            }
+
+            // Inisialisasi awal saat halaman dimuat
+            // Perlu dipanggil setelah semua perhitungan awal selesai
             $('.item-row').each(function() {
-                calculateSubtotal($(this));
+                calculateSubtotal($(this)); // Ini akan memicu calculateGrandTotal dan updateInvoicePreview
             });
             updateRemoveButtonsVisibility();
-            calculateGrandTotal(); // Hitung grand total awal berdasarkan status checkbox default
+            // calculateGrandTotal(); // Ini akan dipanggil dari calculateSubtotal, jadi tidak perlu lagi di sini
 
+            // Panggil fungsi update setiap kali pilihan pelanggan/vendor atau input dasar berubah
+            $('#pelanggan_select, #vendor_select, #no_tagihan, #tanggal_tagihan, #due_date_tagihan, #keterangan').on('change input', function() {
+                updateInvoicePreview();
+            });
+
+            // Perbaikan: Pastikan calculateGrandTotal selalu memicu updateInvoicePreview
+            // Saya sudah memindahkan pemanggilan updateInvoicePreview() ke akhir fungsi calculateGrandTotal()
+            // sehingga setiap kali total dihitung ulang, preview juga diperbarui.
         });
     </script>
+
+
+{{-- <script>
+    // Di JavaScript Anda
+$('#submit_form_button').click(function(e) {
+    // e.preventDefault(); // Mencegah default action jika ini button
+
+    // Lakukan validasi di sini jika diperlukan
+    // ...
+
+    // Kirim data form menggunakan AJAX
+    $.ajax({
+        url: '/tagihan', // Ganti dengan URL endpoint Laravel Anda
+        type: 'POST',
+        data: $('#msform').serialize(), // Mengambil semua data dari form
+        success: function(response) {
+            alert('Invoice berhasil disimpan!');
+            // Redirect atau tampilkan pesan sukses lainnya
+            window.location.href = '/tagihan'; // Contoh redirect
+        },
+        error: function(xhr, status, error) {
+            alert('Terjadi kesalahan: ' + xhr.responseText);
+            console.error(xhr.responseText);
+        }
+    });
+});
+</script> --}}
+
 @endpush

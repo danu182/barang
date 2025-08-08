@@ -13,24 +13,28 @@ class VendorSeeder extends Seeder
             'namaVendor'=>'Artatel',
             'alamatVendor'=>'Jakarta Utara',
             'tlpVendor'=>'021-0232525',
+            'emailVendor'=>'admin@Artatel.com',
             'keterangan'=>'ISP',
         ],
         [
             'namaVendor'=>'Spectra',
             'alamatVendor'=>'Jakarta Selatan',
             'tlpVendor'=>'021-5552562',
+            'emailVendor'=>'admin@Spectra.com',
             'keterangan'=>'ISP',
         ],
         [
             'namaVendor'=>'Google',
             'alamatVendor'=>'Jakarta Selatan',
             'tlpVendor'=>'021-3264678',
+            'emailVendor'=>'admin@Google.com',
             'keterangan'=>'cloud',
         ],
         [
             'namaVendor'=>'PAM',
             'alamatVendor'=>'Jakarta Pusat',
             'tlpVendor'=>'021-2325869',
+            'emailVendor'=>'admin@PAM.com',
             'keterangan'=>'Air Bersih',
         ],
 

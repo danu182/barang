@@ -12,6 +12,16 @@
 @endpush
 
 
+@if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
+
 <div class="container-fluid">
 
     <form id="msform" method="post" action="{{ route('tagihan.store') }}">
@@ -242,11 +252,14 @@
             </div> {{-- Close form-card here --}}
 
             {{-- These buttons should be outside form-card to follow the pattern of other fieldsets --}}
-            <input type="button" name="submit_form" id="submit_form_button" class="action-button" value="Submit"/>
-            <input type="button" name="previous" class="previous action-button-previous" value="Previous"/>
+            {{-- Buttons MUST be outside the form-card div for consistent styling and behavior --}}
 
+            <input type="button" name="previous" class="previous action-button-previous" value="Previous"/>
+            <button class="action-button" >simpan</button>
         </fieldset>
+        {{-- <input type="button" name="submit_form" id="submit_form_button" class="action-button" value="Submit"/> --}}
         {{-- step 4 end --}}
+
 
     </form>
 </div>
@@ -546,30 +559,6 @@
     </script>
 
 
-{{-- <script>
-    // Di JavaScript Anda
-$('#submit_form_button').click(function(e) {
-    // e.preventDefault(); // Mencegah default action jika ini button
 
-    // Lakukan validasi di sini jika diperlukan
-    // ...
-
-    // Kirim data form menggunakan AJAX
-    $.ajax({
-        url: '/tagihan', // Ganti dengan URL endpoint Laravel Anda
-        type: 'POST',
-        data: $('#msform').serialize(), // Mengambil semua data dari form
-        success: function(response) {
-            alert('Invoice berhasil disimpan!');
-            // Redirect atau tampilkan pesan sukses lainnya
-            window.location.href = '/tagihan'; // Contoh redirect
-        },
-        error: function(xhr, status, error) {
-            alert('Terjadi kesalahan: ' + xhr.responseText);
-            console.error(xhr.responseText);
-        }
-    });
-});
-</script> --}}
 
 @endpush

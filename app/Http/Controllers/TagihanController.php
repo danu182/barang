@@ -6,6 +6,7 @@ use App\Models\Tagihan;
 use App\Models\Vendor;
 use Illuminate\Http\Request;
 use App\Helpers\Helpers;
+use App\Http\Requests\StoreTagihanRequest;
 use App\Models\Pelanggan;
 use App\Models\StatusTagihan;
 use App\Models\TagihanDetail;
@@ -82,69 +83,68 @@ class TagihanController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(Request  $request)
     {
 
-        return $request->all();
+        // return $request->all();
 
         $data = $request->validate([
             'vendor_id' => 'required|exists:vendors,id',
             'pelanggan_id'=>'required|exists:pelanggans,id',
             'noTagihan' => 'required|string|max:255',
             'tanggalTagihan' => 'date',
-            'dueDateTagihan' => 'date',
             'periodeTagihan' => 'nullable|string',
+            'dueDateTagihan' => 'date',
 
-            'totaltagihan' => 'nullable|string',
+            'total' => 'required|numeric|min:0', // Crucial for final amount
 
-            'nilaiTagihan' => 'nullable|string',
+            'grandTotal' => 'required|numeric|min:0', // Crucial for final amount
 
-            'vat' => 'nullable|number',
-            'denda' => 'nullable|number',
+            'pajak' => 'nullable|numeric|min:0', // This is your hidden input value for VAT rate
+            'denda' => 'nullable|numeric|min:0',
 
-            'diskon' => 'nullable|number',
+            'diskon' => 'nullable|numeric|min:0|max:100',
 
-            // 'lampiran' => 'nullable|string',
-            // 'keterangan' => 'nullable|string',
+            // 'lampiran' => 'nullable|mimes:pdf,jpg,jpeg,png|max:2048', // Max 2MB
+            'keterangan' => 'nullable|string',
 
-            'namaItem.*' => 'required|nullable|string',
-            'jumlah.*' => 'required|nullable|string',
-            'hargaSatuan.*' => 'required|nullable|string',
-            'subtotal.*' => 'required|nullable|string',
+            'namaItem.*' => 'nullable|string|max:255',
+            'jumlah.*' => 'required|integer|min:0',
+            'hargaSatuan.*' => 'required|numeric|min:0',
+            'subtotal.*' => 'required|numeric|min:0',
+
         ]);
-
-
-
-
-
 
         $data['tanggalTagihan']= Helpers::formatDate($data['tanggalTagihan']);
         $data['dueDateTagihan']= Helpers::formatDate($data['dueDateTagihan']);
 
+        $data['vat']= ($data['pajak']/100)*$data['total'];
+
+        // return $data;
         $Tagihanid = Tagihan::insertGetId([
 
-                'vendor_id'=>$data['vendor_id'],
-                'pelanggan_id'=>$data['pelanggan_id'],
+            'vendor_id'=>$data['vendor_id'],
+            'pelanggan_id'=>$data['pelanggan_id'],
 
-                'noTagihan'=>$data['noTagihan'],
-                'tanggalTagihan'=>$data['tanggalTagihan'],
-                'dueDateTagihan'=>$data['dueDateTagihan'],
-                'periodeTagihan'=>$data['periodeTagihan'],
-                'nilaiTagihan'=>$data['nilaiTagihan'],
+            'noTagihan'=>$data['noTagihan'],
+            'tanggalTagihan'=>$data['tanggalTagihan'],
+            'dueDateTagihan'=>$data['dueDateTagihan'],
+            'periodeTagihan'=>$data['periodeTagihan'],
+            'nilaiTagihan'=>$data['total'],
 
-                // 'totalTagihan'=>$data['totalTagihan'],
-                'totaltagihan'=>$request->totaltagihan,
+            // 'totalTagihan'=>$data['totalTagihan'],
+            'totaltagihan'=>$data['grandTotal'],
 
-                'denda'=>$data['denda'],
-                'diskon'=>$data['diskon'],
-                'vat'=>$data['vat'],
+            'denda'=>$data['denda'],
+            'diskon'=>$data['diskon'],
+            'vat'=>$data['vat'],
+            'keterangan'=>$data['keterangan'],
 
-                // 'statusTagihan_id'=>$data['statusTagihan_id'],
+            // 'statusTagihan_id'=>$data['statusTagihan_id'],
 
-                'statusTagihan_id' => '1',
-                'created_at' => now(),
-            ]);
-
+            'statusTagihan_id' => '1',
+            'created_at' => now(),
+        ]);
 
             // Loop melalui setiap tipe RAM yang dikirimkan
         foreach ($request->namaItem as $index => $namaItem) {

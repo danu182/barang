@@ -73,6 +73,7 @@
                                     <th>totaltagihan</th>
                                     <th>lampiran</th>
                                     <th>keterangan</th>
+                                    <th>created_at</th>
                                     <th width="100px">Action</th>
                                 </tr>
                             </thead>
@@ -87,6 +88,7 @@
                                     <th>totaltagihan</th>
                                     <th>lampiran</th>
                                     <th>keterangan</th>
+                                    <th>created_at</th>
                                     <th width="100px">Action</th>
 
 
@@ -132,6 +134,7 @@
                     },
                     {data:'lampiran' , name:'lampiran'},
                     {data:'keterangan' , name:'keterangan'},
+                    {data:'created_at' , name:'created_at'},
                     {data: 'action', name: 'action', orderable: false, searchable: false},
                 ],
                 order: [[1, 'asc']] // Urutkan berdasarkan kolom 'No'

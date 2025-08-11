@@ -14,6 +14,7 @@ use App\Models\VatPajak;
 use Yajra\DataTables\DataTables as DataTablesDataTables;
 use Yajra\DataTables\Facades\DataTables;
 
+
 class TagihanController extends Controller
 {
     /**
@@ -27,18 +28,19 @@ class TagihanController extends Controller
         // $vendor= Vendor::all();
         // $tagihan = Pelanggan::all();
 
-        if (request()->ajax()) {
-            $tagihans = Tagihan::query()->with(['pelanggan','vendor']);
+       if (request()->ajax()) {
+            $tagihans = Tagihan::query()->with(['pelanggan', 'vendor']);
             return DataTables::of($tagihans)
                 ->addIndexColumn()
-                    ->addColumn('action', function($row){
-                        //    $btn = '<a href="javascript:void(0)" class="edit btn btn-primary btn-sm">View</a>';
-                           $btn = '<a href="tagihan/'.$row['id'].'" class="edit btn btn-success btn-rounded" style="color:white; font-size:small;">Lihat</a>';
-                            return $btn;
-
-                    })
-
-                    ->rawColumns(['action'])
+                ->addColumn('created_at', function($row){
+                    // Format the created_at timestamp using PHP's native date() function
+                    return date('d-M-Y H:i:s', strtotime($row->created_at));
+                })
+                ->addColumn('action', function($row){
+                    $btn = '<a href="tagihan/'.$row['id'].'" class="edit btn btn-success btn-rounded" style="color:white; font-size:small;">Lihat</a>';
+                    return $btn;
+                })
+                ->rawColumns(['action'])
                 ->make();
         }
 

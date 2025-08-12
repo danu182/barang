@@ -24,7 +24,7 @@
 
 <div class="container-fluid">
 
-    <form id="msform" method="post" action="{{ route('tagihan.store') }}">
+    <form id="msform" method="post" action="{{ route('tagihan.store') }}" enctype="multipart/form-data" >
         @csrf
         <ul id="progressbar">
             <li class="active" id="account"><strong>Vendor</strong></li>
@@ -133,7 +133,7 @@
                 {{-- upload lampiran --}}
                 <div class="form-group">
                     <label for="lampiran">lampiran</label>
-                    <input type="file" name="lampiran" id="lampiran" class="form-control-file">
+                    <input type="file" name="lampiran" id="lampiran" class="form-control">
                 </div>
             </div>
             <input type="button" name="next" class="next action-button" value="Next"/>

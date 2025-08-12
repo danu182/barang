@@ -13,7 +13,9 @@ use App\Models\TagihanDetail;
 use App\Models\VatPajak;
 use Yajra\DataTables\DataTables as DataTablesDataTables;
 use Yajra\DataTables\Facades\DataTables;
-
+//import return type redirectResponse
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Storage;
 
 class TagihanController extends Controller
 {
@@ -23,10 +25,6 @@ class TagihanController extends Controller
     public function index()
     {
         $title = "tagihan ";
-        // $statusTagihan= StatusTagihan::all();
-        // $tagihan = Tagihan::all();
-        // $vendor= Vendor::all();
-        // $tagihan = Pelanggan::all();
 
        if (request()->ajax()) {
             $tagihans = Tagihan::query()->with(['pelanggan', 'vendor']);
@@ -37,21 +35,15 @@ class TagihanController extends Controller
                     return date('d-M-Y H:i:s', strtotime($row->created_at));
                 })
                 ->addColumn('action', function($row){
-                    $btn = '<a href="tagihan/'.$row['id'].'" class="edit btn btn-success btn-rounded" style="color:white; font-size:small;">Lihat</a>';
-                    return $btn;
+                    $btn1 = '<a href="tagihan/'.$row['id'].'" class="edit btn btn-success btn-rounded" style="color:white; font-size:small;">Lihat</a>';
+                    // return $btn;
+                    $btn2 = '<a href="' . route('tagihan.edit', $row['id']) . '" class="edit btn btn-warning btn-rounded" style="color:white; font-size:small;">edit</a>';
+
+                      return $btn1 . ' ' . $btn2;
                 })
                 ->rawColumns(['action'])
                 ->make();
         }
-
-        // if (request()->ajax()){
-        //     $tagihans=Tagihan::all();
-        //     return DataTables::of($tagihans)
-        //     ->make();
-        // }
-
-
-        // return view('tagihan.index', compact('tagihan', 'title','statusTagihan','vendor'));
         return view('tagihan.index', compact('title'));
     }
 
@@ -96,7 +88,7 @@ class TagihanController extends Controller
             'noTagihan' => 'required|string|max:255',
             'tanggalTagihan' => 'date',
             'periodeTagihan' => 'nullable|string',
-            'dueDateTagihan' => 'date',
+            'dueDateTagihan' => 'nullable|date',
 
             'total' => 'required|numeric|min:0', // Crucial for final amount
 
@@ -107,7 +99,10 @@ class TagihanController extends Controller
 
             'diskon' => 'nullable|numeric|min:0|max:100',
 
-            // 'lampiran' => 'nullable|mimes:pdf,jpg,jpeg,png|max:2048', // Max 2MB
+            'lampiran' => 'nullable|mimes:pdf,jpg,jpeg,png|max:2048', // Max 2MB
+
+            //  'lampiran' => 'required|mimes:jpeg,jpg,png,pdf|max:2048',
+
             'keterangan' => 'nullable|string',
 
             'namaItem.*' => 'nullable|string|max:255',
@@ -116,6 +111,12 @@ class TagihanController extends Controller
             'subtotal.*' => 'required|numeric|min:0',
 
         ]);
+
+        //upload image
+        $lampiran = $request->file('lampiran');
+        $lampiran->storeAs('public/Tagihan', $lampiran->hashName());
+
+
 
         $data['tanggalTagihan']= Helpers::formatDate($data['tanggalTagihan']);
         $data['dueDateTagihan']= Helpers::formatDate($data['dueDateTagihan']);
@@ -141,6 +142,7 @@ class TagihanController extends Controller
             'diskon'=>$data['diskon'],
             'vat'=>$data['vat'],
             'keterangan'=>$data['keterangan'],
+            'lampiran'=>$lampiran->hashName(),
 
             // 'statusTagihan_id'=>$data['statusTagihan_id'],
 
@@ -217,7 +219,13 @@ class TagihanController extends Controller
      */
     public function edit(Tagihan $tagihan)
     {
-        //
+        $vendors = Vendor::all();
+        $pelanggan = Pelanggan::all();
+        $vats = VatPajak::latest()->first();;
+
+        // Pass the existing tagihan data to the view
+        return view('tagihan.edit', compact( 'vendors', 'pelanggan', 'vats'));
+        // If you prefer a separate edit view: return view('tagihan.edit', compact('tagihan', 'vendors', 'pelanggan', 'vats'));
     }
 
     /**
@@ -236,6 +244,8 @@ class TagihanController extends Controller
         // try{
 
             TagihanDetail::where('tagihan_id', $tagihan->id)->delete();
+
+             Storage::delete('public/Tagihan/'. $tagihan->lampiran);
 
             $tagihan->delete();
 
